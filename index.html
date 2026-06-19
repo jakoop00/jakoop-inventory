@@ -7,241 +7,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #4A3AFF 0%, #6A5AFF 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .jakoop-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .header-card {
-            text-align: center;
-            position: relative;
-        }
-        .header-card .status {
-            background: #10B981;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 8px;
-        }
-        .header-card h1 {
-            font-size: 24px;
-            color: #1F2937;
-            margin: 5px 0;
-        }
-        .header-card p {
-            color: #6B7280;
-            font-size: 14px;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-        }
-        .stat-card h3 {
-            color: #6B7280;
-            font-size: 14px;
-            font-weight: 400;
-        }
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1F2937;
-            margin-top: 8px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: #374151;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #E5E7EB;
-            border-radius: 10px;
-            font-size: 15px;
-            background: #F9FAFB;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #4A3AFF;
-            background: #fff;
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(90deg, #4A3AFF, #6A5AFF);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        .section-title {
-            color: #4A3AFF;
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .quick-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-        }
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: linear-gradient(135deg, #4A3AFF 0%, #6A5AFF 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .jakoop-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header-card { text-align: center; position: relative; }
+        .header-card .status { background: #10B981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; display: inline-block; margin-left: 8px; }
+        .header-card h1 { font-size: 24px; color: #1F2937; margin: 5px 0; }
+        .header-card p { color: #6B7280; font-size: 14px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: #fff; border-radius: 16px; padding: 20px; text-align: center; }
+        .stat-card h3 { color: #6B7280; font-size: 14px; font-weight: 400; }
+        .stat-card .value { font-size: 24px; font-weight: 700; color: #1F2937; margin-top: 8px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; color: #374151; font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #E5E7EB; border-radius: 10px; font-size: 15px; background: #F9FAFB; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #4A3AFF; background: #fff; }
+        .btn-primary { width: 100%; padding: 14px; background: linear-gradient(90deg, #4A3AFF, #6A5AFF); color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .section-title { color: #4A3AFF; font-weight: 700; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .quick-actions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        .action-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: none; border-radius: 12px; color: white; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.3s; text-decoration: none; }
         .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
         .action-btn i { font-size: 16px; }
-        .print-btn { background: #6366F1; }
-        .warranty-btn { background: #10B981; }
-        .pdf-btn { background: #EF4444; }
-        .damaged-btn { background: #F59E0B; }
-        .return-btn { background: #8B5CF6; }
-        .label-btn { background: #3B82F6; }
-        .storage-btn { background: #14B8A6; }
-        .fb-btn { background: #1877F2; }
-        .wa-btn { background: #25D366; }
-        .email-btn { background: #6B7280; }
-
-        .table-header {
-            background: #4A3AFF;
-            color: white;
-            padding: 12px;
-            border-radius: 10px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1fr 1fr;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .table-row {
-            padding: 15px 12px;
-            text-align: center;
-            color: #6B7280;
-        }
-        .inventory-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .mini-btn {
-            padding: 8px 14px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        .excel-btn { background: #10B981; color: white; }
-        .edit-btn { background: #F59E0B; color: white; }
-        .delete-btn { background: #6366F1; color: white; }
-
-        /* Modal */
-        .jakoop-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        .modal-content {
-            background: #fff;
-            margin: 8% auto;
-            padding: 25px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 480px;
-        }
-        .close-modal {
-            float: left;
-            font-size: 28px;
-            cursor: pointer;
-            color: #9CA3AF;
-        }
-        .modal-content h3 {
-            color: #4A3AFF;
-            margin-bottom: 20px;
-        }
-        #warrantyResult {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #F3F4F6;
-            font-weight: 600;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .table-header { display: none; }
-            .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .print-btn { background: #6366F1; } .warranty-btn { background: #10B981; } .pdf-btn { background: #EF4444; }
+        .damaged-btn { background: #F59E0B; } .return-btn { background: #8B5CF6; } .label-btn { background: #3B82F6; }
+        .storage-btn { background: #14B8A6; } .fb-btn { background: #1877F2; } .wa-btn { background: #25D366; } .email-btn { background: #6B7280; }
+        .table-header { background: #4A3AFF; color: white; padding: 12px; border-radius: 10px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1.5fr 1fr; gap: 10px; font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+        .table-body { max-height: 400px; overflow-y: auto; }
+        .table-row { padding: 12px; border-radius: 8px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr 1.5fr 1fr; gap: 10px; align-items: center; font-size: 14px; border-bottom: 1px solid #F3F4F6; }
+        .table-row:hover { background: #F9FAFB; }
+        .inventory-actions { display: flex; gap: 8px; margin-bottom: 15px; }
+        .mini-btn { padding: 8px 14px; border: none; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; }
+        .excel-btn { background: #10B981; color: white; } .edit-btn { background: #F59E0B; color: white; } .delete-btn { background: #EF4444; color: white; }
+        .row-actions { display: flex; gap: 5px; }
+        .row-actions button { padding: 6px 10px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        .jakoop-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background: #fff; margin: 8% auto; padding: 25px; border-radius: 16px; width: 90%; max-width: 480px; }
+        .close-modal { float: left; font-size: 28px; cursor: pointer; color: #9CA3AF; }
+        .modal-content h3 { color: #4A3AFF; margin-bottom: 20px; }
+        #warrantyResult { margin-top: 15px; padding: 15px; border-radius: 10px; background: #F3F4F6; font-weight: 600; line-height: 1.8; }
+        .color-tag { width: 20px; height: 20px; border-radius: 50%; display: inline-block; }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .table-header, .table-row { grid-template-columns: 1fr; } .quick-actions-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- الهيدر -->
         <div class="jakoop-card header-card">
             <span class="status">✓ متصل</span>
             <h1>مستودع JAKOOP 📦</h1>
             <p>نظام إدارة المخزون السحابي - لوحة الأدمن</p>
         </div>
 
-        <!-- الاحصائيات -->
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>عدد الأصناف</h3>
@@ -249,15 +66,14 @@
             </div>
             <div class="stat-card">
                 <h3>القيمة الكلية</h3>
-                <div class="value">0.00 د.أ</div>
+                <div class="value" id="totalValue">0.00 د.أ</div>
             </div>
             <div class="stat-card">
                 <h3>إجمالي القطع</h3>
-                <div class="value">0</div>
+                <div class="value" id="totalQty">0</div>
             </div>
         </div>
 
-        <!-- إضافة قطعة جديدة -->
         <div class="jakoop-card">
             <h3 class="section-title">+ إضافة قطعة جديدة</h3>
             <div class="form-group">
@@ -266,11 +82,11 @@
             </div>
             <div class="form-group">
                 <label>الكمية</label>
-                <input type="number" id="itemQty" placeholder="1">
+                <input type="number" id="itemQty" placeholder="1" min="1">
             </div>
             <div class="form-group">
                 <label>السعر للقطعة الواحدة</label>
-                <input type="number" id="itemPrice" placeholder="0.00">
+                <input type="number" id="itemPrice" placeholder="0.00" step="0.01">
             </div>
             <div class="form-group">
                 <label>الفئة</label>
@@ -285,16 +101,16 @@
                     <option value="red">أحمر</option>
                     <option value="green">أخضر</option>
                     <option value="blue">أزرق</option>
+                    <option value="yellow">أصفر</option>
                 </select>
             </div>
-            <button class="btn-primary">إضافة قطعة</button>
+            <button class="btn-primary" onclick="addItem()">إضافة قطعة</button>
         </div>
 
-        <!-- الإجراءات السريعة -->
         <div class="jakoop-card">
             <h3 class="section-title">⚡ إجراءات سريعة</h3>
             <div class="quick-actions-grid">
-                <button class="action-btn print-btn" onclick="printItem()"><i class="fa fa-print"></i> طباعة</button>
+                <button class="action-btn print-btn" onclick="printTable()"><i class="fa fa-print"></i> طباعة</button>
                 <button class="action-btn warranty-btn" onclick="openWarrantyModal()"><i class="fa fa-shield-halved"></i> كفالة</button>
                 <button class="action-btn pdf-btn" onclick="generatePDF()"><i class="fa fa-file-pdf"></i> PDF</button>
                 <button class="action-btn damaged-btn" onclick="markAsDamaged()"><i class="fa fa-triangle-exclamation"></i> تالف</button>
@@ -307,16 +123,15 @@
             </div>
         </div>
 
-        <!-- المخزون الحالي -->
         <div class="jakoop-card">
             <h3 class="section-title">📦 المخزون الحالي</h3>
             <div class="inventory-actions">
-                <button class="mini-btn delete-btn">تحديث</button>
-                <button class="mini-btn edit-btn">وضع البيع</button>
-                <button class="mini-btn excel-btn">تصدير Excel</button>
+                <button class="mini-btn delete-btn" onclick="clearAll()">حذف الكل</button>
+                <button class="mini-btn edit-btn" onclick="refreshTable()">تحديث</button>
+                <button class="mini-btn excel-btn" onclick="exportExcel()">تصدير Excel</button>
             </div>
             <div class="form-group">
-                <input type="text" placeholder="ابحث عن صنف...">
+                <input type="text" id="searchInput" placeholder="ابحث عن صنف..." onkeyup="searchItems()">
             </div>
             <div class="table-header">
                 <div>اسم القطعة</div>
@@ -327,11 +142,12 @@
                 <div>تاريخ الإضافة</div>
                 <div>إجراءات</div>
             </div>
-            <div class="table-row">لا يوجد بيانات</div>
+            <div class="table-body" id="inventoryTable">
+                <div class="table-row" style="text-align: center; grid-column: 1/-1;">لا يوجد بيانات</div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal الكفالة -->
     <div id="warrantyModal" class="jakoop-modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeWarrantyModal()">&times;</span>
@@ -358,46 +174,129 @@
     </div>
 
     <script>
-        // تعبئة الفئات
+        let inventory = JSON.parse(localStorage.getItem('jakoopInventory')) || [];
         const categoryOptions = ['لابتوب','كمبيوتر مكتبي','كيس فارغ','كيس كامل','شاشة','اكسسوارات','أخرى','SSD','HDD','DDR2','DDR3','DDR4','DDR5','كيبورد','ماوس','بورسبلاي','فلاشة','Data cable','HDMI CABLE'];
+
         window.onload = function() {
             const catSelect = document.getElementById('categorySelect');
             categoryOptions.forEach(opt => {
                 catSelect.innerHTML += `<option value="${opt}">${opt}</option>`;
             });
+            refreshTable();
         }
 
-        // دوال الأزرار
-        function printItem() {
-            window.print();
+        function addItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const qty = parseInt(document.getElementById('itemQty').value);
+            const price = parseFloat(document.getElementById('itemPrice').value);
+            const category = document.getElementById('categorySelect').value;
+            const color = document.getElementById('itemColor').value;
+
+            if (!name || !qty || !price || !category) {
+                alert('الرجاء تعبئة جميع الحقول المطلوبة');
+                return;
+            }
+
+            const item = {
+                id: Date.now(),
+                name: name,
+                qty: qty,
+                price: price,
+                category: category,
+                color: color,
+                date: new Date().toLocaleDateString('ar-JO')
+            };
+
+            inventory.push(item);
+            saveAndRefresh();
+            
+            // تفريغ الحقول
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemQty').value = '';
+            document.getElementById('itemPrice').value = '';
+            document.getElementById('categorySelect').value = '';
+            document.getElementById('itemColor').value = '';
         }
-        function generatePDF() {
-            alert('سيتم تفعيل تصدير PDF بعد ربط مكتبة jsPDF. حالياً تقدر تستخدم "طباعة" وتحفظ كـ PDF');
-        }
-        function markAsDamaged() {
-            if(confirm('هل تريد تعليم القطعة المحددة كـ تالف؟')) {
-                alert('تم نقل القطعة إلى مستودع التالف');
+
+        function deleteItem(id) {
+            if(confirm('هل أنت متأكد من حذف هذه القطعة؟')) {
+                inventory = inventory.filter(item => item.id !== id);
+                saveAndRefresh();
             }
         }
-        function markAsReturned() {
-            if(confirm('هل تريد تسجيل القطعة كـ مرتجع من الزبون؟')) {
-                alert('تم تسجيل المرتجع بنجاح');
+
+        function saveAndRefresh() {
+            localStorage.setItem('jakoopInventory', JSON.stringify(inventory));
+            refreshTable();
+        }
+
+        function refreshTable() {
+            const table = document.getElementById('inventoryTable');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = inventory.filter(item => 
+                item.name.toLowerCase().includes(searchTerm) || 
+                item.category.toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length === 0) {
+                table.innerHTML = '<div class="table-row" style="text-align: center; grid-column: 1/-1;">لا يوجد بيانات</div>';
+            } else {
+                table.innerHTML = filtered.map(item => `
+                    <div class="table-row">
+                        <div>${item.color ? `<span class="color-tag" style="background:${item.color}"></span> ` : ''}${item.name}</div>
+                        <div>${item.category}</div>
+                        <div>${item.qty}</div>
+                        <div>${item.price.toFixed(2)} د.أ</div>
+                        <div>${(item.qty * item.price).toFixed(2)} د.أ</div>
+                        <div>${item.date}</div>
+                        <div class="row-actions">
+                            <button class="delete-btn" onclick="deleteItem(${item.id})"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('itemsCount').textContent = inventory.length;
+            document.getElementById('totalQty').textContent = inventory.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('totalValue').textContent = inventory.reduce((sum, item) => sum + (item.qty * item.price), 0).toFixed(2) + ' د.أ';
+        }
+
+        function searchItems() { refreshTable(); }
+        function clearAll() {
+            if(confirm('هل تريد حذف جميع البيانات؟ لا يمكن التراجع!')) {
+                inventory = [];
+                saveAndRefresh();
             }
         }
-        function printLabel() {
-            alert('جاري تجهيز ليبل الباركود للطباعة...');
+        function exportExcel() {
+            let csv = 'اسم القطعة,الفئة,الكمية,السعر,القيمة الكلية,تاريخ الإضافة\n';
+            inventory.forEach(item => {
+                csv += `${item.name},${item.category},${item.qty},${item.price},${item.qty * item.price},${item.date}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'jakoop_inventory.csv';
+            link.click();
         }
+
+        function printTable() { window.print(); }
+        function generatePDF() { alert('لحفظ كـ PDF: اضغط طباعة واختر "Save as PDF"'); printTable(); }
+        function markAsDamaged() { alert('حدد القطعة من الجدول أولاً ثم علّمها كـ تالف'); }
+        function markAsReturned() { alert('حدد القطعة من الجدول أولاً ثم سجلها كـ مرتجع'); }
+        function printLabel() { alert('جاري تجهيز ليبل الباركود...'); }
         function setStorageLocation() {
             let loc = prompt('ادخل مكان التخزين الجديد:\nمثال: رف A3 - صندوق 5');
             if(loc) alert('تم تحديث مكان التخزين إلى: ' + loc);
         }
 
-        // كود الكفالة
-        function openWarrantyModal() {
-            document.getElementById('warrantyModal').style.display = 'block';
-        }
-        function closeWarrantyModal() {
-            document.getElementById('warrantyModal').style.display = 'none';
+        function openWarrantyModal() { document.getElementById('warrantyModal').style.display = 'block'; }
+        function closeWarrantyModal() { 
+            document.getElementById('warrantyModal').style.display = 'none'; 
             document.getElementById('warrantyResult').innerHTML = '';
         }
         function calculateWarranty() {
@@ -410,15 +309,13 @@
                 return;
             }
 
-            let days = 0;
-            let periodText = '';
+            let days = 0, periodText = '';
             if (condition === 'new') { days = 365; periodText = 'سنة كاملة'; }
             else if (condition === 'software') { days = 30; periodText = 'شهر كامل'; }
             else if (condition === 'used') { days = 7; periodText = 'اسبوع كامل'; }
 
             const expiryDate = new Date(sale);
             expiryDate.setDate(sale.getDate() + days);
-
             const today = new Date();
             const remaining = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
             
@@ -431,12 +328,8 @@
             }
             document.getElementById('warrantyResult').innerHTML = resultHTML;
         }
-
-        // اغلاق المودال لو كبس برا
         window.onclick = function(event) {
-            if (event.target == document.getElementById('warrantyModal')) {
-                closeWarrantyModal();
-            }
+            if (event.target == document.getElementById('warrantyModal')) closeWarrantyModal();
         }
     </script>
 </body>
