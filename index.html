@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستودع JAKOOP - لوحة التحكم</title>
+    <title>مستودع JAKOOP</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -12,10 +12,11 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
        .login-box { max-width: 450px; margin: 100px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; }
        .login-box h1 { color: #667eea; margin-bottom: 10px; font-size: 2em; }
-       .login-box.badge { background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; display: inline-block; margin-bottom: 20px; }
+       .badge { background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; display: inline-block; margin-bottom: 20px; }
        .login-box input { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1.2em; text-align: center; font-weight: bold; }
        .login-box button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; width: 100%; font-weight: 600; }
        .error { color: #e74c3c; margin-top: 10px; display: none; font-weight: 600; }
+       .hint { background: #fff3cd; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 0.9em; color: #856404; }
        .container { max-width: 1400px; margin: 0 auto; display: none; }
        .header { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 20px; text-align: center; position: relative; }
        .header h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
@@ -56,7 +57,6 @@
        .modal-actions button { flex: 1; }
        .btn-cancel { background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
        .chart-container { position: relative; height: 400px; margin: 30px 0; }
-       .current-password { background: #fff3cd; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 0.9em; color: #856404; }
     </style>
 </head>
 <body>
@@ -65,65 +65,38 @@
         <span class="badge">لوحة تحكم الأدمن</span>
         <p style="color: #666; margin-bottom: 10px;">ادخل كلمة السر للدخول</p>
         <input type="password" id="passwordInput" placeholder="••••••" maxlength="6">
-        <button onclick="checkPassword()">دخول لوحة التحكم</button>
+        <button id="loginBtn">دخول لوحة التحكم</button>
         <p class="error" id="errorMsg">❌ كلمة السر غلط</p>
-        <div class="current-password" id="passwordHint">الباسوورد الحالي: جاري الحساب...</div>
-        <p style="color: #999; font-size: 0.85em; margin-top: 10px;">الباسوورد بتتغير كل 3 ساعات</p>
+        <div class="hint" id="passwordHint">الباسوورد الحالي: جاري الحساب...</div>
     </div>
 
     <div class="status" id="status"></div>
     <div class="container" id="mainContainer">
         <div class="header">
-            <button class="logout" onclick="logout()">تسجيل خروج</button>
+            <button class="logout" id="logoutBtn">تسجيل خروج</button>
             <h1>🏪 مستودع JAKOOP <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
-            <p>نظام إدارة المخزون السحابي - لوحة الأدمن</p>
+            <p>نظام إدارة المخزون السحابي</p>
         </div>
 
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('inventory')">📦 المخزون</button>
-            <button class="tab" onclick="switchTab('reports')">📊 التقارير</button>
+            <button class="tab active" data-tab="inventory">📦 المخزون</button>
+            <button class="tab" data-tab="reports">📊 التقارير</button>
         </div>
 
         <div class="tab-content active" id="inventoryTab">
             <div class="stats">
-                <div class="stat-card">
-                    <h3>إجمالي القطع</h3>
-                    <div class="value" id="totalItems">0</div>
-                </div>
-                <div class="stat-card">
-                    <h3>القيمة الكاملة</h3>
-                    <div class="value" id="totalValue">0 د.أ</div>
-                </div>
-                <div class="stat-card">
-                    <h3>عدد الأصناف</h3>
-                    <div class="value" id="itemCount">0</div>
-                </div>
+                <div class="stat-card"><h3>إجمالي القطع</h3><div class="value" id="totalItems">0</div></div>
+                <div class="stat-card"><h3>القيمة الكاملة</h3><div class="value" id="totalValue">0 د.أ</div></div>
+                <div class="stat-card"><h3>عدد الأصناف</h3><div class="value" id="itemCount">0</div></div>
             </div>
 
             <div class="form-container">
                 <h2>➕ إضافة قطعة جديدة</h2>
                 <form id="itemForm">
-                    <div class="form-group">
-                        <label>اسم القطعة</label>
-                        <input type="text" id="itemName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>الكمية</label>
-                        <input type="number" id="itemQuantity" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label>السعر للقطعة (د.أ)</label>
-                        <input type="number" id="itemPrice" min="0" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label>الفئة</label>
-                        <select id="itemCategory">
-                            <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
-                            <option value="لابتوب">لابتوب</option>
-                            <option value="اكسسوارات">اكسسوارات</option>
-                            <option value="أخرى">أخرى</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label>اسم القطعة</label><input type="text" id="itemName" required></div>
+                    <div class="form-group"><label>الكمية</label><input type="number" id="itemQuantity" min="1" required></div>
+                    <div class="form-group"><label>السعر للقطعة (د.أ)</label><input type="number" id="itemPrice" min="0" step="0.01" required></div>
+                    <div class="form-group"><label>الفئة</label><select id="itemCategory"><option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option><option value="لابتوب">لابتوب</option><option value="اكسسوارات">اكسسوارات</option><option value="أخرى">أخرى</option></select></div>
                     <button type="submit" class="btn">إضافة قطعة</button>
                 </form>
             </div>
@@ -141,20 +114,8 @@
                     </select>
                 </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>اسم القطعة</th>
-                            <th>الفئة</th>
-                            <th>الكمية</th>
-                            <th>السعر</th>
-                            <th>القيمة الكاملة</th>
-                            <th>تاريخ الإضافة</th>
-                            <th>إجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inventoryBody">
-                        <tr><td colspan="7" style="text-align: center; color: #999;">جاري التحميل...</td></tr>
-                    </tbody>
+                    <thead><tr><th>اسم القطعة</th><th>الفئة</th><th>الكمية</th><th>السعر</th><th>القيمة الكاملة</th><th>تاريخ الإضافة</th><th>إجراءات</th></tr></thead>
+                    <tbody id="inventoryBody"><tr><td colspan="7" style="text-align: center; color: #999;">جاري التحميل...</td></tr></tbody>
                 </table>
             </div>
         </div>
@@ -163,24 +124,13 @@
             <div class="report-container">
                 <h2>📊 تقارير المخزون</h2>
                 <div class="stats">
-                    <div class="stat-card">
-                        <h3>أعلى قيمة مخزون</h3>
-                        <div class="value" id="topValue" style="font-size: 1.2em;">-</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>أقل كمية</h3>
-                        <div class="value" id="lowStock" style="font-size: 1.2em;">-</div>
-                    </div>
-                    <div class="stat-card">
-                        <h3>متوسط السعر</h3>
-                        <div class="value" id="avgPrice">0 د.أ</div>
-                    </div>
+                    <div class="stat-card"><h3>أعلى قيمة مخزون</h3><div class="value" id="topValue" style="font-size: 1.2em;">-</div></div>
+                    <div class="stat-card"><h3>أقل كمية</h3><div class="value" id="lowStock" style="font-size: 1.2em;">-</div></div>
+                    <div class="stat-card"><h3>متوسط السعر</h3><div class="value" id="avgPrice">0 د.أ</div></div>
                 </div>
                 <h3 style="color: #667eea; margin: 30px 0 15px;">توزيع المخزون حسب الفئة</h3>
-                <div class="chart-container">
-                    <canvas id="categoryChart"></canvas>
-                </div>
-                <button class="btn btn-print" onclick="printReport()">🖨️ طباعة التقرير PDF</button>
+                <div class="chart-container"><canvas id="categoryChart"></canvas></div>
+                <button class="btn btn-print" id="printBtn">🖨️ طباعة التقرير PDF</button>
             </div>
         </div>
     </div>
@@ -190,30 +140,13 @@
             <h2>✏️ تعديل القطعة</h2>
             <form id="editForm">
                 <input type="hidden" id="editId">
-                <div class="form-group">
-                    <label>اسم القطعة</label>
-                    <input type="text" id="editName" required>
-                </div>
-                <div class="form-group">
-                    <label>الكمية</label>
-                    <input type="number" id="editQuantity" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label>السعر للقطعة (د.أ)</label>
-                    <input type="number" id="editPrice" min="0" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label>الفئة</label>
-                    <select id="editCategory">
-                        <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
-                        <option value="لابتوب">لابتوب</option>
-                        <option value="اكسسوارات">اكسسوارات</option>
-                        <option value="أخرى">أخرى</option>
-                    </select>
-                </div>
+                <div class="form-group"><label>اسم القطعة</label><input type="text" id="editName" required></div>
+                <div class="form-group"><label>الكمية</label><input type="number" id="editQuantity" min="1" required></div>
+                <div class="form-group"><label>السعر للقطعة (د.أ)</label><input type="number" id="editPrice" min="0" step="0.01" required></div>
+                <div class="form-group"><label>الفئة</label><select id="editCategory"><option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option><option value="لابتوب">لابتوب</option><option value="اكسسوارات">اكسسوارات</option><option value="أخرى">أخرى</option></select></div>
                 <div class="modal-actions">
                     <button type="submit" class="btn">حفظ التعديل</button>
-                    <button type="button" class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
+                    <button type="button" class="btn-cancel" id="cancelEdit">إلغاء</button>
                 </div>
             </form>
         </div>
@@ -245,15 +178,13 @@
             return `${day}${hour.toString().padStart(2, '0')}99`;
         }
 
-        // عرض الباسوورد الحالي عشان تتأكد
         function updatePasswordHint() {
-            const hint = document.getElementById('passwordHint');
-            if (hint) hint.textContent = `الباسوورد الحالي: ${getAdminPassword()}`;
+            document.getElementById('passwordHint').textContent = `الباسوورد الحالي: ${getAdminPassword()}`;
         }
         updatePasswordHint();
         setInterval(updatePasswordHint, 60000);
 
-        window.checkPassword = function() {
+        document.getElementById('loginBtn').addEventListener('click', () => {
             const input = document.getElementById('passwordInput').value;
             const correct = getAdminPassword();
             if (input === correct) {
@@ -266,25 +197,27 @@
                 document.getElementById('passwordInput').value = '';
                 showStatus(`❌ الباسوورد الصح هو: ${correct}`, true);
             }
-        }
+        });
 
-        window.logout = function() {
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
             document.getElementById('loginBox').style.display = 'block';
             document.getElementById('mainContainer').style.display = 'none';
             document.getElementById('passwordInput').value = '';
-        }
-
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') checkPassword();
         });
 
-        window.switchTab = function(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById(tab + 'Tab').classList.add('active');
-            if (tab === 'reports') updateReports();
-        }
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                document.getElementById(e.target.dataset.tab + 'Tab').classList.add('active');
+                if (e.target.dataset.tab === 'reports') updateReports();
+            });
+        });
 
         function showStatus(msg, isError = false) {
             const status = document.getElementById('status');
@@ -332,6 +265,8 @@
 
             document.getElementById('searchInput').addEventListener('input', filterItems);
             document.getElementById('filterCategory').addEventListener('change', filterItems);
+            document.getElementById('printBtn').addEventListener('click', printReport);
+            document.getElementById('cancelEdit').addEventListener('click', () => document.getElementById('editModal').style.display = 'none');
 
             document.getElementById('editForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -344,7 +279,7 @@
                         category: document.getElementById('editCategory').value
                     });
                     showStatus('✅ تم التعديل بنجاح');
-                    closeEditModal();
+                    document.getElementById('editModal').style.display = 'none';
                 } catch (error) {
                     showStatus('❌ خطأ: ' + error.message, true);
                 }
@@ -361,10 +296,36 @@
                 items.forEach((item) => {
                     totalItems += item.quantity;
                     totalValue += item.quantity * item.price;
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${item.name}</td>
-                            <td>${item.category}</td>
-                            <td>${item.quantity}</td>
-                            <td>${item.price.toFixed(2)} د.أ</td>
-                            <td>${(item.quantity * item.pr
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price.toFixed(2)} د.أ</td>
+                        <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
+                        <td>${item.date}</td>
+                        <td>
+                            <button class="btn-edit" data-id="${item.id}">تعديل</button>
+                            <button class="btn-delete" data-id="${item.id}">حذف</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalValue').textContent = totalValue.toFixed(2) + ' د.أ';
+            document.getElementById('itemCount').textContent = items.length;
+
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', () => openEditModal(btn.dataset.id));
+            });
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', () => deleteItem(btn.dataset.id));
+            });
+        }
+
+        function filterItems() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('filterCategory').value;
+            let filtered = allItems.filter(item => {
+                const matchSearch = item.name.toLowerCase().i
