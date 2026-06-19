@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستودع JAKOOP - لوحة التحكم</title>
+    <title>Jakoop For Computer - لوحة التحكم</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -60,21 +60,21 @@
 </head>
 <body>
     <div class="login-box" id="loginBox">
-        <h1>🏪 مستودع JAKOOP</h1>
+        <h1>🏪 Jakoop For Computer</h1>
         <span class="badge">لوحة تحكم الأدمن</span>
         <p style="color: #666; margin-bottom: 10px;">ادخل كلمة السر للدخول</p>
         <input type="password" id="passwordInput" placeholder="••••••" maxlength="6">
         <button onclick="checkPassword()">دخول لوحة التحكم</button>
         <p class="error" id="errorMsg">❌ كلمة السر غلط</p>
-        <p style="color: #999; font-size: 0.85em; margin-top: 20px;">الباسوورد بتتغير كل 3 ساعات</p>
+        <p style="color: #999; font-size: 0.85em; margin-top: 20px;">Jakoop Only</p>
     </div>
 
     <div class="status" id="status"></div>
     <div class="container" id="mainContainer">
         <div class="header">
             <button class="logout" onclick="logout()">تسجيل خروج</button>
-            <h1>🏪 مستودع JAKOOP <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
-            <p>نظام إدارة المخزون السحابي - لوحة الأدمن</p>
+            <h1>🏪 Jakoop For Computer <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
+            <p>نظام إدارة المخزون والجرد - لوحة الأدمن</p>
         </div>
 
         <div class="stats">
@@ -112,6 +112,25 @@
                     <select id="itemCategory">
                         <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
                         <option value="لابتوب">لابتوب</option>
+                        <option value="كيس فارغ">كيس فارغ</option>
+                        <option value="كيس كامل">كيس كامل</option>
+                        <option value="شاشة">شاشة</option>
+                        <option value="أخرى">أخرى</option>
+                        <option value="كيبورد">كيبورد</option>
+                        <option value="ماوس">ماوس</option>
+                        <option value="فلاشة">فلاشة</option>
+                        <option value="بورسبلاي">بورسبلاي</option>
+                        <option value="Data Cable">Data Cable</option>
+                        <option value="HDMI Cable">HDMI Cable</option>
+                        <option value="DDR2">DDR2</option>
+                        <option value="DDR2 لابتوب">DDR2 لابتوب</option>
+                        <option value="DDR2 SERVER">DDR2 SERVER</option>
+                        <option value="DDR3">DDR3</option>
+                        <option value="DDR3 لابتوب">DDR3 لابتوب</option>
+                        <option value="DDR3 SERVER">DDR3 SERVER</option>
+                        <option value="DDR4">DDR4</option>
+                        <option value="DDR4 لابتوب">DDR4 لابتوب</option>
+                        <option value="DDR5">DDR5</option>
                         <option value="اكسسوارات">اكسسوارات</option>
                         <option value="أخرى">أخرى</option>
                     </select>
