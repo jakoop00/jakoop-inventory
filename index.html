@@ -56,8 +56,6 @@
         .modal-actions { display: flex; gap: 10px; }
         .modal-actions button { flex: 1; }
         .btn-cancel { background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        
-        /* الأزرار الجديدة - الإضافة الوحيدة بالـ CSS */
         .action-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         .btn-action { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95em; }
         .btn-export { background: #27ae60; color: white; }
@@ -78,7 +76,7 @@
         <span class="badge">لوحة تحكم الأدمن</span>
         <p style="color: #666; margin-bottom: 10px;">ادخل كلمة السر للدخول</p>
         <input type="password" id="passwordInput" placeholder="••••••" maxlength="6">
-        <button onclick="checkPassword()">دخول لوحة التحكم</button>
+        <button id="loginBtn">دخول لوحة التحكم</button>
         <p class="error" id="errorMsg">❌ كلمة السر غلط</p>
         <p style="color: #999; font-size: 0.85em; margin-top: 20px;">الباسوورد بتتغير كل 3 ساعات</p>
     </div>
@@ -86,7 +84,7 @@
     <div class="status" id="status"></div>
     <div class="container" id="mainContainer">
         <div class="header">
-            <button class="logout" onclick="logout()">تسجيل خروج</button>
+            <button class="logout" id="logoutBtn">تسجيل خروج</button>
             <h1>🏪 مستودع JAKOOP <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
             <p>نظام إدارة المخزون السحابي - لوحة الأدمن</p>
         </div>
@@ -136,14 +134,11 @@
 
         <div class="table-container">
             <h2>📦 المخزون الحالي</h2>
-            
-            <!-- الأزرار الجديدة - الإضافة الوحيدة بالـ HTML -->
             <div class="action-buttons">
-                <button class="btn-action btn-export" onclick="exportToExcel()">📊 تصدير Excel</button>
+                <button class="btn-action btn-export" id="exportBtn">📊 تصدير Excel</button>
                 <button class="btn-action btn-print" onclick="window.print()">🖨️ طباعة</button>
                 <button class="btn-action btn-refresh" onclick="location.reload()">🔄 تحديث</button>
             </div>
-            
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم...">
                 <select id="filterCategory">
@@ -202,7 +197,7 @@
                 </div>
                 <div class="modal-actions">
                     <button type="submit" class="btn">حفظ التعديل</button>
-                    <button type="button" class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
+                    <button type="button" class="btn-cancel" id="cancelEditBtn">إلغاء</button>
                 </div>
             </form>
         </div>
@@ -233,9 +228,10 @@
             return `${day}${hour.toString().padStart(2, '0')}99`;
         }
 
-        window.checkPassword = function() {
+        function checkPassword() {
             const input = document.getElementById('passwordInput').value;
             const correct = getAdminPassword();
+            console.log("الباسورد المطلوب الآن:", correct); // للتجريب
             
             if (input === correct) {
                 document.getElementById('loginBox').style.display = 'none';
@@ -248,15 +244,11 @@
             }
         }
 
-        window.logout = function() {
+        function logout() {
             document.getElementById('loginBox').style.display = 'block';
             document.getElementById('mainContainer').style.display = 'none';
             document.getElementById('passwordInput').value = '';
         }
-
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') checkPassword();
-        });
 
         function showStatus(msg, isError = false) {
             const status = document.getElementById('status');
@@ -333,20 +325,27 @@
                 items.forEach((item) => {
                     totalItems += item.quantity;
                     totalValue += item.quantity * item.price;
-                    tbody.innerHTML += `
-                        <tr>
-                            <td>${item.name}</td>
-                            <td>${item.category}</td>
-                            <td>${item.quantity}</td>
-                            <td>${item.price.toFixed(2)} د.أ</td>
-                            <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
-                            <td>${item.date}</td>
-                            <td>
-                                <button class="btn-edit" onclick="openEditModal('${item.id}')">تعديل</button>
-                                <button class="btn-delete" onclick="deleteItem('${item.id}')">حذف</button>
-                            </td>
-                        </tr>
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price.toFixed(2)} د.أ</td>
+                        <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
+                        <td>${item.date}</td>
+                        <td>
+                            <button class="btn-edit" data-id="${item.id}">تعديل</button>
+                            <button class="btn-delete" data-id="${item.id}">حذف</button>
+                        </td>
                     `;
+                    tbody.appendChild(tr);
+                });
+                
+                document.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', (e) => openEditModal(e.target.dataset.id));
+                });
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => deleteItem(e.target.dataset.id));
                 });
             }
             document.getElementById('totalItems').textContent = totalItems;
@@ -367,10 +366,10 @@
             renderTable(filtered);
         }
 
-        window.openEditModal = function(id) {
+        function openEditModal(id) {
             const item = allItems.find(i => i.id === id);
             document.getElementById('editId').value = id;
             document.getElementById('editName').value = item.name;
             document.getElementById('editQuantity').value = item.quantity;
             document.getElementById('editPrice').value = item.price;
-            document.getElementById('editCategory').value = 
+       
