@@ -56,6 +56,20 @@
         .modal-actions { display: flex; gap: 10px; }
         .modal-actions button { flex: 1; }
         .btn-cancel { background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        
+        /* الأزرار الجديدة - الإضافة الوحيدة بالـ CSS */
+        .action-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn-action { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95em; }
+        .btn-export { background: #27ae60; color: white; }
+        .btn-export:hover { background: #229954; }
+        .btn-print { background: #f39c12; color: white; }
+        .btn-print:hover { background: #e67e22; }
+        .btn-refresh { background: #9b59b6; color: white; }
+        .btn-refresh:hover { background: #8e44ad; }
+        @media print {
+            .header, .stats, .form-container, .search-bar, .action-buttons, .logout, th:last-child, td:last-child { display: none !important; }
+            .table-container { box-shadow: none; }
+        }
     </style>
 </head>
 <body>
@@ -122,6 +136,13 @@
 
         <div class="table-container">
             <h2>📦 المخزون الحالي</h2>
+            
+            <!-- الأزرار الجديدة - الإضافة الوحيدة بالـ HTML -->
+            <div class="action-buttons">
+                <button class="btn-action btn-export" onclick="exportToExcel()">📊 تصدير Excel</button>
+                <button class="btn-action btn-print" onclick="window.print()">🖨️ طباعة</button>
+                <button class="btn-action btn-refresh" onclick="location.reload()">🔄 تحديث</button>
+            </div>
             
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم...">
@@ -352,24 +373,4 @@
             document.getElementById('editName').value = item.name;
             document.getElementById('editQuantity').value = item.quantity;
             document.getElementById('editPrice').value = item.price;
-            document.getElementById('editCategory').value = item.category;
-            document.getElementById('editModal').style.display = 'block';
-        }
-
-        window.closeEditModal = function() {
-            document.getElementById('editModal').style.display = 'none';
-        }
-
-        window.deleteItem = async (id) => {
-            if (confirm('متأكد من الحذف؟')) {
-                try {
-                    await deleteDoc(doc(db, 'inventory', id));
-                    showStatus('✅ تم الحذف');
-                } catch (error) {
-                    showStatus('❌ خطأ: ' + error.message, true);
-                }
-            }
-        };
-    </script>
-</body>
-</html>
+            document.getElementById('editCategory').value = 
