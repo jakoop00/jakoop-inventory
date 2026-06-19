@@ -1,197 +1,190 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نظام جرد Jakoop - أونلاين</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام جرد Jakoop - أونلاين</title>
+    <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-body { margin: 0; padding: 20px; background: #1a1a1a; color: #fff; }
+        body { margin: 0; padding: 20px; background: #1a1a1a; color: #fff; }
         .container { max-width: 1200px; margin: 0 auto; }
-h1 { text-align: center; color: #00ff88; }
+        h1 { text-align: center; color: #00ff88; }
         .stats { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
         .stat-card { flex: 1; background: #2d2d2d; padding: 15px; border-radius: 8px; text-align: center; min-width: 150px; }
         .stat-card h3 { margin: 0; color: #00ff88; font-size: 28px; }
         .stat-card p { margin: 5px 0 0; color: #aaa; }
         .controls { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-input, select, button { padding: 10px; border: none; border-radius: 6px; font-size: 14px; }
-input, select { background: #2d2d2d; color: #fff; flex: 1; min-width: 150px; }
-button { background: #00ff88; color: #000; font-weight: bold; cursor: pointer; }
-button:hover { background: #00cc6a; }
+        input, select, button { padding: 10px; border: none; border-radius: 6px; font-size: 14px; }
+        input, select { background: #2d2d2d; color: #fff; flex: 1; min-width: 150px; }
+        button { background: #00ff88; color: #000; font-weight: bold; cursor: pointer; }
+        button:hover { background: #00cc6a; }
         .delete { background: #ff4444 !important; color: #fff !important; }
-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #2d2d2d; border-radius: 8px; overflow: hidden; }
-th, td { padding: 12px; text-align: right; border-bottom: 1px solid #444; }
-th { background: #00ff88; color: #000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #2d2d2d; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: right; border-bottom: 1px solid #444; }
+        th { background: #00ff88; color: #000; }
         .status { position: fixed; top: 20px; left: 20px; background: #00ff88; color: #000; padding: 10px 20px; border-radius: 6px; display: none; }
         .online { background: #00ff88; } .offline { background: #ff4444; }
         @media (max-width: 768px) { .controls { flex-direction: column; } input, select, button { width: 100%; } }
-</style>
+    </style>
 </head>
 <body>
-<div class="status" id="status">جاري الاتصال...</div>
-<div class="container">
-<h1>🐊نظام جرد Jakoop - أونلاين</h1>
+    <div class="status" id="status">جاري الاتصال...</div>
+    <div class="container">
+        <h1>🐊 نظام جرد Jakoop - أونلاين</h1>
+        
+        <div class="stats">
+            <div class="stat-card"><h3 id="totalItems">0</h3><p>إجمالي القطع</p></div>
+            <div class="stat-card"><h3 id="totalValue">0</h3><p>القيمة الكاملة JD</p></div>
+            <div class="stat-card"><h3 id="lowStock">0</h3><p>مخزون قليل</p></div>
+        </div>
 
-<div class="stats">
-<div class="stat-card"><h3 id="totalItems">0</h3><p>إجمالي القطع</p></div>
-<div class="stat-card"><h3 id="totalValue">0</h3><p>القيمة الكاملة JD</p></div>
-<div class="stat-card"><h3 id="lowStock">0</h3><p>مخزون قليل</p></div>
-</div>
+        <div class="controls">
+            <input type="text" id="itemName" placeholder="اسم القطعة">
+            <input type="number" id="itemQty" placeholder="الكمية" min="1">
+            <input type="number" id="itemPrice" placeholder="السعر JD" step="0.01" min="0">
+            <select id="itemCategory">
+                <option value="لابتوب">لابتوب</option>
+                <option value="كمبيوتر">كمبيوتر</option>
+                <option value="شاشة">شاشة</option>
+                <option value="كيبورد">كيبورد</option>
+                <option value="ماوس">ماوس</option>
+                <option value="رام">رام</option>
+                <option value="هارد">هارد</option>
+                <option value="قطع اخرى">قطع اخرى</option>
+            </select>
+            <button onclick="addItem()">إضافة قطعة</button>
+            <button onclick="exportCSV()">تصدير Excel</button>
+        </div>
 
-<div class="controls">
-<input type="text" id="itemName" placeholder="اسم القطعة">
-<input type="number" id="itemQty" placeholder="الكمية" min="1">
-<input type="number" id="itemPrice" placeholder="السعر JD" step="0.01" min="0">
-<select id="itemCategory">
-<option value="لابتوب">لابتوب</option>
-<option value="كمبيوتر">كمبيوتر</option>
-<option value="شاشة">شاشة</option>
-<option value="كيبورد">كيبورد</option>
-<option value="ماوس">ماوس</option>
-<option value="رام">رام</option>
-<option value="هارد">هارد</option>
-<option value="قطع اخرى">قطع اخرى</option>
-</select>
-<button onclick="addItem()">إضافة قطعة</button>
-<button onclick="exportCSV()">تصدير Excel</button>
-</div>
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>القطعة</th>
+                    <th>الفئة</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                    <th>المجموع</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody id="inventoryBody"></tbody>
+        </table>
+    </div>
 
-<table id="inventoryTable">
-<thead>
-<tr>
-<th>القطعة</th>
-<th>الفئة</th>
-<th>الكمية</th>
-<th>السعر</th>
-<th>المجموع</th>
-<th>حذف</th>
-</tr>
-</thead>
-<tbody id="inventoryBody"></tbody>
-</table>
-</div>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-<script type="module">
-        // Firebase SDK
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-        // الـfirebaseConfigتبعك
-constfirebaseConfig = {
-apiKey: "AIzaSyCuCrl3-N06Ak8Gde75GAHe5mUL3FS_9g",
-authDomain: "jakoop-inventory.firebaseapp.com",
-projectId: "jakoop-inventory",
-storageBucket: "jakoop-inventory.firebasestorage.app",
-messagingSenderId: "31958221366",
-appId: "1:31958221366:web:e81Be3cb9F27d0d234c2997"
+        const firebaseConfig = {
+            apiKey: "AIzaSyCuCrl3-N06Ak8Gde75GAHe5mUL3FS_9g",
+            authDomain: "jakoop-inventory.firebaseapp.com",
+            projectId: "jakoop-inventory",
+            storageBucket: "jakoop-inventory.firebasestorage.app",
+            messagingSenderId: "31958221366",
+            appId: "1:31958221366:web:e81Be3cb9F27d0d234c2997"
         };
 
-const app = initializeApp(firebaseConfig);
-constdb = getFirestore(app);
-constitemsRef = collection(db, 'inventory');
-let inventory = [];
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const itemsRef = collection(db, 'inventory');
+        let inventory = [];
 
-        // حالة الاتصال
-conststatusEl = document.getElementById('status');
-function showStatus(msg, isOnline = true) {
-statusEl.textContent = msg;
-statusEl.className = 'status ' + (isOnline ? 'online' : 'offline');
-statusEl.style.display = 'block';
-setTimeout(() =>statusEl.style.display = 'none', 2000);
+        const statusEl = document.getElementById('status');
+        function showStatus(msg, isOnline = true) {
+            statusEl.textContent = msg;
+            statusEl.className = 'status ' + (isOnline ? 'online' : 'offline');
+            statusEl.style.display = 'block';
+            setTimeout(() => statusEl.style.display = 'none', 2000);
         }
 
-        // تحميل البيانات لحظياً منFirebase
-onSnapshot(itemsRef, (snapshot) => {
-inventory = [];
-snapshot.forEach((doc) => {
-inventory.push({ id: doc.id, ...doc.data() });
+        onSnapshot(itemsRef, (snapshot) => {
+            inventory = [];
+            snapshot.forEach((doc) => {
+                inventory.push({ id: doc.id, ...doc.data() });
             });
-renderTable();
-updateStats();
-showStatus('✅متصل - البيانات محدثة');
+            renderTable();
+            updateStats();
+            showStatus('✅ متصل - البيانات محدثة');
         }, (error) => {
-showStatus('❌ انقطع الاتصال', false);
+            showStatus('❌ خطأ بالاتصال', false);
+            console.log(error);
         });
 
-        // إضافة قطعة
-window.addItem = async function() {
-const name = document.getElementById('itemName').value.trim();
-constqty = parseInt(document.getElementById('itemQty').value);
-const price = parseFloat(document.getElementById('itemPrice').value);
-const category = document.getElementById('itemCategory').value;
+        window.addItem = async function() {
+            const name = document.getElementById('itemName').value.trim();
+            const qty = parseInt(document.getElementById('itemQty').value);
+            const price = parseFloat(document.getElementById('itemPrice').value);
+            const category = document.getElementById('itemCategory').value;
 
-if (!name || !qty || !price) {
-alert('عبي كل الحقول ياتمساح');
-return;
+            if (!name || !qty || !price) {
+                alert('عبي كل الحقول يا تمساح');
+                return;
             }
 
-try {
-await addDoc(itemsRef, { name, qty, price, category, date: new Date().toISOString() });
-document.getElementById('itemName').value = '';
-document.getElementById('itemQty').value = '';
-document.getElementById('itemPrice').value = '';
-showStatus('✅ تمت الإضافة');
+            try {
+                await addDoc(itemsRef, { name, qty, price, category, date: new Date().toISOString() });
+                document.getElementById('itemName').value = '';
+                document.getElementById('itemQty').value = '';
+                document.getElementById('itemPrice').value = '';
+                showStatus('✅ تمت الإضافة');
             } catch (e) {
-showStatus('❌ خطأ بالإضافة', false);
+                showStatus('❌ خطأ بالإضافة', false);
+                console.log(e);
             }
         }
 
-        // حذف قطعة
-window.deleteItem = async function(id) {
-if (confirm('متأكد بدك تحذف القطعة ؟')) {
-try {
-await deleteDoc(doc(db, 'inventory', id));
-showStatus('✅ تم الحذف');
+        window.deleteItem = async function(id) {
+            if (confirm('متأكد بدك تحذف القطعة؟')) {
+                try {
+                    await deleteDoc(doc(db, 'inventory', id));
+                    showStatus('✅ تم الحذف');
                 } catch (e) {
-showStatus('❌ خطأ بالحذف', false);
+                    showStatus('❌ خطأ بالحذف', false);
                 }
             }
         }
 
-        // عرض الجدول
-function renderTable() {
-consttbody = document.getElementById('inventoryBody');
-tbody.innerHTML = '';
-inventory.forEach(item => {
-const total = item.qty * item.price;
-tbody.innerHTML += `
-<tr>
-<td>${item.name}</td>
-<td>${item.category}</td>
-<td>${item.qty}</td>
-<td>${item.price.toFixed(2)} JD</td>
-<td>${total.toFixed(2)} JD</td>
-<td><button class="delete" onclick="deleteItem('${item.id}')">حذف</button></td>
-</tr>
+        function renderTable() {
+            const tbody = document.getElementById('inventoryBody');
+            tbody.innerHTML = '';
+            inventory.forEach(item => {
+                const total = item.qty * item.price;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.qty}</td>
+                        <td>${item.price.toFixed(2)} JD</td>
+                        <td>${total.toFixed(2)} JD</td>
+                        <td><button class="delete" onclick="deleteItem('${item.id}')">حذف</button></td>
+                    </tr>
                 `;
             });
         }
 
-        // تحديث الاحصائيات
-function updateStats() {
-consttotalItems = inventory.reduce((sum, item) => sum + item.qty, 0);
-consttotalValue = inventory.reduce((sum, item) => sum + (item.qty * item.price), 0);
-constlowStock = inventory.filter(item =>item.qty< 3).length;
-
-document.getElementById('totalItems').textContent = totalItems;
-document.getElementById('totalValue').textContent = totalValue.toFixed(2);
-document.getElementById('lowStock').textContent = lowStock;
+        function updateStats() {
+            const totalItems = inventory.reduce((sum, item) => sum + item.qty, 0);
+            const totalValue = inventory.reduce((sum, item) => sum + (item.qty * item.price), 0);
+            const lowStock = inventory.filter(item => item.qty < 3).length;
+            
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalValue').textContent = totalValue.toFixed(2);
+            document.getElementById('lowStock').textContent = lowStock;
         }
 
-        // تصديرCSV
-window.exportCSV = function() {
-let csv = 'القطعة,الفئة,الكمية,السعر,المجموع\n';
-inventory.forEach(item => {
-const total = item.qty * item.price;
-csv += `"${item.name}","${item.category}",${item.qty},${item.price},${total}\n`;
+        window.exportCSV = function() {
+            let csv = 'القطعة,الفئة,الكمية,السعر,المجموع\n';
+            inventory.forEach(item => {
+                const total = item.qty * item.price;
+                csv += `"${item.name}","${item.category}",${item.qty},${item.price},${total}\n`;
             });
-const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
-const link = document.createElement('a');
-link.href = URL.createObjectURL(blob);
-link.download = `jakoop-inventory-${new Date().toISOString().split('T')[0]}.csv`;
-link.click();
-showStatus('✅ تم التصدير');
+            const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `jakoop-inventory-${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+            showStatus('✅ تم التصدير');
         }
-</script>
+    </script>
 </body>
 </html>
