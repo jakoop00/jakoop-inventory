@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> JAKOOP - لوحة التحكم</title>
+    <title>مستودع JAKOOP - لوحة التحكم</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -37,33 +37,43 @@
         .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
         .table-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow-x: auto; }
         .table-container h2 { color: #667eea; margin-bottom: 20px; }
+        .search-bar { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin: 20px 0; }
+        .search-bar input, .search-bar select { padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; }
         table { width: 100%; border-collapse: collapse; }
         th { background: #667eea; color: white; padding: 15px; text-align: right; }
         td { padding: 15px; border-bottom: 1px solid #e0e0e0; }
         tr:hover { background: #f5f5f5; }
+        .btn-edit { background: #3498db; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
+        .btn-edit:hover { background: #2980b9; }
         .btn-delete { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
         .btn-delete:hover { background: #c0392b; }
         .status { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; font-weight: 600; z-index: 1000; display: none; }
         .status.success { background: #2ecc71; display: block; }
         .status.error { background: #e74c3c; display: block; }
+        #editModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; }
+        .modal-content { background: white; max-width: 500px; margin: 50px auto; padding: 30px; border-radius: 15px; }
+        .modal-content h2 { color: #667eea; margin-bottom: 20px; }
+        .modal-actions { display: flex; gap: 10px; }
+        .modal-actions button { flex: 1; }
+        .btn-cancel { background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="login-box" id="loginBox">
-        <h1>🏪 Jakoop For Computer</h1>
+        <h1>🏪 مستودع JAKOOP</h1>
         <span class="badge">لوحة تحكم الأدمن</span>
         <p style="color: #666; margin-bottom: 10px;">ادخل كلمة السر للدخول</p>
         <input type="password" id="passwordInput" placeholder="••••••" maxlength="6">
         <button onclick="checkPassword()">دخول لوحة التحكم</button>
         <p class="error" id="errorMsg">❌ كلمة السر غلط</p>
-        <p style="color: #999; font-size: 0.85em; margin-top: 20px;">Admin Password</p>
+        <p style="color: #999; font-size: 0.85em; margin-top: 20px;">الباسوورد بتتغير كل 3 ساعات</p>
     </div>
 
     <div class="status" id="status"></div>
     <div class="container" id="mainContainer">
         <div class="header">
             <button class="logout" onclick="logout()">تسجيل خروج</button>
-            <h1>🏪 Jakoop For Computer <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
+            <h1>🏪 مستودع JAKOOP <span class="connection-status offline" id="connStatus">غير متصل</span></h1>
             <p>نظام إدارة المخزون السحابي - لوحة الأدمن</p>
         </div>
 
@@ -100,18 +110,9 @@
                 <div class="form-group">
                     <label>الفئة</label>
                     <select id="itemCategory">
-                        <option value="لابتوب">لابتوب</option>
                         <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
-                        <option value="كيس فارغ">كيس فارغ</option>
-                        <option value="كيس كمبيوتر كامل">كيس كمبيوتر كامل</option>
-                        <option value="شاشة">شاشة</option>
-                        <option value="رام">رام</option>
-                        <option value="كرت شاشة">كرت شاشة</option>
-                        <option value="HDD">HDD</option>
-                        <option value="SSD">SSD</option>
-                        <option value="بورسبلاي">بورسبلاي</option>
-                        <option value="كيبورد">كيبورد</option>
-                        <option value="ماوس">ماوس</option>
+                        <option value="لابتوب">لابتوب</option>
+                        <option value="اكسسوارات">اكسسوارات</option>
                         <option value="أخرى">أخرى</option>
                     </select>
                 </div>
@@ -121,6 +122,18 @@
 
         <div class="table-container">
             <h2>📦 المخزون الحالي</h2>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم...">
+                <select id="filterCategory">
+                    <option value="all">كل الفئات</option>
+                    <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
+                    <option value="لابتوب">لابتوب</option>
+                    <option value="اكسسوارات">اكسسوارات</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
+
             <table>
                 <thead>
                     <tr>
@@ -140,9 +153,43 @@
         </div>
     </div>
 
+    <div id="editModal">
+        <div class="modal-content">
+            <h2>✏️ تعديل القطعة</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label>اسم القطعة</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label>الكمية</label>
+                    <input type="number" id="editQuantity" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>السعر للقطعة (د.أ)</label>
+                    <input type="number" id="editPrice" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>الفئة</label>
+                    <select id="editCategory">
+                        <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
+                        <option value="لابتوب">لابتوب</option>
+                        <option value="اكسسوارات">اكسسوارات</option>
+                        <option value="أخرى">أخرى</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn">حفظ التعديل</button>
+                    <button type="button" class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyCdCJL3-N0GAK8Gde75GA0RE5mJL3fS_9g",
@@ -156,13 +203,13 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const inventoryRef = collection(db, 'inventory');
+        let allItems = [];
 
-        // باسوورد الأدمن: يوم + ساعة + 99 - بتتغير كل 3 ساعات
         function getAdminPassword() {
             const now = new Date();
             const day = now.getDate();
             const hour = Math.floor(now.getHours() / 3) * 3;
-            return `${day}${hour.toString().padStart(2, '0')}99`; // مثال: 190899
+            return `${day}${hour.toString().padStart(2, '0')}99`;
         }
 
         window.checkPassword = function() {
@@ -206,33 +253,11 @@
         function initApp() {
             onSnapshot(inventoryRef, (snapshot) => {
                 updateConnectionStatus(true);
-                let totalItems = 0, totalValue = 0;
-                const tbody = document.getElementById('inventoryBody');
-                tbody.innerHTML = '';
-                
-                if (snapshot.empty) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #999;">لا توجد قطع بالمخزون</td></tr>';
-                } else {
-                    snapshot.forEach((docSnap) => {
-                        const item = docSnap.data();
-                        totalItems += item.quantity;
-                        totalValue += item.quantity * item.price;
-                        tbody.innerHTML += `
-                            <tr>
-                                <td>${item.name}</td>
-                                <td>${item.category}</td>
-                                <td>${item.quantity}</td>
-                                <td>${item.price.toFixed(2)} د.أ</td>
-                                <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
-                                <td>${item.date}</td>
-                                <td><button class="btn-delete" onclick="deleteItem('${docSnap.id}')">حذف</button></td>
-                            </tr>
-                        `;
-                    });
-                }
-                document.getElementById('totalItems').textContent = totalItems;
-                document.getElementById('totalValue').textContent = totalValue.toFixed(2) + ' د.أ';
-                document.getElementById('itemCount').textContent = snapshot.size;
+                allItems = [];
+                snapshot.forEach((docSnap) => {
+                    allItems.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                renderTable(allItems);
             }, (error) => {
                 updateConnectionStatus(false);
                 showStatus('خطأ بالاتصال: ' + error.message, true);
@@ -254,6 +279,85 @@
                     showStatus('❌ خطأ: ' + error.message, true);
                 }
             });
+
+            document.getElementById('searchInput').addEventListener('input', filterItems);
+            document.getElementById('filterCategory').addEventListener('change', filterItems);
+
+            document.getElementById('editForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('editId').value;
+                try {
+                    await updateDoc(doc(db, 'inventory', id), {
+                        name: document.getElementById('editName').value,
+                        quantity: parseInt(document.getElementById('editQuantity').value),
+                        price: parseFloat(document.getElementById('editPrice').value),
+                        category: document.getElementById('editCategory').value
+                    });
+                    showStatus('✅ تم التعديل بنجاح');
+                    closeEditModal();
+                } catch (error) {
+                    showStatus('❌ خطأ: ' + error.message, true);
+                }
+            });
+        }
+
+        function renderTable(items) {
+            let totalItems = 0, totalValue = 0;
+            const tbody = document.getElementById('inventoryBody');
+            tbody.innerHTML = '';
+            
+            if (items.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #999;">لا توجد نتائج</td></tr>';
+            } else {
+                items.forEach((item) => {
+                    totalItems += item.quantity;
+                    totalValue += item.quantity * item.price;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.category}</td>
+                            <td>${item.quantity}</td>
+                            <td>${item.price.toFixed(2)} د.أ</td>
+                            <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
+                            <td>${item.date}</td>
+                            <td>
+                                <button class="btn-edit" onclick="openEditModal('${item.id}')">تعديل</button>
+                                <button class="btn-delete" onclick="deleteItem('${item.id}')">حذف</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalValue').textContent = totalValue.toFixed(2) + ' د.أ';
+            document.getElementById('itemCount').textContent = items.length;
+        }
+
+        function filterItems() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('filterCategory').value;
+            
+            let filtered = allItems.filter(item => {
+                const matchSearch = item.name.toLowerCase().includes(search);
+                const matchCategory = category === 'all' || item.category === category;
+                return matchSearch && matchCategory;
+            });
+            
+            renderTable(filtered);
+        }
+
+        window.openEditModal = function(id) {
+            const item = allItems.find(i => i.id === id);
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = item.name;
+            document.getElementById('editQuantity').value = item.quantity;
+            document.getElementById('editPrice').value = item.price;
+            document.getElementById('editCategory').value = item.category;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        window.closeEditModal = function() {
+            document.getElementById('editModal').style.display = 'none';
         }
 
         window.deleteItem = async (id) => {
