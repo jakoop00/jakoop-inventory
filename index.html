@@ -15,6 +15,7 @@
         .login-box button:hover { transform: translateY(-2px); }
         .error { color: #e74c3c; margin-top: 10px; display: none; font-weight: 600; }
         .container { max-width: 1200px; margin: 0 auto; display: none; }
+        .header { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; }
         .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; justify-content: center; }
         .action-btn { padding: 10px 18px; border: none; border-radius: 8px; font-size: 0.95em; cursor: pointer; font-weight: 600; transition: all 0.3s; }
         .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
@@ -34,7 +35,22 @@
     </style>
 </head>
 <body>
-        <div class="container">
+    <!-- صفحة تسجيل الدخول - ما تغيرت -->
+    <div class="login-box">
+        <h1>مستودع JAKOOP</h1>
+        <div class="badge">لوحة التحكم</div>
+        <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
+        <button onclick="checkPassword()">دخول</button>
+        <div class="error" id="errorMsg">كلمة المرور خاطئة</div>
+    </div>
+    
+    <!-- لوحة التحكم - بتظهر بعد الدخول -->
+    <div class="container">
+        <div class="header">
+            <h2>لوحة التحكم</h2>
+        </div>
+        
+        <!-- الأزرار الجديدة -->
         <div class="action-buttons">
             <button class="action-btn btn-print" onclick="window.print()">🖨️ طباعة</button>
             <button class="action-btn btn-warranty" onclick="openWarrantyModal()">📋 كفالة</button>
@@ -47,46 +63,51 @@
             <button class="action-btn btn-whatsapp" onclick="window.open('https://wa.me/962775121442', '_blank')">💬 الواتس</button>
             <button class="action-btn btn-email" onclick="window.location.href='mailto:jakoop@outlook.com'">📧 ايميل</button>
         </div>
-
-        <div id="warrantyModal">
-            <div class="modal-content">
-                <h3 style="color: #9b59b6; margin-bottom: 20px;">حساب الكفالة</h3>
-                <label>تاريخ الشراء من التاجر:</label>
-                <input type="date" id="purchaseDate">
-                <label>تاريخ البيع للزبون:</label>
-                <input type="date" id="saleDate">
-                <label>حالة القطعة:</label>
-                <select id="itemCondition">
-                    <option value="7">مستعمل - أسبوع</option>
-                    <option value="30">برامج - شهر</option>
-                    <option value="365">جديد - سنة</option>
-                </select>
-                <button onclick="calculateWarranty()" style="background: #9b59b6; color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; margin-top: 10px; cursor: pointer;">احسب المدة المتبقية</button>
-                <div id="warrantyResult" style="margin-top: 15px; font-weight: bold;"></div>
-                <button onclick="closeWarrantyModal()" style="background: #95a5a6; color: white; padding: 10px; width: 100%; border: none; border-radius: 8px; margin-top: 10px; cursor: pointer;">إغلاق</button>
-            </div>
-        </div>
-    <div class="login-box">
-        <h1>مستودع JAKOOP</h1>
-        <div class="badge">لوحة التحكم</div>
-        <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور">
-        <button onclick="checkPassword()">دخول</button>
-        <div class="error" id="errorMsg">كلمة المرور خاطئة</div>
     </div>
-    
-    <div class="header">
+
+    <!-- مودال الكفالة -->
+    <div id="warrantyModal">
+        <div class="modal-content">
+            <h3 style="color: #9b59b6; margin-bottom: 20px;">حساب الكفالة</h3>
+            <label>تاريخ الشراء من التاجر:</label>
+            <input type="date" id="purchaseDate">
+            <label>تاريخ البيع للزبون:</label>
+            <input type="date" id="saleDate">
+            <label>حالة القطعة:</label>
+            <select id="itemCondition">
+                <option value="7">مستعمل - أسبوع</option>
+                <option value="30">برامج - شهر</option>
+                <option value="365">جديد - سنة</option>
+            </select>
+            <button onclick="calculateWarranty()" style="background: #9b59b6; color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; margin-top: 10px; cursor: pointer;">احسب المدة المتبقية</button>
+            <div id="warrantyResult" style="margin-top: 15px; font-weight: bold;"></div>
+            <button onclick="closeWarrantyModal()" style="background: #95a5a6; color: white; padding: 10px; width: 100%; border: none; border-radius: 8px; margin-top: 10px; cursor: pointer;">إغلاق</button>
+        </div>
+    </div>
 
     <script>
-        window.openWarrantyModal = function() {
+        // كود الباسورد الأصلي - ما لمسته
+        function checkPassword() {
+            const pass = document.getElementById('passwordInput').value;
+            if (pass === '1234') {
+                document.querySelector('.login-box').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // دوال الأزرار الجديدة فقط
+        function openWarrantyModal() {
             document.getElementById('warrantyModal').style.display = 'flex';
         }
         
-        window.closeWarrantyModal = function() {
+        function closeWarrantyModal() {
             document.getElementById('warrantyModal').style.display = 'none';
             document.getElementById('warrantyResult').innerHTML = '';
         }
         
-        window.calculateWarranty = function() {
+        function calculateWarranty() {
             const purchaseDate = document.getElementById('purchaseDate').value;
             const saleDate = document.getElementById('saleDate').value;
             const days = parseInt(document.getElementById('itemCondition').value);
@@ -110,40 +131,26 @@
             }
         }
         
-        window.exportToPDF = function() {
-            showStatus('جاري تحويل الصفحة إلى PDF... استخدم طباعة > حفظ كـ PDF');
+        function exportToPDF() {
+            alert('جاري تحويل الصفحة إلى PDF... استخدم طباعة > حفظ كـ PDF');
             setTimeout(() => window.print(), 500);
         }
         
-        window.markAsDamaged = function() {
-            showStatus('⚠️ تم تحديد العنصر كـ تالف');
+        function markAsDamaged() {
+            alert('⚠️ تم تحديد العنصر كـ تالف');
         }
         
-        window.markAsReturn = function() {
-            showStatus('↩️ تم تحديد العنصر كـ مرتجع');
+        function markAsReturn() {
+            alert('↩️ تم تحديد العنصر كـ مرتجع');
         }
         
-        window.printLabel = function() {
-            showStatus('🏷️ جاري طباعة الليبل...');
+        function printLabel() {
+            alert('🏷️ جاري طباعة الليبل...');
             setTimeout(() => window.print(), 300);
         }
         
-        window.showStorageLocation = function() {
-            showStatus('📦 مكان التخزين: الرف A-12');
-        }
-
-        window.checkPassword = function() {
-            const pass = document.getElementById('passwordInput').value;
-            if (pass === '1234') {
-                document.querySelector('.login-box').style.display = 'none';
-                document.querySelector('.container').style.display = 'block';
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
-            }
-        }
-
-        window.showStatus = function(msg, isError = false) {
-            alert(msg);
+        function showStorageLocation() {
+            alert('📦 مكان التخزين: الرف A-12');
         }
 
         window.closeEditModal = function() {
