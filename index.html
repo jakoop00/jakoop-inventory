@@ -15,17 +15,14 @@
        .login-box.badge { background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85em; display: inline-block; margin-bottom: 20px; }
        .login-box input { width: 100%; padding: 15px; margin: 20px 0; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1.2em; text-align: center; font-weight: bold; }
        .login-box button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; width: 100%; font-weight: 600; }
-       .login-box button:hover { transform: translateY(-2px); }
        .error { color: #e74c3c; margin-top: 10px; display: none; font-weight: 600; }
        .container { max-width: 1400px; margin: 0 auto; display: none; }
        .header { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-bottom: 20px; text-align: center; position: relative; }
        .header h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
-       .header p { color: #666; font-size: 1.1em; }
        .connection-status { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; margin-right: 10px; }
        .connection-status.online { background: #2ecc71; color: white; }
        .connection-status.offline { background: #e74c3c; color: white; }
        .logout { position: absolute; top: 20px; left: 20px; background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-       .logout:hover { background: #c0392b; }
        .tabs { background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; display: flex; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
        .tab { flex: 1; padding: 15px; border: none; background: #f5f5f5; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1em; }
        .tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
@@ -40,11 +37,8 @@
        .form-group { margin-bottom: 20px; }
        .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; }
        .form-group input,.form-group select { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; }
-       .form-group input:focus,.form-group select:focus { outline: none; border-color: #667eea; }
        .btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; font-weight: 600; width: 100%; }
-       .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
        .btn-print { background: #27ae60; margin-top: 15px; }
-       .btn-print:hover { background: #229954; }
        .search-bar { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin: 20px 0; }
        .search-bar input,.search-bar select { padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; }
         table { width: 100%; border-collapse: collapse; }
@@ -52,19 +46,17 @@
         td { padding: 15px; border-bottom: 1px solid #e0e0e0; }
         tr:hover { background: #f5f5f5; }
        .btn-edit { background: #3498db; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
-       .btn-edit:hover { background: #2980b9; }
        .btn-delete { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-       .btn-delete:hover { background: #c0392b; }
        .status { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; font-weight: 600; z-index: 1000; display: none; }
        .status.success { background: #2ecc71; display: block; }
        .status.error { background: #e74c3c; display: block; }
         #editModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; }
        .modal-content { background: white; max-width: 500px; margin: 50px auto; padding: 30px; border-radius: 15px; }
-       .modal-content h2 { color: #667eea; margin-bottom: 20px; }
        .modal-actions { display: flex; gap: 10px; }
        .modal-actions button { flex: 1; }
        .btn-cancel { background: #e74c3c; color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
        .chart-container { position: relative; height: 400px; margin: 30px 0; }
+       .current-password { background: #fff3cd; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 0.9em; color: #856404; }
     </style>
 </head>
 <body>
@@ -75,7 +67,8 @@
         <input type="password" id="passwordInput" placeholder="••••••" maxlength="6">
         <button onclick="checkPassword()">دخول لوحة التحكم</button>
         <p class="error" id="errorMsg">❌ كلمة السر غلط</p>
-        <p style="color: #999; font-size: 0.85em; margin-top: 20px;">الباسوورد بتتغير كل 3 ساعات</p>
+        <div class="current-password" id="passwordHint">الباسوورد الحالي: جاري الحساب...</div>
+        <p style="color: #999; font-size: 0.85em; margin-top: 10px;">الباسوورد بتتغير كل 3 ساعات</p>
     </div>
 
     <div class="status" id="status"></div>
@@ -137,7 +130,6 @@
 
             <div class="table-container">
                 <h2>📦 المخزون الحالي</h2>
-
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="🔍 ابحث بالاسم...">
                     <select id="filterCategory">
@@ -148,7 +140,6 @@
                         <option value="أخرى">أخرى</option>
                     </select>
                 </div>
-
                 <table>
                     <thead>
                         <tr>
@@ -185,12 +176,10 @@
                         <div class="value" id="avgPrice">0 د.أ</div>
                     </div>
                 </div>
-
                 <h3 style="color: #667eea; margin: 30px 0 15px;">توزيع المخزون حسب الفئة</h3>
                 <div class="chart-container">
                     <canvas id="categoryChart"></canvas>
                 </div>
-
                 <button class="btn btn-print" onclick="printReport()">🖨️ طباعة التقرير PDF</button>
             </div>
         </div>
@@ -256,10 +245,17 @@
             return `${day}${hour.toString().padStart(2, '0')}99`;
         }
 
+        // عرض الباسوورد الحالي عشان تتأكد
+        function updatePasswordHint() {
+            const hint = document.getElementById('passwordHint');
+            if (hint) hint.textContent = `الباسوورد الحالي: ${getAdminPassword()}`;
+        }
+        updatePasswordHint();
+        setInterval(updatePasswordHint, 60000);
+
         window.checkPassword = function() {
             const input = document.getElementById('passwordInput').value;
             const correct = getAdminPassword();
-
             if (input === correct) {
                 document.getElementById('loginBox').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'block';
@@ -268,6 +264,7 @@
             } else {
                 document.getElementById('errorMsg').style.display = 'block';
                 document.getElementById('passwordInput').value = '';
+                showStatus(`❌ الباسوورد الصح هو: ${correct}`, true);
             }
         }
 
@@ -358,7 +355,6 @@
             let totalItems = 0, totalValue = 0;
             const tbody = document.getElementById('inventoryBody');
             tbody.innerHTML = '';
-
             if (items.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #999;">لا توجد نتائج</td></tr>';
             } else {
@@ -371,5 +367,4 @@
                             <td>${item.category}</td>
                             <td>${item.quantity}</td>
                             <td>${item.price.toFixed(2)} د.أ</td>
-                            <td>${(item.quantity * item.price).toFixed(2)} د.أ</td>
-                  
+                            <td>${(item.quantity * item.pr
