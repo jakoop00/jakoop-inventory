@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jakoop For Computer - صيانة وبيع أجهزة كمبيوتر في عمان منذ 1988">
     <title>Jakoop For Computer | خبرة منذ 1988</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@700;900&display=swap');
@@ -15,6 +16,17 @@
             --dark: #0a0e27;
             --gray: #cbd5e1;
             --light: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-main: #0a0e27;
+            --text-secondary: #64748b;
+            --border-color: rgba(226,232,240,0.3);
+        }
+
+        [data-theme="dark"] {
+            --bg-card: rgba(15, 23, 42, 0.95);
+            --text-main: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: rgba(71,85,105,0.3);
         }
         
         * {
@@ -23,17 +35,26 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Cairo', sans-serif;
             color: var(--light);
             line-height: 1.7;
-            /* الخلفية الرئيسية لكل الصفحة */
             background: linear-gradient(135deg, rgba(10,14,39,0.92) 0%, rgba(10,14,39,0.88) 100%), 
                         url('bg.jpg') center/cover fixed no-repeat;
             background-attachment: fixed;
+            transition: all 0.3s;
+            overflow-x: hidden;
         }
         
-        /* Header */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
         header {
             background: rgba(10, 14, 39, 0.8);
             backdrop-filter: blur(15px);
@@ -51,23 +72,116 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
         }
         
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             font-weight: 900;
             color: var(--primary);
             text-shadow: 0 0 20px rgba(0,217,255,0.8), 0 0 40px rgba(0,217,255,0.4);
             letter-spacing: 2px;
+            white-space: nowrap;
+            text-decoration: none;
         }
         
+        .logo:hover {
+            text-shadow: 0 0 30px rgba(0,217,255,1), 0 0 60px rgba(0,217,255,0.6);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle {
+            background: rgba(0,217,255,0.15);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(0,217,255,0.5);
+        }
+
+        .admin-btn, .operator-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            white-space: nowrap;
+            border: 2px solid;
+        }
+
+        .admin-btn {
+            background: rgba(245,158,11,0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .admin-btn:hover {
+            background: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(245,158,11,0.5);
+            transform: translateY(-2px);
+        }
+
+        .operator-btn {
+            background: rgba(16,185,129,0.15);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .operator-btn:hover {
+            background: var(--success);
+            color: var(--dark);
+            box-shadow: 0 0 15px rgba(16,185,129,0.5);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: rgba(0,217,255,0.15);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .nav-wrapper {
+            width: 100%;
+            background: rgba(10, 14, 39, 0.6);
+        }
+
         nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 5%;
             display: flex;
             gap: 8px;
             align-items: center;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         nav a {
@@ -86,56 +200,15 @@
             box-shadow: 0 0 15px rgba(0,217,255,0.3);
         }
         
-        .nav-divider {
-            width: 1px;
-            height: 24px;
-            background: rgba(0,217,255,0.3);
-            margin: 0 5px;
-        }
-        
-        .btn-inventory {
-            padding: 10px 20px !important;
-            border-radius: 8px !important;
-            color: white !important;
-            font-weight: 600;
-        }
-        
-        .btn-admin {
-            background: var(--accent) !important;
-        }
-        
-        .btn-admin:hover {
-            background: #d97706 !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(245,158,11,0.6);
-        }
-        
-        .btn-staff {
-            background: var(--success) !important;
-        }
-        
-        .btn-staff:hover {
-            background: #059669 !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(16,185,129,0.6);
-        }
-        
-        /* Hero Section */
         .hero {
             color: white;
-            padding: 100px 5%;
+            padding: clamp(60px, 10vw, 100px) 5%;
             text-align: center;
-            position: relative;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
         }
         
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 64px;
+            font-size: clamp(32px, 8vw, 64px);
             margin-bottom: 20px;
             font-weight: 900;
             text-transform: uppercase;
@@ -148,7 +221,7 @@
         }
         
         .hero p {
-            font-size: 24px;
+            font-size: clamp(16px, 3vw, 24px);
             opacity: 0.95;
             max-width: 700px;
             margin: 0 auto 30px;
@@ -159,15 +232,14 @@
             display: inline-block;
             background: rgba(0,217,255,0.25);
             border: 2px solid var(--primary);
-            padding: 14px 35px;
+            padding: 12px 28px;
             border-radius: 30px;
             font-weight: 700;
             backdrop-filter: blur(10px);
             box-shadow: 0 0 30px rgba(0,217,255,0.5);
-            font-size: 18px;
+            font-size: clamp(14px, 2.5vw, 18px);
         }
         
-        /* Container */
         .container {
             max-width: 1400px;
             margin: 60px auto;
@@ -175,19 +247,20 @@
         }
         
         section {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-card);
             backdrop-filter: blur(20px);
-            padding: 50px;
+            padding: clamp(30px, 5vw, 50px);
             margin-bottom: 40px;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0,217,255,0.15);
             border: 1px solid rgba(0,217,255,0.2);
+            transition: all 0.3s;
         }
         
         h2 {
-            color: var(--dark);
+            color: var(--text-main);
             margin-bottom: 30px;
-            font-size: 36px;
+            font-size: clamp(24px, 5vw, 36px);
             font-weight: 700;
             position: relative;
             padding-bottom: 15px;
@@ -205,33 +278,19 @@
             box-shadow: 0 0 10px var(--primary);
         }
         
-        .services-grid {
+        .services-grid, .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
             gap: 30px;
             margin-top: 30px;
         }
         
-        .service-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 35px;
+        .service-card, .review-card {
+            background: var(--bg-card);
+            padding: clamp(25px, 4vw, 35px);
             border-radius: 16px;
-            border: 2px solid #e2e8f0;
+            border: 2px solid var(--border-color);
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: var(--primary);
-            opacity: 0.05;
-            border-radius: 0 0 0 100%;
         }
         
         .service-card:hover {
@@ -240,143 +299,168 @@
             border-color: var(--primary);
         }
         
-        .service-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
-            color: var(--dark);
-            font-size: 24px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        
-        .service-card p {
-            color: #64748b;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-        
-        .gallery {
+        .service-icon { font-size: clamp(36px, 6vw, 48px); margin-bottom: 20px; }
+        .service-card h3 { color: var(--text-main); font-size: clamp(20px, 3vw, 24px); margin-bottom: 15px; font-weight: 700; }
+        .service-card p, .review-text { color: var(--text-secondary); line-height: 1.8; font-size: 16px; }
+        .review-card { border-right: 4px solid var(--primary); }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .review-name { font-weight: 700; color: var(--text-main); font-size: 18px; }
+        .stars { color: var(--accent); font-size: 18px; }
+
+        .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .gallery-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            height: 240px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            transition: all 0.3s;
-            border: 2px solid #e2e8f0;
-        }
-        
-        .gallery-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,217,255,0.2);
-            border-color: var(--primary);
-        }
-        
-        .about-content {
-            font-size: 18px;
-            color: #475569;
-            line-height: 2;
-        }
-        
-        .about-content strong {
-            color: var(--primary);
-            font-size: 20px;
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .location-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
             gap: 20px;
             margin-top: 30px;
         }
+
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { color: var(--text-main); font-weight: 600; margin-bottom: 8px; }
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,217,255,0.1);
+        }
+        .form-group.full { grid-column: 1 / -1; }
+
+        .submit-btn {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 16px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,217,255,0.4);
+        }
         
+        .table-wrapper { 
+            overflow-x: auto; 
+            margin-top: 30px;
+            -webkit-overflow-scrolling: touch;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: separate; 
+            border-spacing: 0;
+            min-width: 600px;
+        }
+        thead { background: var(--dark); color: white; }
+        th { padding: 18px; text-align: right; font-weight: 600; font-size: 16px; white-space: nowrap; }
+        th:first-child { border-radius: 0 12px 0 0; }
+        th:last-child { border-radius: 12px 0 0 0; }
+        td { padding: 18px; border-bottom: 1px solid var(--border-color); font-size: 15px; color: var(--text-main); }
+        tbody tr { cursor: pointer; transition: all 0.2s; }
+        tbody tr:hover { background: rgba(0,217,255,0.05); }
+        .device-icon { font-size: 32px; }
+        .price-tag { color: var(--success); font-weight: 700; font-size: 20px; white-space: nowrap; }
+        .status-badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; background: #dcfce7; color: #166534; white-space: nowrap; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--bg-card);
+            padding: clamp(25px, 5vw, 40px);
+            border-radius: 20px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid var(--primary);
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .modal-close:hover { transform: rotate(90deg); }
+        .modal-images { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .modal-images img { width: 100%; border-radius: 12px; border: 2px solid rgba(0,217,255,0.2); }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.5);
+            z-index: 999;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.7); }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,0.5); }
+            50% { box-shadow: 0 6px 30px rgba(37,211,102,0.8); }
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
         .info-card {
-            background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+            background: var(--bg-card);
             padding: 25px;
             border-radius: 12px;
             border-right: 4px solid var(--primary);
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        
-        .info-card h3 {
-            color: var(--dark);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .info-card p {
-            color: #64748b;
-            font-size: 16px;
-        }
-        
-        .table-wrapper {
-            overflow-x: auto;
-            margin-top: 30px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        
-        thead {
-            background: var(--dark);
-            color: white;
-        }
-        
-        th {
-            padding: 18px;
-            text-align: right;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        th:first-child { border-radius: 0 12px 0 0; }
-        th:last-child { border-radius: 12px 0 0 0; }
-        
-        td {
-            padding: 18px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 15px;
-            color: var(--dark);
-        }
-        
-        tbody tr:hover {
-            background: #f8fafc;
-        }
-        
-        .device-icon {
-            font-size: 32px;
-        }
-        
-        .price-tag {
-            color: var(--success);
-            font-weight: 700;
-            font-size: 20px;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            background: #dcfce7;
-            color: #166534;
-        }
+        .info-card h3 { color: var(--text-main); margin-bottom: 10px; font-size: 18px; }
+        .info-card p { color: var(--text-secondary); font-size: 16px; }
         
         footer {
             background: rgba(10, 14, 39, 0.95);
@@ -386,32 +470,18 @@
             margin-top: 80px;
             border-top: 2px solid var(--primary);
         }
-        
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
+        .footer-content { max-width: 1400px; margin: 0 auto; text-align: center; }
         .footer-title {
-            font-size: 28px;
+            font-size: clamp(22px, 4vw, 28px);
             margin-bottom: 30px;
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
             color: var(--primary);
             text-shadow: 0 0 20px rgba(0,217,255,0.5);
         }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
-        }
-        
+        .social-links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
         .social-link {
-            padding: 14px 32px;
+            padding: 14px 28px;
             border-radius: 10px;
             text-decoration: none;
             color: white;
@@ -421,49 +491,108 @@
             align-items: center;
             gap: 8px;
         }
-        
         .whatsapp { background: #25D366; }
         .email { background: #EA4335; }
         .facebook { background: #1877F2; }
-        
-        .social-link:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        
-        .copyright {
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--gray);
-            font-size: 14px;
-        }
+        .social-link:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .copyright { padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gray); font-size: 14px; }
         
         @media (max-width: 768px) {
-            .hero h1 { font-size: 36px; }
-            .hero p { font-size: 16px; }
-            section { padding: 30px 20px; }
-            h2 { font-size: 28px; }
-            .header-inner { flex-direction: column; }
-            nav { justify-content: center; }
+            .header-inner { 
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                flex: 1 1 auto;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                text-align: center;
+                width: 100%;
+            }
+            
+            .hero { padding: 60px 5%; }
+            .hero h1 { letter-spacing: 2px; }
+            
+            section { padding: 25px 20px; }
+            
+            .whatsapp-float { 
+                bottom: 20px; 
+                left: 20px; 
+                width: 55px; 
+                height: 55px; 
+                font-size: 28px; 
+            }
+
+            .modal-images {
+                grid-template-columns: 1fr;
+            }
+
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .admin-btn, .operator-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .services-grid, .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="header-inner">
-            <div class="logo">JAKOOP FOR COMPUTER</div>
-            <nav>
+            <a href="https://jakoop00.github.io/jakoop-for-computer" class="logo">JAKOOP FOR COMPUTER</a>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">🌙 وضع ليلي</button>
+                <a href="https://jakoop00.github.io/jakoop-inventory/admin.html" class="admin-btn" target="_blank">🔐 Admin</a>
+                <a href="https://jakoop00.github.io/jakoop-inventory/operator.html" class="operator-btn" target="_blank">👥 Operator</a>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </div>
+        </div>
+        <div class="nav-wrapper">
+            <nav id="mainNav">
                 <a href="#services">خدماتنا</a>
-                <a href="#photos">صور</a>
+                <a href="#reviews">آراء العملاء</a>
                 <a href="#about">نبذة عن الشركة</a>
                 <a href="#location">موقعنا</a>
                 <a href="#used">أجهزة مستعملة</a>
-                <div class="nav-divider"></div>
-                <a href="https://jakoop00.github.io/jakoop-inventory/admin.html" class="btn-inventory btn-admin" target="_blank">🔐 الادمن</a>
-                <a href="https://jakoop00.github.io/jakoop-inventory/operator" class="btn-inventory btn-staff" target="_blank">👥 الموظفين</a>
+                <a href="#maintenance">طلب صيانة</a>
             </nav>
         </div>
     </header>
+
+    <a href="https://wa.me/962775121442?text=مرحبا، بدي استفسر عن خدماتكم" class="whatsapp-float" target="_blank" title="تواصل واتساب">💬</a>
+
+    <div class="modal" id="deviceModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeDeviceBtn">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
 
     <div class="hero">
         <div class="hero-content">
@@ -495,20 +624,37 @@
             </div>
         </section>
 
-        <section id="photos">
-            <h2>معرض الصور</h2>
-            <div class="gallery">
-                <div class="gallery-card">💻</div>
-                <div class="gallery-card">🖥️</div>
-                <div class="gallery-card">🏪</div>
-                <div class="gallery-card">⌨️</div>
+        <section id="reviews">
+            <h2>آراء العملاء</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-name">أحمد محمود</span>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">أفضل محل صيانة تعاملت معه. صلحوا لابتوبي بيوم واحد وكان السعر ممتاز. شكرا لكم على الاحترافية!</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-name">سارة الخالدي</span>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">اشتريت جهاز مستعمل منهم وحالته ممتازة كأنه جديد. تعامل راقي وضمان حقيقي. بنصح الكل فيهم.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="review-name">محمد العبدالله</span>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">استرجعولي كل صوري من هاردسك خربان. كنت فاقد الأمل بس رجعوا كل شي. الله يعطيكم العافية.</p>
+                </div>
             </div>
         </section>
 
         <section id="about">
             <h2>نبذة عن الشركة</h2>
-            <div class="about-content">
-                <p><strong>JAKOOP FOR COMPUTER</strong> - خبرة تمتد لأكثر من 35 عاماً في مجال تكنولوجيا المعلومات منذ عام 1988.</p>
+            <div class="about-content" style="color: var(--text-secondary);">
+                <p><strong style="color: var(--primary);">JAKOOP FOR COMPUTER</strong> - خبرة تمتد لأكثر من 35 عاماً في مجال تكنولوجيا المعلومات منذ عام 1988.</p>
                 <br>
                 <p>نحن متخصصون في صيانة وبيع أجهزة الكمبيوتر الجديدة والمستعملة في عمّان. نقدم حلولاً تقنية موثوقة بأسعار منافسة، مع ضمان خدمة ما بعد البيع ودعم فني متكامل لجميع عملائنا.</p>
             </div>
@@ -535,7 +681,7 @@
         <section id="used">
             <h2>أجهزة مستعملة للبيع</h2>
             <div class="table-wrapper">
-                <table>
+                <table id="devicesTable">
                     <thead>
                         <tr>
                             <th>الصورة</th>
@@ -545,31 +691,45 @@
                             <th>السعر</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="device-icon">💻</div></td>
-                            <td><strong>لابتوب HP</strong></td>
-                            <td>Intel Core i5 • RAM 8GB • SSD 256GB</td>
-                            <td><span class="status-badge">ممتازة</span></td>
-                            <td><span class="price-tag">180 د.أ</span></td>
-                        </tr>
-                        <tr>
-                            <td><div class="device-icon">🖥️</div></td>
-                            <td><strong>كمبيوتر مكتبي Dell</strong></td>
-                            <td>Intel Core i3 • RAM 4GB • HDD 500GB</td>
-                            <td><span class="status-badge">جيدة جداً</span></td>
-                            <td><span class="price-tag">95 د.أ</span></td>
-                        </tr>
-                        <tr>
-                            <td><div class="device-icon">🖥️</div></td>
-                            <td><strong>شاشة Samsung 22"</strong></td>
-                            <td>Full HD 1920x1080 • LED</td>
-                            <td><span class="status-badge">ممتازة</span></td>
-                            <td><span class="price-tag">45 د.أ</span></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="devicesBody"></tbody>
                 </table>
             </div>
+        </section>
+
+        <section id="maintenance">
+            <h2>طلب صيانة</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">عبي النموذج وبنتواصل معك بأسرع وقت</p>
+            <form id="maintenanceForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>الاسم الكامل *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الهاتف *</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>نوع الجهاز *</label>
+                        <select id="deviceType" required>
+                            <option value="">اختر نوع الجهاز</option>
+                            <option value="لابتوب">لابتوب</option>
+                            <option value="كمبيوتر مكتبي">كمبيوتر مكتبي</option>
+                            <option value="شاشة">شاشة</option>
+                            <option value="طابعة">طابعة</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الموديل</label>
+                        <input type="text" id="model" placeholder="مثال: HP EliteBook 840">
+                    </div>
+                    <div class="form-group full">
+                        <label>وصف المشكلة *</label>
+                        <textarea id="problem" rows="4" required placeholder="اشرح المشكلة بالتفصيل..."></textarea>
+                    </div>
+                <button type="submit" class="submit-btn">إرسال الطلب</button>
+            </form>
         </section>
     </div>
 
@@ -592,5 +752,98 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
+
+    <script>
+        // بيانات الأجهزة - عدّل هون عشان تضيف/تحذف أجهزة
+        const devicesData = [
+            {
+                id: 1,
+                icon: '💻',
+                name: 'لابتوب HP',
+                specs: 'Intel Core i5 • RAM 8GB • SSD 256GB',
+                condition: 'ممتازة',
+                price: '180 د.أ',
+                images: [
+                    'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600',
+                    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600'
+                ],
+                details: 'لابتوب HP EliteBook بحالة ممتازة، بطارية تدوم 5 ساعات، مع شاحن أصلي وضمان 3 شهور. مناسب للدراسة والعمل المكتبي.'
+            },
+            {
+                id: 2,
+                icon: '🖥️',
+                name: 'كمبيوتر مكتبي Dell',
+                specs: 'Intel Core i3 • RAM 4GB • HDD 500GB',
+                condition: 'جيدة جداً',
+                price: '95 د.أ',
+                images: [
+                    'https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=600'
+                ],
+                details: 'كمبيوتر مكتبي Dell مناسب للدراسة والأعمال المكتبية. تم فحصه بالكامل وتغيير المعجون الحراري. مع كيبورد وماوس.'
+            },
+            {
+                id: 3,
+                icon: '🖥️',
+                name: 'شاشة Samsung 22"',
+                specs: 'Full HD 1920x1080 • LED • 60Hz',
+                condition: 'ممتازة',
+                price: '45 د.أ',
+                images: [
+                    'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600'
+                ],
+                details: 'شاشة سامسونج 22 بوصة بدقة Full HD، ألوان واضحة وزاوية رؤية واسعة. مناسبة للألعاب والعمل والتصميم. مع كابل HDMI.'
+            }
+        ];
+
+        // تشغيل كل شي لما الصفحة تحمل
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            renderDevices();
+            
+            // زر الوضع الليلي
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            
+            // زر المنيو للموبايل
+            document.getElementById('menuToggle').addEventListener('click', toggleMenu);
+            
+            // إغلاق المودال لما نضغط برا
+            document.getElementById('deviceModal').addEventListener('click', function(e) {
+                if (e.target === this) closeDeviceModal();
+            });
+            document.getElementById('closeDeviceBtn').addEventListener('click', closeDeviceModal);
+            
+            // فورم الصيانة
+            document.getElementById('maintenanceForm').addEventListener('submit', sendMaintenanceRequest);
+        });
+
+        // تحميل الثيم
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️ وضع نهاري' : '🌙 وضع ليلي';
+        }
+
+        // تبديل الثيم
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').textContent = newTheme === 'dark' ? '☀️ وضع نهاري' : '🌙 وضع ليلي';
+        }
+
+        // تبديل المنيو للموبايل
+        function toggleMenu() {
+            document.getElementById('mainNav').classList.toggle('active');
+        }
+
+        // عرض الأجهزة
+        function renderDevices() {
+            const tbody = document.getElementById('devicesBody');
+            tbody.innerHTML = devicesData.map(device => `
+                <tr onclick="openDeviceModal(${device.id})">
+                    <td><div class="device-icon">${device.icon}</div></td>
+                    <td><strong>${device.name}</strong></td>
+                    <td>${device.specs}</td>
+                    <td><span class="status-badge">${device
