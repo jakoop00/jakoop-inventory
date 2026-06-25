@@ -21,22 +21,22 @@
             background: var(--dark);
             color: #fff;
             overflow-x: hidden;
+            padding-bottom: 120px;
         }
 
-        /* خلفية متحركة */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 204, 255, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 204, 255, 0.08) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* الهيدر الخرافي */
+        /* الهيدر */
        .header {
             position: relative;
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
@@ -47,6 +47,7 @@
             z-index: 1;
         }
 
+        /* زر العودة نابض */
        .back-btn {
             display: inline-flex;
             align-items: center;
@@ -56,10 +57,16 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 20px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: 2px solid var(--primary);
             border-radius: 50px;
             transition: 0.3s;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
         }
 
        .back-btn:hover {
@@ -83,10 +90,7 @@
             to { background-position: 200% center; }
         }
 
-       .header p {
-            color: #888;
-            font-size: 18px;
-        }
+       .header p { color: #888; font-size: 18px; }
 
        .badge {
             display: inline-block;
@@ -106,7 +110,7 @@
             margin: 60px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 35px;
             z-index: 1;
         }
@@ -120,25 +124,12 @@
             position: relative;
         }
 
-       .item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, transparent, rgba(0, 255, 136, 0.1));
-            opacity: 0;
-            transition: 0.4s;
-            pointer-events: none;
-        }
-
        .item:hover {
             transform: translateY(-15px) scale(1.02);
             border-color: var(--primary);
             box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
         }
 
-       .item:hover::before { opacity: 1; }
-
-        /* شارة متوفر */
        .stock-badge {
             position: absolute;
             top: 15px;
@@ -153,8 +144,8 @@
             box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
         }
 
-        /* السلايدر */
-       .slider {
+        /* صورة واحدة فقط */
+       .item-image {
             position: relative;
             width: 100%;
             height: 320px;
@@ -162,84 +153,48 @@
             background: #000;
         }
 
-       .slides {
-            display: flex;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-       .slides img {
-            min-width: 100%;
+       .item-image img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
             cursor: zoom-in;
+            transition: 0.4s;
         }
 
-       .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.2);
-            width: 45px;
-            height: 45px;
-            cursor: pointer;
-            font-size: 20px;
-            border-radius: 50%;
-            transition: 0.3s;
-            z-index: 10;
-            display: none;
+       .item:hover .item-image img {
+            transform: scale(1.1);
         }
 
-       .slider-btn.show { display: flex; align-items: center; justify-content: center; }
-       .slider-btn:hover {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-       .prev { right: 15px; }
-       .next { left: 15px; }
-
-       .dots {
+        /* زر اطلب الصور نابض لكل جهاز */
+       .request-photos-btn {
             position: absolute;
             bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            padding: 8px 15px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
+            left: 15px;
+            background: linear-gradient(135deg, #ff0088, #ff0066);
+            color: white;
+            padding: 10px 20px;
             border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 5;
+            animation: pulse-photo 2s infinite;
+            box-shadow: 0 4px 15px rgba(255, 0, 136, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-       .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-       .dot.active {
-            background: var(--primary);
-            width: 25px;
-            border-radius: 4px;
+        @keyframes pulse-photo {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 0, 136, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(255, 0, 136, 0.7); }
         }
 
         /* المحتوى */
-       .item-content {
-            padding: 25px;
-        }
-
+       .item-content { padding: 25px; }
        .item h3 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             margin-bottom: 15px;
             display: flex;
@@ -247,10 +202,7 @@
             gap: 10px;
         }
 
-       .item h3::before {
-            content: '💻';
-            font-size: 24px;
-        }
+       .item h3::before { content: '💻'; font-size: 24px; }
 
        .specs {
             background: rgba(0,0,0,0.3);
@@ -268,17 +220,8 @@
         }
 
        .specs-row:last-child { border: none; }
-
-       .specs-label {
-            color: #888;
-            font-size: 14px;
-        }
-
-       .specs-value {
-            color: var(--secondary);
-            font-weight: 700;
-            font-size: 14px;
-        }
+       .specs-label { color: #888; font-size: 14px; }
+       .specs-value { color: var(--secondary); font-weight: 700; font-size: 14px; }
 
        .price-section {
             display: flex;
@@ -295,10 +238,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-       .price span {
-            font-size: 18px;
-            color: #888;
-        }
+       .price span { font-size: 18px; color: #888; }
 
        .whatsapp-btn {
             width: 100%;
@@ -316,26 +256,65 @@
             font-weight: 700;
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            position: relative;
-            overflow: hidden;
         }
 
-       .whatsapp-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
-        }
-
-       .whatsapp-btn:hover::before { left: 100%; }
        .whatsapp-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
         }
 
-        /* زر واتساب عائم خرافي */
+        /* أزرار عائمة Admin + Operator */
+       .floating-admin {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff0088, #ff0066);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9997;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5);
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+        }
+
+       .floating-admin:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 0, 136, 0.7);
+        }
+
+       .floating-operator {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0088ff, #0066ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9997;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 136, 255, 0.5);
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+        }
+
+       .floating-operator:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(0, 136, 255, 0.7);
+        }
+
+        /* زر واتساب عائم نابض */
        .floating-whatsapp {
             position: fixed;
             bottom: 30px;
@@ -368,7 +347,6 @@
             height: 38px;
             fill: white;
             z-index: 1;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         @keyframes float {
@@ -417,7 +395,6 @@
             color: white;
             font-size: 50px;
             cursor: pointer;
-            transition: 0.3s;
             width: 60px;
             height: 60px;
             display: flex;
@@ -434,11 +411,76 @@
             transform: rotate(90deg);
         }
 
+        /* الفوتر */
+       .footer {
+            position: relative;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            padding: 50px 20px 30px;
+            text-align: center;
+            border-top: 2px solid transparent;
+            border-image: linear-gradient(90deg, transparent, var(--primary), transparent) 1;
+            z-index: 1;
+            margin-top: 60px;
+        }
+
+       .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+       .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 24px;
+            transition: 0.3s;
+            border: 2px solid #333;
+        }
+
+       .social-btn:hover {
+            transform: translateY(-5px);
+        }
+
+       .social-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-color: #25D366;
+        }
+
+       .social-facebook {
+            background: linear-gradient(135deg, #1877F2, #0C63D4);
+            border-color: #1877F2;
+        }
+
+       .social-email {
+            background: linear-gradient(135deg, #EA4335, #C5221F);
+            border-color: #EA4335;
+        }
+
+       .copyright {
+            color: #666;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+
+       .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
            .header h1 { font-size: 32px; }
            .gallery { grid-template-columns: 1fr; padding: 0 15px; }
-           .slider { height: 250px; }
            .floating-whatsapp { bottom: 20px; left: 20px; width: 60px; height: 60px; }
+           .floating-admin { bottom: 20px; right: 20px; }
+           .floating-operator { bottom: 90px; right: 20px; }
         }
     </style>
 </head>
@@ -456,15 +498,11 @@
         <!-- لابتوب 1 -->
         <div class="item">
             <div class="stock-badge">متوفر ✓</div>
-            <div class="slider">
-                <div class="slides">
-                    <img src="https://jakoop.tech/asus.jpg" onclick="openLightbox(this.src)" alt="ASUS 1"></a>
-                    <img src="https://jakoop.tech/asus1.jpg" onclick="openLightbox(this.src)" alt="ASUS 2"></a>
-                    <img src="https://jakoop.tech/asus2.jpg" onclick="openLightbox(this.src)" alt="ASUS 3"></a>
-                </div>
-                <button class="slider-btn prev">❮</button>
-                <button class="slider-btn next">❯</button>
-                <div class="dots"></div>
+            <div class="item-image">
+                <img src="https://jakoop.tech/asus.jpg" onclick="openLightbox(this.src)" alt="ASUS">
+                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور ASUS VivoBook i7" class="request-photos-btn">
+                    📸 اطلب الصور
+                </a>
             </div>
             <div class="item-content">
                 <h3>ASUS VivoBook 15</h3>
@@ -502,13 +540,11 @@
         <!-- لابتوب 2 -->
         <div class="item">
             <div class="stock-badge">متوفر ✓</div>
-            <div class="slider">
-                <div class="slides">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ff88?text=Dell+OptiPlex" onclick="openLightbox(this.src)" alt="Dell">
-                </div>
-                <button class="slider-btn prev">❮</button>
-                <button class="slider-btn next">❯</button>
-                <div class="dots"></div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/600x400/1a1a1a/00ff88?text=Dell+OptiPlex" onclick="openLightbox(this.src)" alt="Dell">
+                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور Dell OPTIPLEX" class="request-photos-btn">
+                    📸 اطلب الصور
+                </a>
             </div>
             <div class="item-content">
                 <h3>Dell OPTIPLEX 3010</h3>
@@ -531,9 +567,9 @@
                     </div>
                 </div>
                 <div class="price-section">
-                    <div class="price">60 <span>دينار</span></div>
+                    <div class="price">75 <span>دينار</span></div>
                 </div>
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell OPTIPLEX بسعر 60 دينار" class="whatsapp-btn">
+                <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell OPTIPLEX بسعر 75 دينار" class="whatsapp-btn">
                     💬 اطلب الآن عبر واتساب
                 </a>
             </div>
@@ -542,14 +578,11 @@
         <!-- لابتوب 3 -->
         <div class="item">
             <div class="stock-badge">مباع ✓</div>
-            <div class="slider">
-                <div class="slides">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ccff?text=HP+EliteBook+1" onclick="openLightbox(this.src)" alt="HP 1">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/0088ff?text=HP+EliteBook+2" onclick="openLightbox(this.src)" alt="HP 2">
-                </div>
-                <button class="slider-btn prev">❮</button>
-                <button class="slider-btn next">❯</button>
-                <div class="dots"></div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/600x400/1a1a1a/00ccff?text=HP+EliteBook" onclick="openLightbox(this.src)" alt="HP">
+                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور HP EliteBook" class="request-photos-btn">
+                    📸 اطلب الصور
+                </a>
             </div>
             <div class="item-content">
                 <h3>HP EliteBook 840 G5</h3>
@@ -586,12 +619,31 @@
 
     </div>
 
+    <!-- زر Admin عائم -->
+    <a href="admin.html" class="floating-admin" title="لوحة الإدارة">⚙️</a>
+    
+    <!-- زر Operator عائم -->
+    <a href="operator.html" class="floating-operator" title="لوحة المشغل">👨‍💼</a>
+
     <!-- زر واتساب عائم نابض -->
     <a href="https://wa.me/962775131442?text=مرحبا، بدي استفسر عن الأجهزة المتوفرة" class="floating-whatsapp" title="تواصل معنا فوراً">
         <svg viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 0 0012.05 0C5.495 0 0.16 5.335 0.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0.16 5.335 0.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
     </a>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://wa.me/962775131442" class="social-btn social-whatsapp" title="واتساب">📱</a>
+            <a href="https://facebook.com/jakoop.tech" class="social-btn social-facebook" title="فيسبوك">f</a>
+            <a href="mailto:jakoop@jakoop.tech" class="social-btn social-email" title="ايميل">✉️</a>
+        </div>
+        <div class="copyright">
+            جميع الحقوق محفوظة © 2026 <a href="https://www.jakoop.tech">Jakoop For Computer</a><br>
+            تصميم وبرمجة: Ibrahim Hassan
+        </div>
+    </footer>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -600,54 +652,6 @@
     </div>
 
     <script>
-        // سلايدر احترافي
-        document.querySelectorAll('.slider').forEach(slider => {
-            const track = slider.querySelector('.slides');
-            const slides = track.children;
-            const prevBtn = slider.querySelector('.prev');
-            const nextBtn = slider.querySelector('.next');
-            const dotsContainer = slider.querySelector('.dots');
-            
-            let currentSlide = 0;
-            
-            // اخفي الأسهم اذا صورة وحدة
-            if (slides.length > 1) {
-                prevBtn.classList.add('show');
-                nextBtn.classList.add('show');
-                
-                // اعمل النقاط
-                for(let i = 0; i < slides.length; i++) {
-                    const dot = document.createElement('span');
-                    dot.className = 'dot' + (i === 0? ' active' : '');
-                    dot.onclick = () => goToSlide(i);
-                    dotsContainer.appendChild(dot);
-                }
-            }
-            
-            function updateSlider() {
-                track.style.transform = `translateX(${currentSlide * -100}%)`;
-                const dots = dotsContainer.children;
-                for(let i = 0; i < dots.length; i++) {
-                    dots[i].classList.toggle('active', i === currentSlide);
-                }
-            }
-            
-            function goToSlide(index) {
-                currentSlide = index;
-                updateSlider();
-            }
-            
-            prevBtn.onclick = () => {
-                currentSlide = currentSlide > 0? currentSlide - 1 : slides.length - 1;
-                updateSlider();
-            };
-            
-            nextBtn.onclick = () => {
-                currentSlide = currentSlide < slides.length - 1? currentSlide + 1 : 0;
-                updateSlider();
-            };
-        });
-
         // Lightbox
         function openLightbox(src) {
             document.getElementById('lightbox').classList.add('active');
@@ -658,7 +662,6 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // منع اغلاق اللايت بوكس عند الضغط عالصورة
         document.getElementById('lightbox-img').onclick = (e) => e.stopPropagation();
     </script>
 
