@@ -17,17 +17,18 @@
             background: #0a0a0a;
             color: #fff;
             line-height: 1.6;
+            padding-bottom: 100px;
         }
 
         /* الهيدر */
-       .header {
+      .header {
             background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
             padding: 30px 20px;
             text-align: center;
             border-bottom: 3px solid #00ff88;
         }
 
-       .back-btn {
+      .back-btn {
             display: inline-block;
             color: #00ff88;
             text-decoration: none;
@@ -36,11 +37,11 @@
             transition: 0.3s;
         }
 
-       .back-btn:hover {
+      .back-btn:hover {
             transform: translateX(5px);
         }
 
-       .header h1 {
+      .header h1 {
             font-size: 36px;
             font-weight: 900;
             margin-bottom: 10px;
@@ -49,13 +50,13 @@
             -webkit-text-fill-color: transparent;
         }
 
-       .header p {
+      .header p {
             color: #aaa;
             font-size: 16px;
         }
 
         /* الجالري */
-       .gallery {
+      .gallery {
             max-width: 1400px;
             margin: 40px auto;
             padding: 0 20px;
@@ -64,7 +65,7 @@
             gap: 30px;
         }
 
-       .item {
+      .item {
             background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
             border-radius: 16px;
             overflow: hidden;
@@ -73,35 +74,36 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
-       .item:hover {
+      .item:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
             border-color: #00ff88;
         }
 
         /* سلايدر الصور */
-       .slider {
+      .slider {
             position: relative;
             width: 100%;
             height: 300px;
             overflow: hidden;
+            background: #000;
         }
 
-       .slides {
+      .slides {
             display: flex;
-            width: 300%;
             height: 100%;
             transition: transform 0.5s ease;
         }
 
-       .slides img {
-            width: 33.333%;
+      .slides img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
+            cursor: zoom-in;
+            flex-shrink: 0;
         }
 
-       .slider-btn {
+      .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -113,17 +115,18 @@
             font-size: 20px;
             transition: 0.3s;
             z-index: 10;
+            border-radius: 50%;
         }
 
-       .slider-btn:hover {
+      .slider-btn:hover {
             background: #00ff88;
             color: #000;
         }
 
-       .prev { right: 10px; }
-       .next { left: 10px; }
+      .prev { right: 10px; }
+      .next { left: 10px; }
 
-       .dots {
+      .dots {
             position: absolute;
             bottom: 15px;
             left: 50%;
@@ -132,7 +135,7 @@
             gap: 8px;
         }
 
-       .dot {
+      .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
@@ -141,45 +144,45 @@
             transition: 0.3s;
         }
 
-       .dot.active {
+      .dot.active {
             background: #00ff88;
             width: 30px;
             border-radius: 5px;
         }
 
         /* معلومات الجهاز */
-       .item-content {
+      .item-content {
             padding: 25px;
         }
 
-       .item h3 {
+      .item h3 {
             color: #00ff88;
             font-size: 26px;
             font-weight: 900;
             margin-bottom: 12px;
         }
 
-       .specs {
+      .specs {
             color: #bbb;
             font-size: 15px;
             margin-bottom: 15px;
             line-height: 1.8;
         }
 
-       .specs span {
+      .specs span {
             color: #00ccff;
             font-weight: 700;
         }
 
-       .price {
+      .price {
             font-size: 32px;
             font-weight: 900;
             color: #ffa500;
             margin: 20px 0;
         }
 
-        /* زر واتساب نابض */
-       .whatsapp-btn {
+        /* زر واتساب عادي */
+      .whatsapp-btn {
             display: block;
             background: linear-gradient(45deg, #25D366, #128C7E);
             color: white;
@@ -189,23 +192,57 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: 700;
-            animation: pulse 2s infinite;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             transition: 0.3s;
         }
 
-       .whatsapp-btn:hover {
+      .whatsapp-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+        /* زر واتساب عائم نابض زي الصورة */
+      .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 65px;
+            height: 65px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6);
+            z-index: 9998;
+            cursor: pointer;
+            animation: pulse-ring 2s infinite;
+            transition: 0.3s;
+        }
+
+      .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.8);
+        }
+
+      .floating-whatsapp svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
         }
 
         /* Lightbox */
-       .lightbox {
+      .lightbox {
             display: none;
             position: fixed;
             z-index: 9999;
@@ -218,18 +255,18 @@
             align-items: center;
         }
 
-       .lightbox.active {
+      .lightbox.active {
             display: flex;
         }
 
-       .lightbox img {
+      .lightbox img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 12px;
             box-shadow: 0 0 50px rgba(0, 255, 136, 0.3);
         }
 
-       .close-lightbox {
+      .close-lightbox {
             position: absolute;
             top: 30px;
             right: 50px;
@@ -239,19 +276,25 @@
             transition: 0.3s;
         }
 
-       .close-lightbox:hover {
+      .close-lightbox:hover {
             color: #00ff88;
             transform: rotate(90deg);
         }
 
         /* موبايل */
         @media (max-width: 768px) {
-           .gallery {
+          .gallery {
                 grid-template-columns: 1fr;
                 padding: 0 15px;
             }
-           .header h1 { font-size: 28px; }
-           .slider { height: 250px; }
+          .header h1 { font-size: 28px; }
+          .slider { height: 250px; }
+          .floating-whatsapp {
+                bottom: 20px;
+                left: 20px;
+                width: 60px;
+                height: 60px;
+            }
         }
     </style>
 </head>
@@ -269,9 +312,9 @@
         <div class="item">
             <div class="slider">
                 <div class="slides" id="slider1">
-                    <img src="https://jakoop.tech/asus.jpg" onclick="openLightbox(this.src)">
-                    <img src="https://jakoop.tech/asus1.jpg" onclick="openLightbox(this.src)">
-                    <img src="https://jakoop.tech/asus2.jpg" onclick="openLightbox(this.src)">
+                    <img src="https://jakoop.tech/asus.jpg" onclick="openLightbox(this.src)" alt="ASUS 1">
+                    <img src="https://jakoop.tech/asus1.jpg" onclick="openLightbox(this.src)" alt="ASUS 2">
+                    <img src="https://jakoop.tech/asus2.jpg" onclick="openLightbox(this.src)" alt="ASUS 3">
                 </div>
                 <button class="slider-btn prev" onclick="moveSlide('slider1', -1)">❮</button>
                 <button class="slider-btn next" onclick="moveSlide('slider1', 1)">❯</button>
@@ -288,7 +331,7 @@
                 </div>
                 <div class="price">220 دينار</div>
                 <a href="https://wa.me/962775131442?text=مرحبا، بدي ASUS i7 سعر 220 دينار" class="whatsapp-btn">
-                    💬 تواصل واتساب الآن
+                    💬 تواصل واتساب
                 </a>
             </div>
         </div>
@@ -297,9 +340,7 @@
         <div class="item">
             <div class="slider">
                 <div class="slides" id="slider2">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ff88?text=Dell+1" onclick="openLightbox(this.src)">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ccff?text=Dell+2" onclick="openLightbox(this.src)">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/ffa500?text=Dell+3" onclick="openLightbox(this.src)">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ff88?text=Dell+1" onclick="openLightbox(this.src)" alt="Dell">
                 </div>
                 <button class="slider-btn prev" onclick="moveSlide('slider2', -1)">❮</button>
                 <button class="slider-btn next" onclick="moveSlide('slider2', 1)">❯</button>
@@ -316,7 +357,7 @@
                 </div>
                 <div class="price">75 دينار</div>
                 <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell OPTIPLEX سعر 75 دينار" class="whatsapp-btn">
-                    💬 تواصل واتساب الآن
+                    💬 تواصل واتساب
                 </a>
             </div>
         </div>
@@ -325,16 +366,15 @@
         <div class="item">
             <div class="slider">
                 <div class="slides" id="slider3">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/ff0088?text=HP+1" onclick="openLightbox(this.src)">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/8800ff?text=HP+2" onclick="openLightbox(this.src)">
-                    <img src="https://via.placeholder.com/600x400/1a1a1a/00ff88?text=HP+3" onclick="openLightbox(this.src)">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/ff0088?text=HP+1" onclick="openLightbox(this.src)" alt="HP 1">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/8800ff?text=HP+2" onclick="openLightbox(this.src)" alt="HP 2">
                 </div>
                 <button class="slider-btn prev" onclick="moveSlide('slider3', -1)">❮</button>
                 <button class="slider-btn next" onclick="moveSlide('slider3', 1)">❯</button>
                 <div class="dots" id="dots3"></div>
             </div>
             <div class="item-content">
-                <h3>HP EliteBook 840</h3>
+                <h3>HP EliteBook 840 G5</h3>
                 <div class="specs">
                     <span>المعالج:</span> Intel Core i5-8350U جيل ثامن<br>
                     <span>الرام:</span> 16GB DDR4<br>
@@ -344,12 +384,19 @@
                 </div>
                 <div class="price">280 دينار</div>
                 <a href="https://wa.me/962775131442?text=مرحبا، بدي HP EliteBook سعر 280 دينار" class="whatsapp-btn">
-                    💬 تواصل واتساب الآن
+                    💬 تواصل واتساب
                 </a>
             </div>
         </div>
 
     </div>
+
+    <!-- زر واتساب عائم نابض -->
+    <a href="https://wa.me/962775131442?text=مرحبا، بدي استفسر عن الأجهزة" class="floating-whatsapp" title="تواصل معنا">
+        <svg viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0.16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -358,46 +405,68 @@
     </div>
 
     <script>
-        // سلايدر
-        const sliders = {};
-        
+        // سلايدر ذكي
         function initSlider(id) {
-            sliders[id] = { current: 0 };
-            const slides = document.getElementById(id);
-            const dotsContainer = document.getElementById('dots' + id.slice(-1));
-            const totalSlides = slides.children.length;
+            const slider = document.getElementById(id);
+            if (!slider) return;
             
+            const slides = slider.children;
+            const totalSlides = slides.length;
+            const dotsContainer = document.getElementById('dots' + id.slice(-1));
+            
+            if (totalSlides <= 1) {
+                slider.parentElement.querySelector('.prev').style.display = 'none';
+                slider.parentElement.querySelector('.next').style.display = 'none';
+                if (dotsContainer) dotsContainer.style.display = 'none';
+                return;
+            }
+            
+            slider.style.width = `${totalSlides * 100}%`;
+            for (let slide of slides) {
+                slide.style.width = `${100 / totalSlides}%`;
+            }
+            
+            dotsContainer.innerHTML = '';
             for(let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('span');
                 dot.className = 'dot' + (i === 0? ' active' : '');
                 dot.onclick = () => goToSlide(id, i);
                 dotsContainer.appendChild(dot);
             }
+            
+            slider.dataset.current = 0;
+            slider.dataset.total = totalSlides;
         }
 
         function moveSlide(id, direction) {
-            const slides = document.getElementById(id);
-            const totalSlides = slides.children.length;
-            sliders[id].current += direction;
+            const slider = document.getElementById(id);
+            let current = parseInt(slider.dataset.current);
+            const total = parseInt(slider.dataset.total);
             
-            if(sliders[id].current < 0) sliders[id].current = totalSlides - 1;
-            if(sliders[id].current >= totalSlides) sliders[id].current = 0;
+            current += direction;
+            if(current < 0) current = total - 1;
+            if(current >= total) current = 0;
             
+            slider.dataset.current = current;
             updateSlider(id);
         }
 
         function goToSlide(id, index) {
-            sliders[id].current = index;
+            const slider = document.getElementById(id);
+            slider.dataset.current = index;
             updateSlider(id);
         }
 
         function updateSlider(id) {
-            const slides = document.getElementById(id);
+            const slider = document.getElementById(id);
+            const current = parseInt(slider.dataset.current);
+            const total = parseInt(slider.dataset.total);
             const dots = document.getElementById('dots' + id.slice(-1)).children;
-            slides.style.transform = `translateX(${sliders[id].current * -33.333}%)`;
+            
+            slider.style.transform = `translateX(${current * -(100/total)}%)`;
             
             for(let dot of dots) dot.classList.remove('active');
-            dots[sliders[id].current].classList.add('active');
+            if(dots[current]) dots[current].classList.add('active');
         }
 
         // Lightbox
@@ -410,10 +479,12 @@
             document.getElementById('lightbox').classList.remove('active');
         }
 
-        // تشغيل السلايدرات
-        initSlider('slider1');
-        initSlider('slider2');
-        initSlider('slider3');
+        // تشغيل
+        window.onload = function() {
+            initSlider('slider1');
+            initSlider('slider2');
+            initSlider('slider3');
+        }
     </script>
 
 </body>
