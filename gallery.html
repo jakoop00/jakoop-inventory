@@ -8,63 +8,76 @@
     
     <!-- نفس كود Analytics من الصفحة الرئيسية حطه هون -->
     
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            background: #0f172a; 
-            color: white; 
-            margin: 0; 
-            padding: 20px;
-        }
-        .header { text-align: center; margin-bottom: 30px; }
-        .header h1 { color: #22c55e; margin: 10px 0; }
-        .back-btn {
-            background: #3b82f6; 
-            color: white; 
-            padding: 10px 20px; 
-            border-radius: 8px; 
-            text-decoration: none; 
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .item {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px solid #334155;
-        }
-        .item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        .item h3 { color: #22c55e; margin: 5px 0; }
-        .price { 
-            color: #fbbf24; 
-            font-size: 20px; 
-            font-weight: bold; 
-            margin: 10px 0;
-        }
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+   <style>
+body {
+    font-family: 'Cairo', sans-serif;
+    background: #1a1a1a;
+    color: white;
+    margin: 0;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background: #0f0f0f;
+}
+
+.back-btn {
+    color: #00ff88;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.item {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #333;
+}
+
+.item img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.item h3 {
+    color: #00ff88;
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.price {
+    color: #ffa500;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.whatsapp-btn {
+    display: block;
+    background: #25D366;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
 </head>
 <body>
     <div class="header">
