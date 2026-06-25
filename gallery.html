@@ -8,14 +8,76 @@
     
     <!-- نفس كود Analytics من الصفحة الرئيسية حطه هون -->
     
-  <style>
-.item img {width:100%;height:350px;object-fit:cover;border-radius:8px;margin-bottom:10px;cursor:zoom-in}
-.lightbox{display:none;position:fixed;z-index:9999;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);justify-content:center;align-items:center}
-.lightbox img{max-width:90%;max-height:90%;border-radius:8px}
-.lightbox:target{display:flex}
-.close-btn{position:absolute;top:20px;right:40px;color:white;font-size:40px;text-decoration:none}
-</style>
+<style>
+body {
+    font-family: 'Cairo', sans-serif;
+    background: #1a1a1a;
+    color: white;
+    margin: 0;
+}
 
+.header {
+    text-align: center;
+    padding: 20px;
+    background: #0f0f0f;
+}
+
+.back-btn {
+    color: #00ff88;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.item {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #333;
+}
+
+.item img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.item h3 {
+    color: #00ff88;
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.price {
+    color: #ffa500;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.whatsapp-btn {
+    display: block;
+    background: #25D366;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
 <div class="item">
     <a href="#asus1"><img src="https://jakoop.tech/asus.jpg" alt="ASUS"></a>
     <h3>ASUS i7</h3>
@@ -26,7 +88,6 @@
     <a href="#" class="close-btn">&times;</a>
     <img src="https://jakoop.tech/asus.jpg">
 </div>
-
         <!-- لابتوب 2 -->
         <div class="item">
             <img src="https://via.placeholder.com/400x200.png?text=Laptop+2" alt="HP EliteBook">
