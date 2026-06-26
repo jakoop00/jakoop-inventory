@@ -5,205 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - Jakoop Cloud ☁️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
 
-  .login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-  .login-box { background: #141414; padding: 40px; border-radius: 20px; border: 2px solid #00ff88; text-align: center; box-shadow: 0 0 60px rgba(0, 255, 136, 0.3); }
-  .login-box h2 { color: #00ff88; margin-bottom: 20px; font-size: 32px; }
-  .login-box input { width: 300px; padding: 15px; background: #0a0a0a; border: 2px solid #333; border-radius: 10px; color: white; font-size: 18px; text-align: center; font-family: 'Cairo'; margin-bottom: 20px; }
-  .login-box button { width: 100%; padding: 15px; background: linear-gradient(45deg, #00ff88, #00cc88); border: none; border-radius: 10px; color: #000; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Cairo'; }
-  .login-error { color: #ff3333; margin-top: 15px; display: none; }
+    .login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+    .login-box { background: #141414; padding: 40px; border-radius: 20px; border: 2px solid #00ff88; text-align: center; box-shadow: 0 0 60px rgba(0, 255, 136, 0.3); }
+    .login-box h2 { color: #00ff88; margin-bottom: 20px; font-size: 32px; }
+    .login-box input { width: 300px; padding: 15px; background: #0a0a0a; border: 2px solid #333; border-radius: 10px; color: white; font-size: 18px; text-align: center; font-family: 'Cairo'; margin-bottom: 20px; }
+    .login-box button { width: 100%; padding: 15px; background: linear-gradient(45deg, #00ff88, #00cc88); border: none; border-radius: 10px; color: #000; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Cairo'; }
+    .login-error { color: #ff3333; margin-top: 15px; display: none; }
 
-  .container { max-width: 1400px; margin: 0 auto; display: none; }
-  .container.active { display: block; }
-  .header { background: linear-gradient(135deg, #1a1a1a, #0f0f0f); padding: 30px; border-radius: 16px; margin-bottom: 30px; border: 2px solid #00ff88; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-  .header h1 { font-size: 32px; background: linear-gradient(45deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .header-actions { display: flex; gap: 15px; flex-wrap: wrap; }
-  .cloud-status { padding: 8px 15px; background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; border-radius: 20px; font-size: 14px; color: #00ff88; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-  .stat-card { background: #141414; padding: 25px; border-radius: 16px; border: 1px solid #222; text-align: center; }
-  .stat-card h3 { color: #888; font-size: 14px; margin-bottom: 10px; }
-  .stat-card.num { font-size: 36px; font-weight: 900; color: #00ff88; }
-  .controls { background: #141414; padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #222; display: flex; gap: 15px; flex-wrap: wrap; }
-  .btn { padding: 12px 25px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Cairo'; }
-  .btn-primary { background: linear-gradient(45deg, #00ff88, #00cc88); color: #000; }
-  .btn-danger { background: linear-gradient(45deg, #ff3333, #cc0000); color: white; }
-  .btn-warning { background: linear-gradient(45deg, #ffa500, #ff8800); color: #000; }
-  .btn-info { background: linear-gradient(45deg, #00ccff, #0088ff); color: #000; }
-  .btn-success { background: linear-gradient(45deg, #25D366, #128C7E); color: white; }
-  .btn:hover { transform: scale(1.05); }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .products-grid { display: grid; gap: 20px; }
+    .container { max-width: 1400px; margin: 0 auto; display: none; }
+    .container.active { display: block; }
+    .header { background: linear-gradient(135deg, #1a1a1a, #0f0f0f); padding: 30px; border-radius: 16px; margin-bottom: 30px; border: 2px solid #00ff88; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .header h1 { font-size: 32px; background: linear-gradient(45deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header-actions { display: flex; gap: 15px; }
+    .cloud-status { padding: 8px 15px; background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; border-radius: 20px; font-size: 14px; color: #00ff88; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card { background: #141414; padding: 25px; border-radius: 16px; border: 1px solid #222; text-align: center; }
+    .stat-card h3 { color: #888; font-size: 14px; margin-bottom: 10px; }
+    .stat-card.num { font-size: 36px; font-weight: 900; color: #00ff88; }
+    .controls { background: #141414; padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #222; display: flex; gap: 15px; flex-wrap: wrap; }
+    .btn { padding: 12px 25px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Cairo'; }
+    .btn-primary { background: linear-gradient(45deg, #00ff88, #00cc88); color: #000; }
+    .btn-danger { background: linear-gradient(45deg, #ff3333, #cc0000); color: white; }
+    .btn-warning { background: linear-gradient(45deg, #ffa500, #ff8800); color: #000; }
+    .btn:hover { transform: scale(1.05); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .products-grid { display: grid; gap: 20px; }
+    .product-card { background: #141414; padding: 20px; border-radius: 16px; border: 1px solid #222; display: grid; grid-template-columns: 150px 1fr auto; gap: 20px; align-items: start; }
+    .product-card.sold { opacity: 0.6; border-color: #ff3333; }
+    .product-image-box img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; }
+    .image-upload { margin-top: 10px; }
+    .image-upload label { display: block; padding: 8px; background: #00ff88; color: #000; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; }
+    .image-upload input { display: none; }
+    .product-info h3 { color: #00ff88; margin-bottom: 12px; font-size: 20px; }
+    .product-info p { color: #888; font-size: 14px; margin: 6px 0; }
+    .price-edit { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
+    .price-edit input { width: 120px; padding: 10px; background: #0a0a0a; border: 2px solid #00ff88; border-radius: 8px; color: #ffa500; font-size: 20px; font-weight: 900; text-align: center; }
+    .price-edit button { padding: 10px 15px; background: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: 700; cursor: pointer; }
+    .product-actions { display: flex; gap: 10px; flex-direction: column; }
 
-    /* الكارت الجديد - ريسبونسف */
-  .product-card {
-        background: #141414;
-        padding: 20px;
-        border-radius: 16px;
-        border: 1px solid #222;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-  .product-card.sold { opacity: 0.6; border-color: #ff3333; }
-
-  .product-top {
-        display: flex;
-        gap: 20px;
-        align-items: start;
-    }
-
-  .product-image-box { flex-shrink: 0; }
-  .product-image-box img { width: 130px; height: 130px; object-fit: cover; border-radius: 12px; }
-  .image-upload { margin-top: 10px; }
-  .image-upload label { display: block; padding: 8px; background: #00ff88; color: #000; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; }
-  .image-upload input { display: none; }
-
-  .product-info { flex: 1; }
-  .product-info h3 { color: #00ff88; margin-bottom: 12px; font-size: 20px; }
-  .product-info p { color: #888; font-size: 14px; margin: 6px 0; }
-
-  .price-edit { display: flex; align-items: center; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
-  .price-edit input { width: 120px; padding: 10px; background: #0a0a0a; border: 2px solid #00ff88; border-radius: 8px; color: #ffa500; font-size: 20px; font-weight: 900; text-align: center; }
-  .price-edit button { padding: 10px 15px; background: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: 700; cursor: pointer; }
-
-  .product-actions {
+     /* الأزرار الجديدة - احترافية */
+    .contact-actions {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 10px;
-    }
-
-  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; }
-  .modal.active { display: flex; }
-  .modal-content { background: #141414; padding: 30px; border-radius: 20px; border: 2px solid #00ff88; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; }
-  .modal-content h2 { color: #00ff88; margin-bottom: 20px; }
-  .form-group { margin-bottom: 20px; }
-  .form-group label { display: block; margin-bottom: 8px; color: #888; }
-  .form-group input,.form-group textarea,.form-group select { width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: white; font-family: 'Cairo'; font-size: 15px; }
-  .image-preview { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-top: 10px; border: 2px solid #333; }
-  .form-actions { display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
-  .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-  .badge-success { background: #00ff88; color: #000; }
-  .badge-danger { background: #ff3333; color: white; }
-  .loading { text-align: center; padding: 60px; color: #00ff88; font-size: 20px; }
-  .log-item { background:#1a1a1a; padding:15px; margin-bottom:10px; border-radius:10px; border-right:3px solid #00ff88; }
-  .log-action { color:#00ff88; font-weight:700; }
-  .log-details { color:#888; font-size:14px; }
-  .log-time { color:#555; font-size:12px; margin-top:5px; }
-     #qrcode { display: flex; justify-content: center; padding: 20px; background: white; border-radius: 12px; }
-
-    /* الأزرار العائمة */
-   .floating-btn {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9997;
-        cursor: pointer;
-        transition: 0.3s;
-        text-decoration: none;
-        color: white;
-        font-size: 28px;
-        font-weight: 700;
-    }
-   .floating-btn:hover { transform: scale(1.15) rotate(15deg); }
-   .floating-admin { bottom: 30px; right: 30px; background: linear-gradient(135deg, #ff0088, #ff0066); box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5); }
-   .floating-admin:hover { box-shadow: 0 6px 30px rgba(255, 0, 136, 0.8); }
-   .floating-gallery { bottom: 110px; right: 30px; background: linear-gradient(135deg, #00ff88, #00cc66); box-shadow: 0 4px 20px rgba(0, 255, 136, 0.5); }
-   .floating-gallery:hover { box-shadow: 0 6px 30px rgba(0, 255, 136, 0.8); }
-   .floating-warehouse { bottom: 190px; right: 30px; background: linear-gradient(135deg, #00ccff, #0088ff); box-shadow: 0 4px 20px rgba(0, 204, 255, 0.5); }
-   .floating-warehouse:hover { box-shadow: 0 6px 30px rgba(0, 204, 255, 0.8); }
-   .floating-btn::before { content: attr(data-title); position: absolute; left: 70px; background: rgba(0, 0, 0, 0.9); color: white; padding: 8px 15px; border-radius: 8px; font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; font-family: 'Cairo'; }
-   .floating-btn:hover::before { opacity: 1; left: 75px; }
-
-    /* زر واتساب المساعدة العائم */
-   .floating-whatsapp {
-        position: fixed;
-        bottom: 30px;
-        left: 30px;
-        width: 60px;
-        height: 60px;
-        background: #25D366;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9997;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
-        transition: 0.3s;
-        text-decoration: none;
-        color: white;
-        font-size: 32px;
-        animation: pulse 2s infinite;
-    }
-   .floating-whatsapp:hover {
-        transform: scale(1.15);
-        box-shadow: 0 6px 30px rgba(37, 211, 102, 0.8);
-    }
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-   .floating-whatsapp::before {
-        content: attr(data-title);
-        position: absolute;
-        right: 70px;
-        background: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 8px 15px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #222;
+      }
+    .contact-btn {
+        padding: 10px 8px;
+        border: none;
         border-radius: 8px;
-        font-size: 14px;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
         transition: 0.3s;
         font-family: 'Cairo';
-    }
-   .floating-whatsapp:hover::before { opacity: 1; right: 75px; }
+        text-align: center;
+      }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .contact-btn.pass { background: linear-gradient(45deg, #ffd700, #ffaa00); color: #000; }
+    .contact-btn.phone { background: linear-gradient(45deg, #00ff88, #00cc66); color: #000; }
+    .contact-btn.email { background: linear-gradient(45deg, #00ccff, #0088ff); color: #000; }
+    .contact-btn.fb { background: linear-gradient(45deg, #1877f2, #0d5bd1); color: #fff; }
+    .contact-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    /* ريسبونسف للتلفون */
-    @media (max-width: 768px) {
-        body { padding: 10px; }
-      .header { padding: 20px; }
-      .header h1 { font-size: 22px; }
-      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .stat-card { padding: 15px; }
-      .stat-card.num { font-size: 24px; }
-      .controls { padding: 15px; }
-      .btn { padding: 10px 15px; font-size: 14px; }
-      .product-top {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-      .product-image-box img {
-            width: 100%;
-            max-width: 250px;
-            height: 200px;
-        }
-      .price-edit {
-            justify-content: center;
-        }
-      .product-actions {
-            grid-template-columns: repeat(2, 1fr);
-        }
-       .floating-whatsapp {
-            bottom: 100px;
-            left: 20px;
-            width: 55px;
-            height: 55px;
-            font-size: 28px;
-        }
-    }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; }
+    .modal.active { display: flex; }
+    .modal-content { background: #141414; padding: 30px; border-radius: 20px; border: 2px solid #00ff88; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; }
+    .modal-content h2 { color: #00ff88; margin-bottom: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #888; }
+    .form-group input,.form-group textarea { width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: white; font-family: 'Cairo'; font-size: 15px; }
+    .image-preview { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-top: 10px; border: 2px solid #333; }
+    .form-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .badge-success { background: #00ff88; color: #000; }
+    .badge-danger { background: #ff3333; color: white; }
+    .loading { text-align: center; padding: 60px; color: #00ff88; font-size: 20px; }
+    .floating-settings { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #ff0088, #ff0066); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9997; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5); transition: 0.3s; text-decoration: none; color: white; font-size: 28px; }
+    .floating-tools { position: fixed; bottom: 110px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #0088ff, #0066ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9997; cursor: pointer; box-shadow: 0 4px 20px rgba(0, 136, 255, 0.5); transition: 0.3s; text-decoration: none; color: white; font-size: 28px; }
+    .floating-settings:hover { transform: scale(1.1) rotate(90deg); }
+    .floating-tools:hover { transform: scale(1.1) rotate(90deg); }
     </style>
 </head>
 <body>
@@ -212,8 +99,8 @@
         <div class="login-box">
             <h2>🔒 لوحة التحكم Cloud</h2>
             <p style="color: #888; margin-bottom: 20px;">ادخل كلمة السر للدخول</p>
-            <input type="password" id="passwordInput" placeholder="كلمة السر">
-            <button id="loginBtn">دخول</button>
+            <input type="password" id="passwordInput" placeholder="كلمة السر" onkeypress="if(event.key==='Enter') checkPassword()">
+            <button onclick="checkPassword()">دخول</button>
             <div class="login-error" id="loginError">❌ كلمة السر غلط</div>
         </div>
     </div>
@@ -225,8 +112,8 @@
                 <div class="cloud-status" id="cloudStatus">🟢 متصل بـ Firebase</div>
             </div>
             <div class="header-actions">
-                <button class="btn btn-danger" id="logoutBtn">🚪 خروج</button>
-                <button class="btn btn-primary" id="addBtn">+ إضافة جهاز</button>
+                <button class="btn btn-danger" onclick="logout()">🚪 خروج</button>
+                <button class="btn btn-primary" onclick="openAddModal()">+ إضافة جهاز</button>
             </div>
         </div>
 
@@ -235,23 +122,10 @@
             <div class="stat-card"><h3>متوفر</h3><div class="num" id="availableCount">0</div></div>
             <div class="stat-card"><h3>مباع</h3><div class="num" id="soldCount">0</div></div>
             <div class="stat-card"><h3>قيمة المخزون</h3><div class="num" id="totalValue">0</div></div>
-            <div class="stat-card"><h3>مبيعات اليوم</h3><div class="num" id="todaySales" style="color:#00ccff;">0</div></div>
-            <div class="stat-card"><h3>مبيعات الأسبوع</h3><div class="num" id="weekSales" style="color:#ffa500;">0</div></div>
-            <div class="stat-card"><h3>متوسط السعر</h3><div class="num" id="avgPrice" style="color:#ff0088;">0</div></div>
-            <div class="stat-card"><h3>أكتر جهاز مطلوب</h3><div class="num" id="topProduct" style="font-size:18px; color:#00ff88;">-</div></div>
-        </div>
-
-        <div style="background:#141414; padding:25px; border-radius:16px; margin-bottom:30px; border:1px solid #222;">
-            <h3 style="color:#00ff88; margin-bottom:20px;">📈 رسم بياني للمبيعات - آخر 7 أيام</h3>
-            <canvas id="salesChart" style="max-height:300px;"></canvas>
         </div>
 
         <div class="controls">
-            <button class="btn btn-warning" id="syncBtn">🔄 تحديث من Cloud</button>
-            <button class="btn btn-info" id="logsBtn">📊 سجل العمليات</button>
-            <button class="btn btn-primary" id="backupBtn">💾 نسخ احتياطي</button>
-            <button class="btn btn-warning" id="restoreBtn">♻️ استعادة نسخة</button>
-            <button class="btn btn-success" id="whatsappBtn">🔔 اختبار واتساب</button>
+            <button class="btn btn-warning" onclick="syncData()">🔄 تحديث من Cloud</button>
         </div>
 
         <div class="products-grid" id="productsGrid">
@@ -259,27 +133,8 @@
         </div>
     </div>
 
-    <div class="modal" id="logsModal">
-        <div class="modal-content">
-            <h2>📊 سجل العمليات - آخر 50 عملية</h2>
-            <div id="logsContent" style="max-height:60vh; overflow-y:auto;"></div>
-            <div class="form-actions">
-                <button class="btn btn-danger" id="closeLogsBtn">❌ إغلاق</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="qrModal">
-        <div class="modal-content">
-            <h2 id="qrTitle">📱 QR Code للجهاز</h2>
-            <div id="qrcode"></div>
-            <p style="text-align:center; color:#888; margin-top:15px;">امسح الكود لفتح صفحة الجهاز</p>
-            <div class="form-actions">
-                <button class="btn btn-primary" id="downloadQRBtn">💾 تحميل QR</button>
-                <button class="btn btn-danger" id="closeQRBtn">❌ إغلاق</button>
-            </div>
-        </div>
-    </div>
+    <a href="#" class="floating-settings" title="الإعدادات">⚙️</a>
+    <a href="#" class="floating-tools" title="الأدوات">🔧</a>
 
     <div class="modal" id="productModal">
         <div class="modal-content">
@@ -289,7 +144,7 @@
                 <div class="form-group"><label>اسم الجهاز *</label><input type="text" id="productName" required></div>
                 <div class="form-group">
                     <label>صورة الجهاز *</label>
-                    <input type="file" id="productImageFile" accept="image/*">
+                    <input type="file" id="productImageFile" accept="image/*" onchange="previewImage(event)">
                     <img id="imagePreview" class="image-preview" style="display:none">
                 </div>
                 <div class="form-group"><label>المعالج</label><input type="text" id="productCPU"></div>
@@ -298,16 +153,23 @@
                 <div class="form-group"><label>كرت الشاشة</label><input type="text" id="productGPU"></div>
                 <div class="form-group"><label>الشاشة</label><input type="text" id="productScreen"></div>
                 <div class="form-group"><label>السعر (دينار) *</label><input type="number" id="productPrice" required></div>
+
+                <!-- الحقول الجديدة -->
+                <div class="form-group"><label>🔐 باسورد الجهاز</label><input type="text" id="productPassword" placeholder="اتركه فاضي إذا ما في"></div>
+                <div class="form-group"><label>📞 رقم التلفون</label><input type="text" id="productPhone" placeholder="مثال: +962790000000"></div>
+                <div class="form-group"><label>✉️ الإيميل</label><input type="email" id="productEmail" placeholder="example@email.com"></div>
+                <div class="form-group"><label>📘 رابط الفيسبوك</label><input type="url" id="productFacebook" placeholder="https://facebook.com/..."></div>
+
                 <div class="form-group">
                     <label>الحالة</label>
-                    <select id="productStatus">
+                    <select id="productStatus" style="width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: white; font-family: 'Cairo';">
                         <option value="available">متوفر</option>
                         <option value="sold">مباع</option>
                     </select>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" id="saveBtn">💾 حفظ على Cloud</button>
-                    <button type="button" class="btn btn-danger" id="cancelBtn">❌ إلغاء</button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal()">❌ إلغاء</button>
                 </div>
             </form>
         </div>
@@ -315,9 +177,8 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // Firebase Config تبعك - ما غيرت شي
         const firebaseConfig = {
             apiKey: "AIzaSyAVDbjneBoV3N9KIo86-pYccAEy6R4ULHk",
             authDomain: "jakoop-admin2.firebaseapp.com",
@@ -330,22 +191,12 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const productsCol = collection(db, 'products');
-        const logsCol = collection(db, 'logs');
 
-        const ADMIN_PASSWORD = 'jakoop2026'; // ما غيرته
-        const WHATSAPP_NUMBER = '962775121442'; // غيّر رقمك هون
+        const ADMIN_PASSWORD = 'jakoop2026';
         let products = [];
         let currentImageBase64 = '';
-        let salesChartInstance = null;
-        let currentQRData = '';
 
-        // Login
-        document.getElementById('loginBtn').addEventListener('click', checkPassword);
-        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') checkPassword();
-        });
-
-        function checkPassword() {
+        window.checkPassword = function() {
             if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
                 localStorage.setItem('jakoop_admin2_logged', 'true');
                 document.getElementById('loginScreen').style.display = 'none';
@@ -356,158 +207,18 @@
             }
         }
 
-        document.getElementById('logoutBtn').addEventListener('click', () => {
+        window.logout = function() {
             if (confirm('متأكد بدك تطلع؟')) {
                 localStorage.removeItem('jakoop_admin2_logged');
                 location.reload();
             }
-        });
+        }
 
         if (localStorage.getItem('jakoop_admin2_logged') === 'true') {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainContent').classList.add('active');
             loadProducts();
         }
-
-        // ===== البند 1: سجل العمليات =====
-        async function addLog(action, details) {
-            try {
-                await addDoc(logsCol, {
-                    action: action,
-                    details: details,
-                    time: new Date().toISOString(),
-                    timestamp: Date.now()
-                });
-            } catch (e) { console.log('Log error:', e); }
-        }
-
-        document.getElementById('logsBtn').addEventListener('click', showLogs);
-        document.getElementById('closeLogsBtn').addEventListener('click', () => {
-            document.getElementById('logsModal').classList.remove('active');
-        });
-
-        async function showLogs() {
-            const logsSnap = await getDocs(query(logsCol, orderBy('timestamp', 'desc'), limit(50)));
-            let logsHtml = '';
-            logsSnap.forEach(doc => {
-                const log = doc.data();
-                const date = new Date(log.time).toLocaleString('ar-JO');
-                logsHtml += `
-                    <div class="log-item">
-                        <div class="log-action">${log.action}</div>
-                        <div class="log-details">${log.details}</div>
-                        <div class="log-time">${date}</div>
-                    </div>
-                `;
-            });
-            document.getElementById('logsContent').innerHTML = logsHtml || '<div style="text-align:center;color:#666;">لا توجد عمليات مسجلة</div>';
-            document.getElementById('logsModal').classList.add('active');
-        }
-
-        // ===== البند 2: النسخ الاحتياطي =====
-        document.getElementById('backupBtn').addEventListener('click', () => {
-            const backup = {
-                date: new Date().toISOString(),
-                count: products.length,
-                products: products
-            };
-            const dataStr = JSON.stringify(backup, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `jakoop-backup-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            addLog('نسخ احتياطي', `تم حفظ ${products.length} جهاز`);
-            alert(`✅ تم تحميل نسخة احتياطية\nعدد الأجهزة: ${products.length}`);
-        });
-
-        document.getElementById('restoreBtn').addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                if (!confirm('⚠️ تحذير: رح يحذف كل الأجهزة الحالية ويستبدلها بالنسخة\nمتأكد؟')) return;
-
-                const reader = new FileReader();
-                reader.onload = async (event) => {
-                    try {
-                        const backup = JSON.parse(event.target.result);
-                        for (const product of products) {
-                            await deleteDoc(doc(db, 'products', product.id));
-                        }
-                        for (const product of backup.products) {
-                            const { id,...productData } = product;
-                            await addDoc(productsCol, productData);
-                        }
-                        await addLog('استعادة نسخة', `تم استعادة ${backup.products.length} جهاز`);
-                        alert(`✅ تم الاستعادة بنجاح!\nعدد الأجهزة: ${backup.products.length}`);
-                    } catch (error) {
-                        alert('❌ خطأ في الملف: ' + error.message);
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        });
-
-        // ===== البند 4: تنبيهات واتساب =====
-        document.getElementById('whatsappBtn').addEventListener('click', () => {
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('🔔 اختبار من لوحة تحكم Jakoop\n✅ النظام شغال تمام!')}`;
-            window.open(url, '_blank');
-        });
-
-        function sendWhatsAppSale(product) {
-            const msg = `🔔 تم بيع جهاز جديد!\n\n📱 ${product.name}\n💰 السعر: ${product.price} دينار\n⏰ ${new Date().toLocaleString('ar-JO')}`;
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        }
-
-        // ===== البند 5: نظام QR =====
-        window.showQR = function(productId, productName) {
-            const url = `https://jakoop.tech/gallery.html?id=${productId}`;
-            currentQRData = url;
-            document.getElementById('qrTitle').textContent = `📱 QR Code - ${productName}`;
-            document.getElementById('qrcode').innerHTML = '';
-            new QRCode(document.getElementById('qrcode'), {
-                text: url,
-                width: 256,
-                height: 256,
-                colorDark: "#00ff88",
-                colorLight: "#ffffff",
-            });
-            document.getElementById('qrModal').classList.add('active');
-        }
-
-        document.getElementById('closeQRBtn').addEventListener('click', () => {
-            document.getElementById('qrModal').classList.remove('active');
-        });
-
-        document.getElementById('downloadQRBtn').addEventListener('click', () => {
-            const canvas = document.querySelector('#qrcode canvas');
-            const url = canvas.toDataURL('image/png');
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'jakoop-qr.png';
-            a.click();
-        });
-
-        document.getElementById('addBtn').addEventListener('click', () => {
-            document.getElementById('modalTitle').textContent = 'إضافة جهاز جديد';
-            document.getElementById('productForm').reset();
-            document.getElementById('productId').value = '';
-            document.getElementById('imagePreview').style.display = 'none';
-            currentImageBase64 = '';
-            document.getElementById('productModal').classList.add('active');
-        });
-
-        document.getElementById('cancelBtn').addEventListener('click', () => {
-            document.getElementById('productModal').classList.remove('active');
-        });
-
-        document.getElementById('syncBtn').addEventListener('click', loadProducts);
 
         function loadProducts() {
             onSnapshot(productsCol, (snapshot) => {
@@ -520,83 +231,13 @@
             });
         }
 
-        // ===== البند 3: Dashboard الاحصائيات =====
-        async function updateStats() {
-            const total = products.length;
-            const available = products.filter(p => p.status === 'available');
-            const sold = products.filter(p => p.status === 'sold');
+        window.syncData = loadProducts;
 
-            document.getElementById('totalCount').textContent = total;
-            document.getElementById('availableCount').textContent = available.length;
-            document.getElementById('soldCount').textContent = sold.length;
-            document.getElementById('totalValue').textContent = available.reduce((sum, p) => sum + parseFloat(p.price || 0), 0) + ' د';
-
-            const avg = available.length > 0? Math.round(available.reduce((s,p) => s + parseFloat(p.price || 0), 0) / available.length) : 0;
-            document.getElementById('avgPrice').textContent = avg + ' د';
-
-            const logsSnap = await getDocs(query(logsCol, orderBy('timestamp', 'desc'), limit(200)));
-            const today = new Date().toDateString();
-            const weekAgo = Date.now() - 7*24*60*60*1000;
-
-            let todayCount = 0;
-            let weekCount = 0;
-            let salesByDay = {};
-
-            logsSnap.forEach(doc => {
-                const log = doc.data();
-                if (log.action === 'تم البيع') {
-                    const logDate = new Date(log.time);
-                    const dayKey = logDate.toLocaleDateString('ar-JO');
-
-                    if (logDate.toDateString() === today) todayCount++;
-                    if (log.timestamp > weekAgo) {
-                        weekCount++;
-                        salesByDay[dayKey] = (salesByDay[dayKey] || 0) + 1;
-                    }
-                }
-            });
-
-            document.getElementById('todaySales').textContent = todayCount;
-            document.getElementById('weekSales').textContent = weekCount;
-
-            const soldNames = sold.map(p => p.name);
-            const topProduct = soldNames.sort((a,b) =>
-                soldNames.filter(v => v===a).length - soldNames.filter(v => v===b).length
-            ).pop() || '-';
-            document.getElementById('topProduct').textContent = topProduct;
-
-            drawSalesChart(salesByDay);
-        }
-
-        function drawSalesChart(salesByDay) {
-            const ctx = document.getElementById('salesChart');
-            if (salesChartInstance) salesChartInstance.destroy();
-
-            const labels = Object.keys(salesByDay).slice(-7);
-            const data = labels.map(l => salesByDay[l]);
-
-            salesChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'المبيعات',
-                        data: data,
-                        borderColor: '#00ff88',
-                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { labels: { color: '#fff' } } },
-                    scales: {
-                        y: { ticks: { color: '#888' }, grid: { color: '#222' } },
-                        x: { ticks: { color: '#888' }, grid: { color: '#222' } }
-                    }
-                }
-            });
+        function updateStats() {
+            document.getElementById('totalCount').textContent = products.length;
+            document.getElementById('availableCount').textContent = products.filter(p => p.status === 'available').length;
+            document.getElementById('soldCount').textContent = products.filter(p => p.status === 'sold').length;
+            document.getElementById('totalValue').textContent = products.reduce((sum, p) => sum + (p.status === 'available'? parseFloat(p.price) : 0), 0) + ' د';
         }
 
         function renderProducts() {
@@ -608,126 +249,93 @@
 
             grid.innerHTML = products.map(p => `
                 <div class="product-card ${p.status === 'sold'? 'sold' : ''}">
-                    <div class="product-top">
-                        <div class
-          <div class="product-image-box">
-                            <img src="${p.image}" alt="${p.name}">
-                            <div class="image-upload">
-                                <label for="img-${p.id}">📸 تغيير</label>
-                                <input type="file" id="img-${p.id}" accept="image/*">
-                            </div>
+                    <div class="product-image-box">
+                        <img src="${p.image}" alt="${p.name}">
+                        <div class="image-upload">
+                            <label for="img-${p.id}">📸 تغيير</label>
+                            <input type="file" id="img-${p.id}" accept="image/*" onchange="updateProductImage('${p.id}', event)">
                         </div>
-                        <div class="product-info">
-                            <h3>${p.name}</h3>
-                            <p>المعالج: ${p.cpu || '-'}</p>
-                            <p>الرام: ${p.ram || '-'} | التخزين: ${p.storage || '-'}</p>
-                            <p>كرت الشاشة: ${p.gpu || '-'}</p>
-                            <p>الشاشة: ${p.screen || '-'}</p>
-                            <div class="price-edit">
-                                <input type="number" value="${p.price}" id="price-${p.id}">
-                                <button data-price-id="${p.id}">💾 حفظ</button>
-                            </div>
-                            <span class="badge ${p.status === 'available'? 'badge-success' : 'badge-danger'}">
-                                ${p.status === 'available'? 'متوفر ✓' : 'مباع ✗'}
-                            </span>
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p>المعالج: ${p.cpu || '-'}</p>
+                        <p>الرام: ${p.ram || '-'} | التخزين: ${p.storage || '-'}</p>
+                        <div class="price-edit">
+                            <input type="number" value="${p.price}" id="price-${p.id}">
+                            <button onclick="updatePrice('${p.id}')">💾</button>
+                        </div>
+                        <span class="badge ${p.status === 'available'? 'badge-success' : 'badge-danger'}">
+                            ${p.status === 'available'? 'متوفر ✓' : 'مباع ✗'}
+                        </span>
+
+                        <!-- الأزرار الجديدة بتاخذ القيم من الداتابيز -->
+                        <div class="contact-actions">
+                            <button class="contact-btn pass" onclick="copyPassword('${p.password || ''}')" ${!p.password? 'disabled' : ''}>🔐 باسورد</button>
+                            <button class="contact-btn phone" onclick="window.open('tel:${p.phone || ''}')" ${!p.phone? 'disabled' : ''}>📞 اتصال</button>
+                            <button class="contact-btn email" onclick="window.open('mailto:${p.email || ''}')" ${!p.email? 'disabled' : ''}>✉️ إيميل</button>
+                            <button class="contact-btn fb" onclick="window.open('${p.facebook || '#'}', '_blank')" ${!p.facebook? 'disabled' : ''}>📘 فيس</button>
                         </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary" data-edit="${p.id}">✏️ تعديل</button>
-                        <button class="btn btn-warning" data-toggle="${p.id}">
+                        <button class="btn btn-primary" onclick="editProduct('${p.id}')">✏️ تعديل</button>
+                        <button class="btn btn-warning" onclick="toggleStatus('${p.id}')">
                             ${p.status === 'available'? '❌ بيع' : '✓ إرجاع'}
                         </button>
-                        <button class="btn btn-info" onclick="showQR('${p.id}', '${p.name}')">📱 QR</button>
-                        <button class="btn btn-danger" data-delete="${p.id}">🗑️ حذف</button>
+                        <button class="btn btn-danger" onclick="deleteProduct('${p.id}')">🗑️ حذف</button>
                     </div>
                 </div>
             `).join('');
-
-            products.forEach(p => {
-                document.getElementById(`img-${p.id}`).addEventListener('change', (e) => updateProductImage(p.id, e));
-                document.querySelector(`[data-price-id="${p.id}"]`).addEventListener('click', () => updatePrice(p.id));
-                document.querySelector(`[data-edit="${p.id}"]`).addEventListener('click', () => editProduct(p.id));
-                document.querySelector(`[data-toggle="${p.id}"]`).addEventListener('click', () => toggleStatus(p.id));
-                document.querySelector(`[data-delete="${p.id}"]`).addEventListener('click', () => deleteProduct(p.id));
-            });
         }
 
-        document.getElementById('productImageFile').addEventListener('change', previewImage);
+        // دالة نسخ الباسورد - بتاخذ القيمة من الباراميتر
+        window.copyPassword = function(password) {
+            if (!password) {
+                alert('❌ ما في باسورد محفوظ لهاد الجهاز');
+                return;
+            }
+            navigator.clipboard.writeText(password);
+            alert('✅ تم نسخ الباسورد');
+        }
 
-        function previewImage(event) {
+        window.previewImage = function(event) {
             const file = event.target.files[0];
             if (file) {
-                if (file.size > 5000000) {
-                    alert('❌ الصورة كبيرة كثير! اختار صورة أقل من 5 ميجا');
-                    return;
-                }
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        const MAX_WIDTH = 800;
-                        if (width > MAX_WIDTH) {
-                            height = height * (MAX_WIDTH / width);
-                            width = MAX_WIDTH;
-                        }
-                        canvas.width = width;
-                        canvas.height = height;
-                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                        currentImageBase64 = canvas.toDataURL('image/jpeg', 0.7);
-                        document.getElementById('imagePreview').src = currentImageBase64;
-                        document.getElementById('imagePreview').style.display = 'block';
-                    }
-                    img.src = e.target.result;
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                    currentImageBase64 = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        async function updateProductImage(id, event) {
+        window.updateProductImage = async function(id, event) {
             const file = event.target.files[0];
             if (file) {
-                if (file.size > 5000000) {
-                    alert('❌ الصورة كبيرة كثير!');
-                    return;
-                }
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.onload = async function() {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        const MAX_WIDTH = 800;
-                        if (width > MAX_WIDTH) {
-                            height = height * (MAX_WIDTH / width);
-                            width = MAX_WIDTH;
-                        }
-                        canvas.width = width;
-                        canvas.height = height;
-                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                        const compressedImage = canvas.toDataURL('image/jpeg', 0.7);
-                        await updateDoc(doc(db, 'products', id), { image: compressedImage });
-                        await addLog('تغيير صورة', products.find(p => p.id === id).name);
-                        alert('✅ تم تحديث الصورة على Cloud!');
-                    }
-                    img.src = e.target.result;
+                reader.onload = async function(e) {
+                    await updateDoc(doc(db, 'products', id), { image: e.target.result });
+                    alert('✅ تم تحديث الصورة على Cloud!');
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        async function updatePrice(id) {
+        window.updatePrice = async function(id) {
             const newPrice = document.getElementById('price-' + id).value;
-            const product = products.find(p => p.id === id);
-            const oldPrice = product.price;
             await updateDoc(doc(db, 'products', id), { price: newPrice });
-            await addLog('تعديل سعر', `${product.name}: ${oldPrice} → ${newPrice} دينار`);
             alert('✅ تم تحديث السعر على Cloud!');
         }
 
-        function editProduct(id) {
+        window.openAddModal = function() {
+            document.getElementById('modalTitle').textContent = 'إضافة جهاز جديد';
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            currentImageBase64 = '';
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        window.editProduct = function(id) {
             const p = products.find(x => x.id === id);
             document.getElementById('modalTitle').textContent = 'تعديل الجهاز';
             document.getElementById('productId').value = p.id;
@@ -741,11 +349,19 @@
             document.getElementById('productGPU').value = p.gpu || '';
             document.getElementById('productScreen').value = p.screen || '';
             document.getElementById('productPrice').value = p.price;
+            document.getElementById('productPassword').value = p.password || '';
+            document.getElementById('productPhone').value = p.phone || '';
+            document.getElementById('productEmail').value = p.email || '';
+            document.getElementById('productFacebook').value = p.facebook || '';
             document.getElementById('productStatus').value = p.status;
             document.getElementById('productModal').classList.add('active');
         }
 
-        document.getElementById('productForm').addEventListener('submit', async (e) => {
+        window.closeModal = function() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        document.getElementById('productForm').onsubmit = async (e) => {
             e.preventDefault();
             const saveBtn = document.getElementById('saveBtn');
             saveBtn.disabled = true;
@@ -761,6 +377,10 @@
                 gpu: document.getElementById('productGPU').value,
                 screen: document.getElementById('productScreen').value,
                 price: document.getElementById('productPrice').value,
+                password: document.getElementById('productPassword').value,
+                phone: document.getElementById('productPhone').value,
+                email: document.getElementById('productEmail').value,
+                facebook: document.getElementById('productFacebook').value,
                 status: document.getElementById('productStatus').value,
                 updated: new Date().toISOString()
             };
@@ -768,12 +388,10 @@
             try {
                 if (id) {
                     await updateDoc(doc(db, 'products', id), product);
-                    await addLog('تعديل جهاز', product.name);
                 } else {
                     await addDoc(productsCol, product);
-                    await addLog('إضافة جهاز جديد', product.name);
                 }
-                document.getElementById('productModal').classList.remove('active');
+                closeModal();
                 alert('✅ تم الحفظ على Cloud بنجاح!');
             } catch (error) {
                 alert('❌ خطأ: ' + error.message);
@@ -781,40 +399,104 @@
                 saveBtn.disabled = false;
                 saveBtn.textContent = '💾 حفظ على Cloud';
             }
-        });
+        };
 
-        async function toggleStatus(id) {
+        window.toggleStatus = async function(id) {
             const p = products.find(x => x.id === id);
-            const newStatus = p.status === 'available'? 'sold' : 'available';
-            await updateDoc(doc(db, 'products', id), { status: newStatus });
-            await addLog(newStatus === 'sold'? 'تم البيع' : 'إرجاع للمخزون', p.name);
-            
-            if (newStatus === 'sold') {
-                sendWhatsAppSale(p);
-            }
+            await updateDoc(doc(db, 'products', id), { status: p.status === 'available'? 'sold' : 'available' });
         }
 
-        async function deleteProduct(id) {
+        window.deleteProduct = async function(id) {
             if (confirm('متأكد بدك تحذف هاد الجهاز من Cloud؟')) {
-                const p = products.find(x => x.id === id);
                 await deleteDoc(doc(db, 'products', id));
-                await addLog('حذف جهاز', p.name);
             }
         }
     </script>
 
-<!-- الأزرار العائمة -->
-<a href="admin2.html" class="floating-btn floating-admin" data-title="لوحة التحكم">⚙️</a>
-<a href="gallery.html" class="floating-btn floating-gallery" data-title="لوحة المشغل">🎮</a>
-<a href="admin.html" class="floating-btn floating-warehouse" data-title="لوحة المستودع">📦</a>
+<style>
+.floating-btn {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9997;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
 
-<!-- زر واتساب المساعدة -->
-<a href="https://wa.me/962775121442?text=مرحبا،%20بدي%20مساعدة%20بخصوص%20لوحة%20تحكم%20Jakoop" 
-   class="floating-whatsapp" 
-   data-title="تواصل للمساعدة" 
-   target="_blank">
-    💬
+.floating-btn:hover {
+    transform: scale(1.15) rotate(15deg);
+}
+
+.floating-admin {
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #ff0088, #ff0066);
+    box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5);
+}
+.floating-admin:hover {
+    box-shadow: 0 6px 30px rgba(255, 0, 136, 0.8);
+}
+
+.floating-gallery {
+    bottom: 110px;
+    right: 30px;
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.5);
+}
+.floating-gallery:hover {
+    box-shadow: 0 6px 30px rgba(0, 255, 136, 0.8);
+}
+
+.floating-warehouse {
+    bottom: 190px;
+    right: 30px;
+    background: linear-gradient(135deg, #00ccff, #0088ff);
+    box-shadow: 0 4px 20px rgba(0, 204, 255, 0.5);
+}
+.floating-warehouse:hover {
+    box-shadow: 0 6px 30px rgba(0, 204, 255, 0.8);
+}
+
+.floating-btn::before {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    font-family: 'Cairo';
+}
+
+.floating-btn:hover::before {
+    opacity: 1;
+    left: 75px;
+}
+</style>
+
+<a href="admin2.html" class="floating-btn floating-admin" data-title="لوحة التحكم">
+    ⚙️
 </a>
 
+<a href="gallery.html" class="floating-btn floating-gallery" data-title="لوحة المشغل">
+    🎮
+</a>
+
+<a href="admin.html" class="floating-btn floating-warehouse" data-title="لوحة المستودع">
+    📦
+</a>
 </body>
 </html>
