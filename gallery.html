@@ -7,7 +7,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
+        .item-sold {
+    opacity: 0.7;
+    position: relative;
+}
+
+.item-sold::after {
+    content: 'مباع';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    background: rgba(255, 0, 0, 0.9);
+    color: white;
+    padding: 15px 40px;
+    font-size: 32px;
+    font-weight: 900;
+    border: 4px solid white;
+    border-radius: 10px;
+    z-index: 6;
+    pointer-events: none;
+}
         :root {
             --primary: #00ff88;
             --secondary: #00ccff;
@@ -495,210 +516,8 @@
 
     <div class="gallery">
         
-        <!-- لابتوب 1 -->
-        <div class="item">
-            <div class="stock-badge">شاحن اصلي + شنطة + ماوس ويرلس - متوفر ✓</div>
-            <div class="item-image">
-                <img src="https://jakoop.tech/asus.jpg" onclick="openLightbox(this.src)" alt="ASUS">
-                <img src="..." loading="lazy" onclick="openLightbox(this.src)">
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور ASUS VivoBook i7" class="request-photos-btn">
-                    📸 اطلب الصور
-                </a>
-            </div>
-            <div class="item-content">
-                <h3>ASUS VivoBook 15</h3>
-                <div class="specs">
-                    <div class="specs-row">
-                        <span class="specs-label">المعالج</span>
-                        <span class="specs-value">Intel Core i7-1065G7</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">الرام</span>
-                        <span class="specs-value">8GB DDR4</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">التخزين</span>
-                        <span class="specs-value">512GB SSD NVMe</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">كرت الشاشة</span>
-                        <span class="specs-value">NVIDIA MX330 2GB</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">الشاشة</span>
-                        <span class="specs-value">15.6" FHD IPS</span>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <div class="price">220 <span>دينار</span></div>
-                </div>
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي ASUS VivoBook i7 بسعر 220 دينار" class="whatsapp-btn">
-                    💬 اطلب الآن عبر واتساب
-                </a>
-            </div>
-        </div>
-
-        <!-- كمبيوتر مكتبي -->
-        <div class="item">
-            <div class="stock-badge">كيس فقط - متوفر ✓</div>
-            <div class="item-image">
-                <img src="https://jakoop.tech/dell3010.jpg" onclick="openLightbox(this.src)" alt="Dell">
-                <img src="..." loading="lazy" onclick="openLightbox(this.src)">
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور Dell OPTIPLEX" class="request-photos-btn">
-                    📸 اطلب الصور
-                </a>
-            </div>
-            <div class="item-content">
-                <h3>Dell OPTIPLEX 3010</h3>
-                <div class="specs">
-                    <div class="specs-row">
-                        <span class="specs-label">المعالج</span>
-                        <span class="specs-value">Intel Core i3-3470</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">الرام</span>
-                        <span class="specs-value">8GB DDR3</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">التخزين</span>
-                        <span class="specs-value">500GB HDD</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">النوع</span>
-                        <span class="specs-value">كمبيوتر مكتبي</span>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <div class="price">65 <span>دينار</span></div>
-                </div>
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell OPTIPLEX بسعر 65 دينار" class="whatsapp-btn">
-                    💬 اطلب الآن عبر واتساب
-                </a>
-            </div>
-          </div>
-
-       
-            <div class="item" style="opacity: 0.7; position: relative;">
-    <!-- شارة مباع -->
-    <div class="stock-badge" style="background: linear-gradient(45deg, #ff3333, #cc0000);">
-        مباع ✗
-    </div>
     
-    <!-- علامة مائية مباع -->
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg); 
-                background: rgba(255, 0, 0, 0.9); color: white; padding: 15px 40px; 
-                font-size: 32px; font-weight: 900; border: 4px solid white; 
-                border-radius: 10px; z-index: 6; pointer-events: none;">
-        مباع
-    </div>
-    
-    <div class="item-image">
-        <img src="https://jakoop.tech/hp840.jpg" onclick="openLightbox(this.src)" alt="HP" 
-             style="filter: grayscale(100%) brightness(0.5);">
-        <!-- اخفي زر اطلب الصور -->
-    </div>
-    
-    <div class="item-content">
-        <h3>HP EliteBook</h3>
-        <div class="specs">
-            <div class="specs-row">
-                <span class="specs-label">المعالج</span>
-                <span class="specs-value">Intel Core i5-8350U</span>
-            </div>
-            <div class="specs-row">
-                <span class="specs-label">الرام</span>
-                <span class="specs-value">16GB DDR4</span>
-            </div>
-            <div class="specs-row">
-                <span class="specs-label">التخزين</span>
-                <span class="specs-value">256GB SSD NVMe</span>
-            </div>
-        </div>
-        <div class="price-section">
-            <div class="price" style="text-decoration: line-through; opacity: 0.5;">280 <span>دينار</span></div>
-        </div>
-        <!-- زر معطل -->
-        <a href="#" class="whatsapp-btn" style="background: #555; cursor: not-allowed; pointer-events: none; box-shadow: none;">
-            ❌ تم البيع - غير متوفر
-        </a>
-    </div>
-</div>
-<!--  كمبيوتر مكتبي-->
-        <div class="item">
-            <div class="stock-badge">كيس فقط - متوفر ✓</div>
-            <div class="item-image">
-                <img src="https://jakoop.tech/dell200.jpg" onclick="openLightbox(this.src)" alt="RAM">
-                <img src="..." loading="lazy" onclick="openLightbox(this.src)">
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور Dell VOSTRO 200" class="request-photos-btn">
-                    📸 اطلب الصور
-                </a>
-            </div>
-            <div class="item-content">
-                <h3>Dell VOSTRO 200</h3>
-                <div class="specs">
-                    <div class="specs-row">
-                        <span class="specs-label">المعالج</span>
-                        <span class="specs-value">Intel Pentium Core 2 Duo</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">الرام</span>
-                        <span class="specs-value">2GB DDR2</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">التخزين</span>
-                        <span class="specs-value">160GB HDD</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">النوع</span>
-                        <span class="specs-value">كمبيوتر مكتبي</span>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <div class="price">45 <span>دينار</span></div>
-                </div>
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell VOSTRO 200 بسعر 45 دينار" class="whatsapp-btn">
-                    💬 اطلب الآن عبر واتساب
-                </a>
-    </div>
-            </div>
-    <!--  RAM PC2 SERVER-->
-        <div class="item">
-            <div class="stock-badge"> متوفر ✓</div>
-            <div class="item-image">
-                <img src="https://jakoop.tech/ram6pics.jpg" onclick="openLightbox(this.src)" alt="Dell">
-                <img src="..." loading="lazy" onclick="openLightbox(this.src)">
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور Dell VOSTRO 200" class="request-photos-btn">
-                    📸 اطلب الصور
-                </a>
-            </div>
-            <div class="item-content">
-                <h3>RAM PC2 For Server</h3>
-                <div class="specs">
-                    <div class="specs-row">
-                        <span class="specs-label">Ship</span>
-                        <span class="specs-value">5300F</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">الرام</span>
-                        <span class="specs-value">512MB×6 DDR2 </span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">إضافة</span>
-                        <span class="specs-value">مشتت أصلي</span>
-                    </div>
-                    <div class="specs-row">
-                        <span class="specs-label">النوع</span>
-                        <span class="specs-value">كمبيوتر مكتبي سيرفر</span>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <div class="price">18 <span>دينار</span></div>
-                </div>
-                <a href="https://wa.me/962775131442?text=مرحبا، بدي Dell VOSTRO 200 بسعر 45 دينار" class="whatsapp-btn">
-                    💬 اطلب الآن عبر واتساب
-                </a>    
-    </div>
-    </div>
+       </div>
     </div>
 
     <!-- زر Admin عائم -->
@@ -746,6 +565,68 @@
 
         document.getElementById('lightbox-img').onclick = (e) => e.stopPropagation();
     </script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getFirestore, collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
+// نفس الـ config تبع admin2
+const firebaseConfig = {
+    apiKey: "AIzaSyAVDbjneBoV3N9KIo86-pYccAEy6R4ULHk",
+    authDomain: "jakoop-admin2.firebaseapp.com",
+    projectId: "jakoop-admin2",
+    storageBucket: "jakoop-admin2.firebasestorage.app",
+    messagingSenderId: "581628638568",
+    appId: "1:581628638568:web:2894ef9722a0a47ab3e19d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+onSnapshot(collection(db, 'products'), (snapshot) => {
+    const products = [];
+    snapshot.forEach(doc => products.push({ id: doc.id,...doc.data() }));
+    
+    const gallery = document.querySelector('.gallery');
+    
+    if (products.length === 0) {
+        gallery.innerHTML = '<div style="text-align:center; padding: 60px; color: #666; grid-column: 1/-1;">لا توجد أجهزة حالياً</div>';
+        return;
+    }
+    
+    gallery.innerHTML = products.map(p => `
+        <div class="item ${p.status === 'sold'? 'item-sold' : ''}">
+            <div class="stock-badge" style="background: ${p.status === 'available'? 'linear-gradient(45deg, #00ff88, #00cc88)' : 'linear-gradient(45deg, #ff3333, #cc0000)'};">
+                ${p.status === 'available'? 'متوفر ✓' : 'مباع ✗'}
+            </div>
+            <div class="item-image">
+                <img src="${p.image}" onclick="openLightbox(this.src)" alt="${p.name}" 
+                     style="${p.status === 'sold'? 'filter: grayscale(100%) brightness(0.7);' : ''}">
+                ${p.status === 'available'? `
+                <a href="https://wa.me/962775131442?text=مرحبا، بدي صور ${p.name}" class="request-photos-btn">
+                    📸 اطلب الصور
+                </a>` : ''}
+            </div>
+            <div class="item-content">
+                <h3>${p.name}</h3>
+                <div class="specs">
+                    ${p.cpu? `<div class="specs-row"><span class="specs-label">المعالج</span><span class="specs-value">${p.cpu}</span></div>` : ''}
+                    ${p.ram? `<div class="specs-row"><span class="specs-label">الرام</span><span class="specs-value">${p.ram}</span></div>` : ''}
+                    ${p.storage? `<div class="specs-row"><span class="specs-label">التخزين</span><span class="specs-value">${p.storage}</span></div>` : ''}
+                    ${p.gpu? `<div class="specs-row"><span class="specs-label">كرت الشاشة</span><span class="specs-value">${p.gpu}</span></div>` : ''}
+                    ${p.screen? `<div class="specs-row"><span class="specs-label">الشاشة</span><span class="specs-value">${p.screen}</span></div>` : ''}
+                </div>
+                <div class="price-section">
+                    <div class="price" style="${p.status === 'sold'? 'text-decoration: line-through; opacity: 0.5;' : ''}">${p.price} <span>دينار</span></div>
+                </div>
+                <a href="${p.status === 'available'? `https://wa.me/962775131442?text=مرحبا، بدي ${p.name} بسعر ${p.price} دينار` : '#'}" 
+                   class="whatsapp-btn" 
+                   style="${p.status === 'sold'? 'background: #555; cursor: not-allowed; pointer-events: none;' : ''}">
+                    ${p.status === 'available'? '💬 اطلب الآن عبر واتساب' : '❌ تم البيع - غير متوفر'}
+                </a>
+            </div>
+        </div>
+    `).join('');
+});
+</script>
 </body>
 </html>
