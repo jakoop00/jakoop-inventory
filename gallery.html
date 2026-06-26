@@ -125,7 +125,7 @@
         }
 
         /* الجالري */
-       .gallery {
+       .operator {
             position: relative;
             max-width: 1500px;
             margin: 60px auto;
@@ -284,7 +284,7 @@
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
         }
 
-        /* أزرار عائمة Admin + Gallery */
+        /* أزرار عائمة Admin + Operator */
        .floating-admin {
             position: fixed;
             bottom: 30px;
@@ -310,7 +310,7 @@
             box-shadow: 0 6px 30px rgba(255, 0, 136, 0.7);
         }
 
-       .floating-gallery {
+       .floating-operator {
             position: fixed;
             bottom: 110px;
             right: 30px;
@@ -330,7 +330,7 @@
             font-size: 24px;
         }
 
-       .floating-gallery:hover {
+       .floating-operator:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 30px rgba(0, 136, 255, 0.7);
         }
@@ -498,10 +498,10 @@
 
         @media (max-width: 768px) {
            .header h1 { font-size: 32px; }
-           .gallery { grid-template-columns: 1fr; padding: 0 15px; }
+           .operator { grid-template-columns: 1fr; padding: 0 15px; }
            .floating-whatsapp { bottom: 20px; left: 20px; width: 60px; height: 60px; }
            .floating-admin { bottom: 20px; right: 20px; }
-           .floating-gallery { bottom: 90px; right: 20px; }
+           .floating-operator { bottom: 90px; right: 20px; }
         }
     </style>
 </head>
@@ -514,7 +514,7 @@
         <div class="badge">✓ جميع الأجهزة مفحوصة ومضمونة 100%</div>
     </div>
 
-    <div class="gallery">
+    <div class="operator">
         
     
        </div>
@@ -523,8 +523,8 @@
     <!-- زر Admin عائم -->
     <a href="admin.html" class="floating-admin" title="لوحة المستودع">⚙️</a>
 
-    <!-- زر Gallery عائم -->
-    <a href="gallery.html" class="floating-gallery" title="لوحة المشغل">👨‍💼</a>
+    <!-- زر operator عائم -->
+    <a href="operator.html" class="floating-operator" title="لوحة المشغل">👨‍💼</a>
 
     <!-- زر واتساب عائم نابض -->
     <a href="https://wa.me/962775131442?text=مرحبا، بدي استفسر عن الأجهزة المتوفرة" class="floating-whatsapp" title="تواصل معنا فوراً">
@@ -586,14 +586,14 @@ onSnapshot(collection(db, 'products'), (snapshot) => {
     const products = [];
     snapshot.forEach(doc => products.push({ id: doc.id,...doc.data() }));
     
-    const gallery = document.querySelector('.gallery');
+    const operator = document.querySelector('.operator');
     
     if (products.length === 0) {
-        gallery.innerHTML = '<div style="text-align:center; padding: 60px; color: #666; grid-column: 1/-1;">لا توجد أجهزة حالياً</div>';
+        operator.innerHTML = '<div style="text-align:center; padding: 60px; color: #666; grid-column: 1/-1;">لا توجد أجهزة حالياً</div>';
         return;
     }
     
-    gallery.innerHTML = products.map(p => `
+    operator.innerHTML = products.map(p => `
         <div class="item ${p.status === 'sold'? 'item-sold' : ''}">
             <div class="stock-badge" style="background: ${p.status === 'available'? 'linear-gradient(45deg, #00ff88, #00cc88)' : 'linear-gradient(45deg, #ff3333, #cc0000)'};">
                 ${p.status === 'available'? 'متوفر ✓' : 'مباع ✗'}
@@ -663,13 +663,13 @@ onSnapshot(collection(db, 'products'), (snapshot) => {
 }
 
 /* 2- لوحة المشغل - أخضر نيون */
-.floating-gallery {
+.floating-operator {
     bottom: 110px;
     right: 30px;
     background: linear-gradient(135deg, #00ff88, #00cc66);
     box-shadow: 0 4px 20px rgba(0, 255, 136, 0.5);
 }
-.floating-gallery:hover {
+.floating-operator:hover {
     box-shadow: 0 6px 30px rgba(0, 255, 136, 0.8);
 }
 
@@ -713,7 +713,7 @@ onSnapshot(collection(db, 'products'), (snapshot) => {
 </a>
 
 <!-- 2- لوحة المشغل -->
-<a href="gallery.html" class="floating-btn floating-gallery" data-title="لوحة المعرض">
+<a href="operator.html" class="floating-btn floating-operator" data-title="لوحة المعرض">
     👨‍💼
 </a>
 
