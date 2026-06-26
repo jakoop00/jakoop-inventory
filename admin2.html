@@ -11,63 +11,67 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Cairo', sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
 
-     .login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-     .login-box { background: #141414; padding: 40px; border-radius: 20px; border: 2px solid #00ff88; text-align: center; box-shadow: 0 0 60px rgba(0, 255, 136, 0.3); }
-     .login-box h2 { color: #00ff88; margin-bottom: 20px; font-size: 32px; }
-     .login-box input { width: 300px; padding: 15px; background: #0a0a0a; border: 2px solid #333; border-radius: 10px; color: white; font-size: 18px; text-align: center; font-family: 'Cairo'; margin-bottom: 20px; }
-     .login-box button { width: 100%; padding: 15px; background: linear-gradient(45deg, #00ff88, #00cc88); border: none; border-radius: 10px; color: #000; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Cairo'; }
-     .login-error { color: #ff3333; margin-top: 15px; display: none; }
+    .login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a0a0a, #1a1a1a); display: flex; justify-content: center; align-items: center; z-index: 99999; }
+    .login-box { background: #141414; padding: 40px; border-radius: 20px; border: 2px solid #00ff88; text-align: center; box-shadow: 0 0 60px rgba(0, 255, 136, 0.3); }
+    .login-box h2 { color: #00ff88; margin-bottom: 20px; font-size: 32px; }
+    .login-box input { width: 300px; padding: 15px; background: #0a0a0a; border: 2px solid #333; border-radius: 10px; color: white; font-size: 18px; text-align: center; font-family: 'Cairo'; margin-bottom: 20px; }
+    .login-box button { width: 100%; padding: 15px; background: linear-gradient(45deg, #00ff88, #00cc88); border: none; border-radius: 10px; color: #000; font-size: 18px; font-weight: 700; cursor: pointer; font-family: 'Cairo'; }
+    .login-error { color: #ff3333; margin-top: 15px; display: none; }
 
-     .container { max-width: 1400px; margin: 0 auto; display: none; }
-     .container.active { display: block; }
-     .header { background: linear-gradient(135deg, #1a1a1a, #0f0f0f); padding: 30px; border-radius: 16px; margin-bottom: 30px; border: 2px solid #00ff88; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-     .header h1 { font-size: 32px; background: linear-gradient(45deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-     .header-actions { display: flex; gap: 15px; }
-     .cloud-status { padding: 8px 15px; background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; border-radius: 20px; font-size: 14px; color: #00ff88; }
-     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-     .stat-card { background: #141414; padding: 25px; border-radius: 16px; border: 1px solid #222; text-align: center; }
-     .stat-card h3 { color: #888; font-size: 14px; margin-bottom: 10px; }
-     .stat-card.num { font-size: 36px; font-weight: 900; color: #00ff88; }
-     .controls { background: #141414; padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #222; display: flex; gap: 15px; flex-wrap: wrap; }
-     .btn { padding: 12px 25px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Cairo'; }
-     .btn-primary { background: linear-gradient(45deg, #00ff88, #00cc88); color: #000; }
-     .btn-danger { background: linear-gradient(45deg, #ff3333, #cc0000); color: white; }
-     .btn-warning { background: linear-gradient(45deg, #ffa500, #ff8800); color: #000; }
-     .btn-info { background: linear-gradient(45deg, #00ccff, #0088ff); color: #000; }
-     .btn-success { background: linear-gradient(45deg, #25D366, #128C7E); color: white; }
-     .btn:hover { transform: scale(1.05); }
-     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-     .products-grid { display: grid; gap: 20px; }
-     .product-card { background: #141414; padding: 20px; border-radius: 16px; border: 1px solid #222; display: grid; grid-template-columns: 150px 1fr auto; gap: 20px; align-items: start; }
-     .product-card.sold { opacity: 0.6; border-color: #ff3333; }
-     .product-image-box img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; }
-     .image-upload { margin-top: 10px; }
-     .image-upload label { display: block; padding: 8px; background: #00ff88; color: #000; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; }
-     .image-upload input { display: none; }
-     .product-info h3 { color: #00ff88; margin-bottom: 12px; font-size: 20px; }
-     .product-info p { color: #888; font-size: 14px; margin: 6px 0; }
-     .price-edit { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
-     .price-edit input { width: 120px; padding: 10px; background: #0a0a0a; border: 2px solid #00ff88; border-radius: 8px; color: #ffa500; font-size: 20px; font-weight: 900; text-align: center; }
-     .price-edit button { padding: 10px 15px; background: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: 700; cursor: pointer; }
-     .product-actions { display: flex; gap: 10px; flex-direction: column; }
-     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; }
-     .modal.active { display: flex; }
-     .modal-content { background: #141414; padding: 30px; border-radius: 20px; border: 2px solid #00ff88; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; }
-     .modal-content h2 { color: #00ff88; margin-bottom: 20px; }
-     .form-group { margin-bottom: 20px; }
-     .form-group label { display: block; margin-bottom: 8px; color: #888; }
-     .form-group input,.form-group textarea,.form-group select { width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: white; font-family: 'Cairo'; font-size: 15px; }
-     .image-preview { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-top: 10px; border: 2px solid #333; }
-     .form-actions { display: flex; gap: 10px; margin-top: 25px; }
-     .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
-     .badge-success { background: #00ff88; color: #000; }
-     .badge-danger { background: #ff3333; color: white; }
-     .loading { text-align: center; padding: 60px; color: #00ff88; font-size: 20px; }
-     .log-item { background:#1a1a1a; padding:15px; margin-bottom:10px; border-radius:10px; border-right:3px solid #00ff88; }
-     .log-action { color:#00ff88; font-weight:700; }
-     .log-details { color:#888; font-size:14px; }
-     .log-time { color:#555; font-size:12px; margin-top:5px; }
-      #qrcode { display: flex; justify-content: center; padding: 20px; background: white; border-radius: 12px; }
+    .container { max-width: 1400px; margin: 0 auto; display: none; }
+    .container.active { display: block; }
+    .header { background: linear-gradient(135deg, #1a1a1a, #0f0f0f); padding: 30px; border-radius: 16px; margin-bottom: 30px; border: 2px solid #00ff88; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+    .header h1 { font-size: 32px; background: linear-gradient(45deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header-actions { display: flex; gap: 15px; }
+    .cloud-status { padding: 8px 15px; background: rgba(0, 255, 136, 0.1); border: 1px solid #00ff88; border-radius: 20px; font-size: 14px; color: #00ff88; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card { background: #141414; padding: 25px; border-radius: 16px; border: 1px solid #222; text-align: center; }
+    .stat-card h3 { color: #888; font-size: 14px; margin-bottom: 10px; }
+    .stat-card.num { font-size: 36px; font-weight: 900; color: #00ff88; }
+    .controls { background: #141414; padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #222; display: flex; gap: 15px; flex-wrap: wrap; }
+    .btn { padding: 12px 25px; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Cairo'; }
+    .btn-primary { background: linear-gradient(45deg, #00ff88, #00cc88); color: #000; }
+    .btn-danger { background: linear-gradient(45deg, #ff3333, #cc0000); color: white; }
+    .btn-warning { background: linear-gradient(45deg, #ffa500, #ff8800); color: #000; }
+    .btn-info { background: linear-gradient(45deg, #00ccff, #0088ff); color: #000; }
+    .btn-success { background: linear-gradient(45deg, #25D366, #128C7E); color: white; }
+    .btn:hover { transform: scale(1.05); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .products-grid { display: grid; gap: 20px; }
+    .product-card { background: #141414; padding: 20px; border-radius: 16px; border: 1px solid #222; display: grid; grid-template-columns: 150px 1fr auto; gap: 20px; align-items: start; }
+    .product-card.sold { opacity: 0.6; border-color: #ff3333; }
+    .product-image-box img { width: 150px; height: 150px; object-fit: cover; border-radius: 12px; }
+    .image-upload { margin-top: 10px; }
+    .image-upload label { display: block; padding: 8px; background: #00ff88; color: #000; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; }
+    .image-upload input { display: none; }
+    .product-info h3 { color: #00ff88; margin-bottom: 12px; font-size: 20px; }
+    .product-info p { color: #888; font-size: 14px; margin: 6px 0; }
+    .price-edit { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
+    .price-edit input { width: 120px; padding: 10px; background: #0a0a0a; border: 2px solid #00ff88; border-radius: 8px; color: #ffa500; font-size: 20px; font-weight: 900; text-align: center; }
+    .price-edit button { padding: 10px 15px; background: #00ff88; border: none; border-radius: 8px; color: #000; font-weight: 700; cursor: pointer; }
+    .product-actions { display: flex; gap: 10px; flex-direction: column; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; overflow-y: auto; padding: 20px; }
+    .modal.active { display: flex; }
+    .modal-content { background: #141414; padding: 30px; border-radius: 20px; border: 2px solid #00ff88; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; }
+    .modal-content h2 { color: #00ff88; margin-bottom: 20px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #888; }
+    .form-group input,.form-group textarea,.form-group select { width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; color: white; font-family: 'Cairo'; font-size: 15px; }
+    .image-preview { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-top: 10px; border: 2px solid #333; }
+    .form-actions { display: flex; gap: 10px; margin-top: 25px; }
+    .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .badge-success { background: #00ff88; color: #000; }
+    .badge-danger { background: #ff3333; color: white; }
+    .loading { text-align: center; padding: 60px; color: #00ff88; font-size: 20px; }
+    .log-item { background:#1a1a; padding:15px; margin-bottom:10px; border-radius:10px; border-right:3px solid #00ff88; }
+    .log-action { color:#00ff88; font-weight:700; }
+    .log-details { color:#888; font-size:14px; }
+    .log-time { color:#555; font-size:12px; margin-top:5px; }
+     #qrcode { display: flex; justify-content: center; padding: 20px; background: white; border-radius: 12px; }
+    .floating-settings { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #ff0088, #ff0066); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9997; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5); transition: 0.3s; text-decoration: none; color: white; font-size: 28px; }
+    .floating-tools { position: fixed; bottom: 110px; right: 30px; width: 60px; height: 60px; background: linear-gradient(135deg, #0088ff, #0066ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9997; cursor: pointer; box-shadow: 0 4px 20px rgba(0, 136, 255, 0.5); transition: 0.3s; text-decoration: none; color: white; font-size: 28px; }
+    .floating-settings:hover { transform: scale(1.1) rotate(90deg); }
+    .floating-tools:hover { transform: scale(1.1) rotate(90deg); }
     </style>
 </head>
 <body>
@@ -76,8 +80,8 @@
         <div class="login-box">
             <h2>🔒 لوحة التحكم Cloud</h2>
             <p style="color: #888; margin-bottom: 20px;">ادخل كلمة السر للدخول</p>
-            <input type="password" id="passwordInput" placeholder="كلمة السر" onkeypress="if(event.key==='Enter') checkPassword()">
-            <button onclick="checkPassword()">دخول</button>
+            <input type="password" id="passwordInput" placeholder="كلمة السر">
+            <button id="loginBtn">دخول</button>
             <div class="login-error" id="loginError">❌ كلمة السر غلط</div>
         </div>
     </div>
@@ -89,8 +93,8 @@
                 <div class="cloud-status" id="cloudStatus">🟢 متصل بـ Firebase</div>
             </div>
             <div class="header-actions">
-                <button class="btn btn-danger" onclick="logout()">🚪 خروج</button>
-                <button class="btn btn-primary" onclick="openAddModal()">+ إضافة جهاز</button>
+                <button class="btn btn-danger" id="logoutBtn">🚪 خروج</button>
+                <button class="btn btn-primary" id="addBtn">+ إضافة جهاز</button>
             </div>
         </div>
 
@@ -111,11 +115,11 @@
         </div>
 
         <div class="controls">
-            <button class="btn btn-warning" onclick="syncData()">🔄 تحديث من Cloud</button>
-            <button class="btn btn-info" onclick="showLogs()">📊 سجل العمليات</button>
-            <button class="btn btn-primary" onclick="backupData()">💾 نسخ احتياطي</button>
-            <button class="btn btn-warning" onclick="restoreData()">♻️ استعادة نسخة</button>
-            <button class="btn btn-success" onclick="testWhatsApp()">🔔 اختبار واتساب</button>
+            <button class="btn btn-warning" id="syncBtn">🔄 تحديث من Cloud</button>
+            <button class="btn btn-info" id="logsBtn">📊 سجل العمليات</button>
+            <button class="btn btn-primary" id="backupBtn">💾 نسخ احتياطي</button>
+            <button class="btn btn-warning" id="restoreBtn">♻️ استعادة نسخة</button>
+            <button class="btn btn-success" id="whatsappBtn">🔔 اختبار واتساب</button>
         </div>
 
         <div class="products-grid" id="productsGrid">
@@ -123,12 +127,15 @@
         </div>
     </div>
 
+    <a href="#" class="floating-settings" title="الإعدادات">⚙️</a>
+    <a href="#" class="floating-tools" title="الأدوات">🔧</a>
+
     <div class="modal" id="logsModal">
         <div class="modal-content">
             <h2>📊 سجل العمليات - آخر 50 عملية</h2>
             <div id="logsContent" style="max-height:60vh; overflow-y:auto;"></div>
             <div class="form-actions">
-                <button class="btn btn-danger" onclick="closeLogsModal()">❌ إغلاق</button>
+                <button class="btn btn-danger" id="closeLogsBtn">❌ إغلاق</button>
             </div>
         </div>
     </div>
@@ -139,8 +146,8 @@
             <div id="qrcode"></div>
             <p style="text-align:center; color:#888; margin-top:15px;">امسح الكود لفتح صفحة الجهاز</p>
             <div class="form-actions">
-                <button class="btn btn-primary" onclick="downloadQR()">💾 تحميل QR</button>
-                <button class="btn btn-danger" onclick="closeQRModal()">❌ إغلاق</button>
+                <button class="btn btn-primary" id="downloadQRBtn">💾 تحميل QR</button>
+                <button class="btn btn-danger" id="closeQRBtn">❌ إغلاق</button>
             </div>
         </div>
     </div>
@@ -153,7 +160,7 @@
                 <div class="form-group"><label>اسم الجهاز *</label><input type="text" id="productName" required></div>
                 <div class="form-group">
                     <label>صورة الجهاز *</label>
-                    <input type="file" id="productImageFile" accept="image/*" onchange="previewImage(event)">
+                    <input type="file" id="productImageFile" accept="image/*">
                     <img id="imagePreview" class="image-preview" style="display:none">
                 </div>
                 <div class="form-group"><label>المعالج</label><input type="text" id="productCPU"></div>
@@ -171,7 +178,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" id="saveBtn">💾 حفظ على Cloud</button>
-                    <button type="button" class="btn btn-danger" onclick="closeModal()">❌ إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="cancelBtn">❌ إلغاء</button>
                 </div>
             </form>
         </div>
@@ -181,6 +188,7 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, onSnapshot, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
+        // Firebase Config تبعك - ما غيرت شي
         const firebaseConfig = {
             apiKey: "AIzaSyAVDbjneBoV3N9KIo86-pYccAEy6R4ULHk",
             authDomain: "jakoop-admin2.firebaseapp.com",
@@ -195,12 +203,42 @@
         const productsCol = collection(db, 'products');
         const logsCol = collection(db, 'logs');
 
-        const ADMIN_PASSWORD = 'jakoop2026';
-        const WHATSAPP_NUMBER = '962791234567'; // غير رقمك هون
+        const ADMIN_PASSWORD = 'jakoop2026'; // ما غيرته
+        const WHATSAPP_NUMBER = '962791234567'; // غيّر رقمك هون
         let products = [];
         let currentImageBase64 = '';
         let salesChartInstance = null;
         let currentQRData = '';
+
+        // Login
+        document.getElementById('loginBtn').addEventListener('click', checkPassword);
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') checkPassword();
+        });
+
+        function checkPassword() {
+            if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
+                localStorage.setItem('jakoop_admin2_logged', 'true');
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainContent').classList.add('active');
+                loadProducts();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('متأكد بدك تطلع؟')) {
+                localStorage.removeItem('jakoop_admin2_logged');
+                location.reload();
+            }
+        });
+
+        if (localStorage.getItem('jakoop_admin2_logged') === 'true') {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').classList.add('active');
+            loadProducts();
+        }
 
         // ===== البند 1: سجل العمليات =====
         async function addLog(action, details) {
@@ -214,7 +252,12 @@
             } catch (e) { console.log('Log error:', e); }
         }
 
-        window.showLogs = async function() {
+        document.getElementById('logsBtn').addEventListener('click', showLogs);
+        document.getElementById('closeLogsBtn').addEventListener('click', () => {
+            document.getElementById('logsModal').classList.remove('active');
+        });
+
+        async function showLogs() {
             const logsSnap = await getDocs(query(logsCol, orderBy('timestamp', 'desc'), limit(50)));
             let logsHtml = '';
             logsSnap.forEach(doc => {
@@ -232,12 +275,8 @@
             document.getElementById('logsModal').classList.add('active');
         }
 
-        window.closeLogsModal = function() {
-            document.getElementById('logsModal').classList.remove('active');
-        }
-
         // ===== البند 2: النسخ الاحتياطي =====
-        window.backupData = function() {
+        document.getElementById('backupBtn').addEventListener('click', () => {
             const backup = {
                 date: new Date().toISOString(),
                 count: products.length,
@@ -252,9 +291,9 @@
             a.click();
             addLog('نسخ احتياطي', `تم حفظ ${products.length} جهاز`);
             alert(`✅ تم تحميل نسخة احتياطية\nعدد الأجهزة: ${products.length}`);
-        }
+        });
 
-        window.restoreData = function() {
+        document.getElementById('restoreBtn').addEventListener('click', () => {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = '.json';
@@ -283,16 +322,18 @@
                 reader.readAsText(file);
             };
             input.click();
-        }
+        });
 
         // ===== البند 4: تنبيهات واتساب =====
-        function sendWhatsAppAlert(message) {
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        document.getElementById('whatsappBtn').addEventListener('click', () => {
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('🔔 اختبار من لوحة تحكم Jakoop\n✅ النظام شغال تمام!')}`;
             window.open(url, '_blank');
-        }
+        });
 
-        window.testWhatsApp = function() {
-            sendWhatsAppAlert('🔔 اختبار من لوحة تحكم Jakoop\n✅ النظام شغال تمام!');
+        function sendWhatsAppSale(product) {
+            const msg = `🔔 تم بيع جهاز جديد!\n\n📱 ${product.name}\n💰 السعر: ${product.price} دينار\n⏰ ${new Date().toLocaleString('ar-JO')}`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
         }
 
         // ===== البند 5: نظام QR =====
@@ -311,42 +352,33 @@
             document.getElementById('qrModal').classList.add('active');
         }
 
-        window.closeQRModal = function() {
+        document.getElementById('closeQRBtn').addEventListener('click', () => {
             document.getElementById('qrModal').classList.remove('active');
-        }
+        });
 
-        window.downloadQR = function() {
+        document.getElementById('downloadQRBtn').addEventListener('click', () => {
             const canvas = document.querySelector('#qrcode canvas');
             const url = canvas.toDataURL('image/png');
             const a = document.createElement('a');
             a.href = url;
             a.download = 'jakoop-qr.png';
             a.click();
-        }
+        });
 
-        window.checkPassword = function() {
-            if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
-                localStorage.setItem('jakoop_admin2_logged', 'true');
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('mainContent').classList.add('active');
-                loadProducts();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
+        document.getElementById('addBtn').addEventListener('click', () => {
+            document.getElementById('modalTitle').textContent = 'إضافة جهاز جديد';
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            currentImageBase64 = '';
+            document.getElementById('productModal').classList.add('active');
+        });
 
-        window.logout = function() {
-            if (confirm('متأكد بدك تطلع؟')) {
-                localStorage.removeItem('jakoop_admin2_logged');
-                location.reload();
-            }
-        }
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            document.getElementById('productModal').classList.remove('active');
+        });
 
-        if (localStorage.getItem('jakoop_admin2_logged') === 'true') {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainContent').classList.add('active');
-            loadProducts();
-        }
+        document.getElementById('syncBtn').addEventListener('click', loadProducts);
 
         function loadProducts() {
             onSnapshot(productsCol, (snapshot) => {
@@ -358,8 +390,6 @@
                 updateStats();
             });
         }
-
-        window.syncData = loadProducts;
 
         // ===== البند 3: Dashboard الاحصائيات =====
         async function updateStats() {
@@ -453,34 +483,43 @@
                         <img src="${p.image}" alt="${p.name}">
                         <div class="image-upload">
                             <label for="img-${p.id}">📸 تغيير</label>
-                            <input type="file" id="img-${p.id}" accept="image/*" onchange="updateProductImage('${p.id}', event)">
+                            <input type="file" id="img-${p.id}" accept="image/*">
                         </div>
-                    </div>
                     <div class="product-info">
                         <h3>${p.name}</h3>
                         <p>المعالج: ${p.cpu || '-'}</p>
                         <p>الرام: ${p.ram || '-'} | التخزين: ${p.storage || '-'}</p>
                         <div class="price-edit">
                             <input type="number" value="${p.price}" id="price-${p.id}">
-                            <button onclick="updatePrice('${p.id}')">💾</button>
+                            <button data-price-id="${p.id}">💾</button>
                         </div>
                         <span class="badge ${p.status === 'available'? 'badge-success' : 'badge-danger'}">
                             ${p.status === 'available'? 'متوفر ✓' : 'مباع ✗'}
                         </span>
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary" onclick="editProduct('${p.id}')">✏️ تعديل</button>
-                        <button class="btn btn-warning" onclick="toggleStatus('${p.id}')">
+                        <button class="btn btn-primary" data-edit="${p.id}">✏️ تعديل</button>
+                        <button class="btn btn-warning" data-toggle="${p.id}">
                             ${p.status === 'available'? '❌ بيع' : '✓ إرجاع'}
                         </button>
                         <button class="btn btn-info" onclick="showQR('${p.id}', '${p.name}')">📱 QR</button>
-                        <button class="btn btn-danger" onclick="deleteProduct('${p.id}')">🗑️ حذف</button>
+                        <button class="btn btn-danger" data-delete="${p.id}">🗑️ حذف</button>
                     </div>
                 </div>
             `).join('');
+
+            products.forEach(p => {
+                document.getElementById(`img-${p.id}`).addEventListener('change', (e) => updateProductImage(p.id, e));
+                document.querySelector(`[data-price-id="${p.id}"]`).addEventListener('click', () => updatePrice(p.id));
+                document.querySelector(`[data-edit="${p.id}"]`).addEventListener('click', () => editProduct(p.id));
+                document.querySelector(`[data-toggle="${p.id}"]`).addEventListener('click', () => toggleStatus(p.id));
+                document.querySelector(`[data-delete="${p.id}"]`).addEventListener('click', () => deleteProduct(p.id));
+            });
         }
 
-        window.previewImage = function(event) {
+        document.getElementById('productImageFile').addEventListener('change', previewImage);
+
+        function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
                 if (file.size > 5000000) {
@@ -512,7 +551,7 @@
             }
         }
 
-        window.updateProductImage = async function(id, event) {
+        async function updateProductImage(id, event) {
             const file = event.target.files[0];
             if (file) {
                 if (file.size > 5000000) {
@@ -545,7 +584,7 @@
             }
         }
 
-        window.updatePrice = async function(id) {
+        async function updatePrice(id) {
             const newPrice = document.getElementById('price-' + id).value;
             const product = products.find(p => p.id === id);
             const oldPrice = product.price;
@@ -554,16 +593,7 @@
             alert('✅ تم تحديث السعر على Cloud!');
         }
 
-        window.openAddModal = function() {
-            document.getElementById('modalTitle').textContent = 'إضافة جهاز جديد';
-            document.getElementById('productForm').reset();
-            document.getElementById('productId').value = '';
-            document.getElementById('imagePreview').style.display = 'none';
-            currentImageBase64 = '';
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        window.editProduct = function(id) {
+        function editProduct(id) {
             const p = products.find(x => x.id === id);
             document.getElementById('modalTitle').textContent = 'تعديل الجهاز';
             document.getElementById('productId').value = p.id;
@@ -581,11 +611,7 @@
             document.getElementById('productModal').classList.add('active');
         }
 
-        window.closeModal = function() {
-            document.getElementById('productModal').classList.remove('active');
-        }
-
-        document.getElementById('productForm').onsubmit = async (e) => {
+        document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const saveBtn = document.getElementById('saveBtn');
             saveBtn.disabled = true;
@@ -613,6 +639,129 @@
                     await addDoc(productsCol, product);
                     await addLog('إضافة جهاز جديد', product.name);
                 }
-                closeModal();
+                document.getElementById('productModal').classList.remove('active');
                 alert('✅ تم الحفظ على Cloud بنجاح!');
-            } catch (
+            } catch (error) {
+                alert('❌ خطأ: ' + error.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = '💾 حفظ على Cloud';
+            }
+        });
+
+        async function toggleStatus(id) {
+            const p = products.find(x => x.id === id);
+            const newStatus = p.status === 'available'? 'sold' : 'available';
+            await updateDoc(doc(db, 'products', id), { status: newStatus });
+            await addLog(newStatus === 'sold'? 'تم البيع' : 'إرجاع للمخزون', p.name);
+            
+            // البند 4: تنبيه واتساب عند البيع
+            if (newStatus === 'sold') {
+                sendWhatsAppSale(p);
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('متأكد بدك تحذف هاد الجهاز من Cloud؟')) {
+                const p = products.find(x => x.id === id);
+                await deleteDoc(doc(db, 'products', id));
+                await addLog('حذف جهاز', p.name);
+            }
+        }
+    </script>
+
+<!-- 3 أزرار التحكم العائمة -->
+<style>
+.floating-btn {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9997;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.floating-btn:hover {
+    transform: scale(1.15) rotate(15deg);
+}
+
+/* 1- لوحة التحكم - وردي */
+.floating-admin {
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #ff0088, #ff0066);
+    box-shadow: 0 4px 20px rgba(255, 0, 136, 0.5);
+}
+.floating-admin:hover {
+    box-shadow: 0 6px 30px rgba(255, 0, 136, 0.8);
+}
+
+/* 2- لوحة المشغل - أخضر نيون */
+.floating-gallery {
+    bottom: 110px;
+    right: 30px;
+    background: linear-gradient(135deg, #00ff88, #00cc66);
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.5);
+}
+.floating-gallery:hover {
+    box-shadow: 0 6px 30px rgba(0, 255, 136, 0.8);
+}
+
+/* 3- لوحة المستودع - أزرق سماوي */
+.floating-warehouse {
+    bottom: 190px;
+    right: 30px;
+    background: linear-gradient(135deg, #00ccff, #0088ff);
+    box-shadow: 0 4px 20px rgba(0, 204, 255, 0.5);
+}
+.floating-warehouse:hover {
+    box-shadow: 0 6px 30px rgba(0, 204, 255, 0.8);
+}
+
+/* Tooltip عند المرور */
+.floating-btn::before {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    font-family: 'Cairo';
+}
+
+.floating-btn:hover::before {
+    opacity: 1;
+    left: 75px;
+}
+</style>
+
+<!-- 1- لوحة التحكم -->
+<a href="admin2.html" class="floating-btn floating-admin" data-title="لوحة التحكم">
+    ⚙️
+</a>
+
+<!-- 2- لوحة المشغل -->
+<a href="gallery.html" class="floating-btn floating-gallery" data-title="لوحة المشغل">
+    🎮
+</a>
+
+<!-- 3- لوحة المستودع -->
+<a href="admin.html" class="floating-btn floating-warehouse" data-title="لوحة المستودع">
+    📦
+</a>
+</body>
+</html>
