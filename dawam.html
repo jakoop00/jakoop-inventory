@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام دوام الموظفين - jakoop.tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; }
+       .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="min-h-screen"></div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHBtL05NbRoDddk7CH0u5jAxC5g0AL1iE",
+            authDomain: "employee-dawam.firebaseapp.com",
+            projectId: "employee-dawam",
+            storageBucket: "employee-dawam.firebasestorage.app",
+            messagingSenderId: "682981065867",
+            appId: "1:682981065867:web:508227cb2dd596dad6808e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+        const appDiv = document.getElementById('app');
+
+        let employees = [];
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await loadEmployees();
+                renderDashboard();
+            } else {
+                renderLogin();
+            }
+        });
+
+        function renderLogin() {
+            appDiv.innerHTML = `
+                <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl w-96">
+                        <h1 class="text-3xl font-bold text-center mb-2 text-gray-800">نظام دوام الموظفين</h1>
+                        <p class="text-center text-gray-500 mb-6">jakoop.tech</p>
+                        <form id="loginForm" class="space-y-4">
+                            <input type="email" id="email" placeholder="الإيميل" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            <input type="password" id="password" placeholder="كلمة المرور" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700">تسجيل دخول</button>
+                        </form>
+                        <div id="loginError" class="text-red-500 text-sm mt-4 text-center"></div>
+                        <p class="text-xs text-gray-400 mt-6 text-center">أول مرة؟ روح Authentication في Firebase وضيف مستخدم</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } catch (error) {
+                    document.getElementById('loginError').textContent = 'الإيميل أو كلمة المرور غلط';
+                }
+            });
+        }
+
+        async function loadEmployees() {
+            const q = query(collection(db, 'employees'), orderBy('createdAt', 'desc'));
+            const snapshot = await getDocs(q);
+            employees = snapshot.docs.map(doc => ({ id: doc.id,...doc.data() }));
+        }
+
+        function renderDashboard() {
+            appDiv.innerHTML = `
+                <div class="bg-blue-600 text-white p-4 shadow-lg">
+                    <div class="max-w-7xl mx-auto flex justify-between items-center">
+                        <h1 class="text-2xl font-bold">نظام دوام الموظفين - jakoop.tech</h1>
+                        <div class="flex gap-4 items-center">
+                            <span class="text-sm">${auth.currentUser.email}</span>
+                            <button id="logoutBtn" class="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600">تسجيل خروج</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-7xl mx-auto p-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold mb-4">إضافة موظف جديد</h2>
+                        <form id="addEmployeeForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="empName" placeholder="اسم الموظف" class="px-4 py-2 border rounded-lg" required>
+                            <input type="text" id="empId" placeholder="الرقم الوظيفي" class="px-4 py-2 border rounded-lg" required>
+                            <input type="text" id="empDept" placeholder="القسم" class="px-4 py-2 border rounded-lg">
+                            <input type="file" id="empIdImage" accept="image/*" class="px-4 py-2 border rounded-lg">
+                            <button type="submit" id="submitBtn" class="md:col-span-2 bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">إضافة موظف</button>
+                        </form>
+                        <div id="uploadStatus" class="text-center mt-3"></div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">قائمة الموظفين: ${employees.length}</h2>
+                            <button id="exportBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">تصدير Excel</button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="p-3 text-right">الاسم</th>
+                                        <th class="p-3 text-right">الرقم الوظيفي</th>
+                                        <th class="p-3 text-right">القسم</th>
+                                        <th class="p-3 text-right">الهوية</th>
+                                        <th class="p-3 text-right">إجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeesTable">
+                                    ${employees.map(emp => `
+                                        <tr class="border-b hover:bg-gray-50">
+                                            <td class="p-3">${emp.name}</td>
+                                            <td class="p-3">${emp.employeeId}</td>
+                                            <td class="p-3">${emp.department || '-'}</td>
+                                            <td class="p-3">${emp.idImageUrl? `<a href="${emp.idImageUrl}" target="_blank" class="text-blue-600 hover:underline">عرض</a>` : '-'}</td>
+                                            <td class="p-3"><button onclick="deleteEmployee('${emp.id}')" class="text-red-600 hover:underline">حذف</button></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                            ${employees.length === 0? '<p class="text-center text-gray-500 py-8">لا يوجد موظفين حالياً</p>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+            document.getElementById('addEmployeeForm').addEventListener('submit', handleAddEmployee);
+            document.getElementById('exportBtn').addEventListener('click', exportToExcel);
+        }
+
+        async function handleAddEmployee(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('uploadStatus');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'جاري الحفظ...';
+
+            const name = document.getElementById('empName').value;
+            const employeeId = document.getElementById('empId').value;
+            const department = document.getElementById('empDept').value;
+            const imageFile = document.getElementById('empIdImage').files[0];
+
+            try {
+                let idImageUrl = '';
+                if (imageFile) {
+                    statusDiv.innerHTML = '<div class="loader"></div><p>جاري رفع الصورة...</p>';
+                    const storageRef = ref(storage, `id_cards/${Date.now()}_${imageFile.name}`);
+                    await uploadBytes(storageRef, imageFile);
+                    idImageUrl = await getDownloadURL(storageRef);
+                }
+
+                await addDoc(collection(db, 'employees'), {
+                    name, employeeId, department, idImageUrl,
+                    createdAt: new Date().toISOString()
+                });
+
+                await loadEmployees();
+                renderDashboard();
+            } catch (error) {
+                alert('صار خطأ: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'إضافة موظف';
+            }
+        }
+
+        window.deleteEmployee = async (id) => {
+            if (confirm('متأكد بدك تحذف الموظف؟')) {
+                await deleteDoc(doc(db, 'employees', id));
+                await loadEmployees();
+                renderDashboard();
+            }
+        }
+
+        function exportToExcel() {
+            const data = employees.map(e => ({
+                'الاسم': e.name,
+                'الرقم الوظيفي': e.employeeId,
+                'القسم': e.department || '',
+                'رابط الهوية': e.idImageUrl || '',
+                'تاريخ الإضافة': new Date(e.createdAt).toLocaleDateString('ar-JO')
+            }));
+            const ws = XLSX.utils.json_to_sheet(data);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'الموظفين');
+            XLSX.writeFile(wb, `employees_${Date.now()}.xlsx`);
+        }
+    </script>
+</body>
+</html>
